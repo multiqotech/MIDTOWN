@@ -1,0 +1,127 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 5rem 1rem;
+  background: linear-gradient(135deg, #0F4C81 0%, #0a3560 50%, #00A676 100%);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}
+
+.subheading {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .heading {
+    font-size: 1.75rem;
+  }
+  .subheading {
+    font-size: 1rem;
+  }
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 600px) {
+  .buttonRow {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btnPrimary, .btnOutline {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.btnPrimary {
+  background-color: white;
+  color: var(--color-primary, #0F4C81);
+  padding: 14px 32px;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btnOutline {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 12px 32px;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btnOutline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Decorative floating shapes */
+.shape1 {
+  position: absolute;
+  top: -20px;
+  left: 10%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape2 {
+  position: absolute;
+  bottom: 20px;
+  right: 15%;
+  animation: float 5s ease-in-out infinite reverse;
+}
+
+.shape3 {
+  position: absolute;
+  top: 30%;
+  right: 5%;
+  animation: float 7s ease-in-out infinite;
+}
+
+.shape4 {
+  position: absolute;
+  bottom: -30px;
+  left: 20%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}

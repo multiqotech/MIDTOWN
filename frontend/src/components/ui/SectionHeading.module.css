@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.centered {
+  align-items: center;
+  text-align: center;
+}
+
+.decorativeBar {
+  height: 4px;
+  width: 60px;
+  background-color: var(--color-secondary, #00A676);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-primary, #0F4C81);
+  margin: 0 0 1rem 0;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-gray, #6b7280);
+  max-width: 600px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.light .title {
+  color: white;
+}
+
+.light .subtitle {
+  color: rgba(255, 255, 255, 0.85);
+}
