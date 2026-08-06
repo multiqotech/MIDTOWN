@@ -11,7 +11,7 @@ export default function StatsSection() {
       <div className={styles.container}>
         {STATS.map((stat, index) => (
           <div key={index} className={styles.statItem}>
-            <CounterAnimation end={stat.number} suffix={stat.suffix} label={stat.label} />
+            <CounterAnimation end={typeof stat.number === 'number' ? stat.number : parseInt(stat.number.toString(), 10)} suffix={stat.suffix} label={stat.label} />
             {index < STATS.length - 1 && <div className={styles.separator}></div>}
           </div>
         ))}

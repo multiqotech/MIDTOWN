@@ -1,165 +1,142 @@
 .section {
-  background-color: white;
-  padding: 5rem 0;
+  padding: 4rem 0;
+  background-color: #f8fafc;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+  max-width: 800px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.highlight {
+  color: #00A676; /* Midtown teal */
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.bentoGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 250px;
+  gap: 1.25rem;
 }
 
-.leftColumn {
-  position: relative;
-  display: flex;
-  justify-content: center;
+@media (min-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.imageArea {
+@media (min-width: 1024px) {
+  .bentoGrid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 250px);
+  }
+}
+
+.bentoCard {
   position: relative;
-  width: 100%;
-  max-width: 500px;
-  height: 400px;
-  background: linear-gradient(135deg, var(--color-primary, #0F4C81), var(--color-secondary, #00A676));
   border-radius: 20px;
-  overflow: visible;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.medicalCross {
-  width: 150px;
-  height: 150px;
-  color: white;
-  opacity: 0.5;
+.cardLarge {
+  grid-row: span 2;
+  background-color: #0F4C81;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+.cardSmall {
+  /* No specific grid spans needed for the smaller 1x1 cards */
 }
 
-.floatingCard1 {
+.bgDarkBlue {
+  background-color: #0F4C81;
+}
+
+.bgTeal {
+  background-color: #008f66; /* Slightly darker teal for cards */
+}
+
+.cardImage {
+  transition: transform 0.5s ease;
+}
+
+.bentoCard:hover .cardImage {
+  transform: scale(1.05);
+}
+
+.cardOverlay {
   position: absolute;
-  bottom: -20px;
-  right: -20px;
-  background-color: white;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-radius: 12px;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+  color: white;
+  z-index: 10;
+}
+
+.cardContent {
   padding: 1.5rem;
-  animation: float 4s ease-in-out infinite;
-}
-
-.floatTextLarge {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-primary, #0F4C81);
-}
-
-.floatTextSmall {
-  font-size: 0.875rem;
-  color: var(--color-gray, #6B7280);
-}
-
-.floatingCard2 {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  background-color: var(--color-secondary, #00A676);
   color: white;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  animation: float 5s ease-in-out infinite;
-  animation-delay: 1s;
+  z-index: 10;
 }
 
-.floatTextLarge2 {
-  font-size: 1.5rem;
+.cardTitle {
+  font-size: 1.25rem;
   font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 
-.floatTextSmall2 {
-  font-size: 0.875rem;
+.cardLarge .cardTitle {
+  font-size: 1.8rem;
+}
+
+.cardDesc {
+  font-size: 0.85rem;
   opacity: 0.9;
+  line-height: 1.5;
 }
 
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-}
-
-.description {
-  color: var(--color-gray, #6B7280);
-  font-size: 1.05rem;
-  line-height: 1.8;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-.featuresList {
-  display: flex;
-  flex-direction: column;
-}
-
-.featureRow {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.iconCircle {
-  width: 50px;
-  height: 50px;
-  background-color: rgba(0, 166, 118, 0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.iconCircle svg {
-  width: 24px;
-  height: 24px;
-  color: var(--color-secondary, #00A676);
-}
-
-.featureText {
-  display: flex;
-  flex-direction: column;
-}
-
-.featureTitle {
-  font-weight: 700;
+.cardLarge .cardDesc {
   font-size: 1rem;
-  color: #1f2937;
-  margin: 0 0 0.25rem 0;
 }
 
-.featureDesc {
-  font-size: 0.875rem;
-  color: var(--color-gray, #6B7280);
-  margin: 0;
+.cardBottomImage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 50%;
+  border-radius: 20px 0 0 0;
+  overflow: hidden;
 }
 
-.actionArea {
-  margin-top: 1rem;
-}
-
-@media (max-width: 992px) {
-  .container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  .leftColumn {
-    margin-bottom: 2rem;
-  }
+.bgDarkBlue .cardBottomImage, .bgTeal .cardBottomImage {
+  height: 45%;
+  width: 70%;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px 0 0 0;
+  border-top: 4px solid rgba(255,255,255,0.1);
+  border-left: 4px solid rgba(255,255,255,0.1);
 }

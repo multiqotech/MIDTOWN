@@ -1,80 +1,88 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { TESTIMONIALS } from '@/lib/constants';
-import SectionHeading from '@/components/ui/SectionHeading';
+
+import React from 'react';
+import Image from 'next/image';
 import styles from './TestimonialsSection.module.css';
 
+const TESTIMONIALS = [
+  {
+    id: '1',
+    name: 'Sarah M.',
+    text: '"The doctors and staff at Midtown Hospital were incredibly supportive during my treatment. Highly recommended!"',
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=500&auto=format&fit=crop',
+    isVideo: true,
+  },
+  {
+    id: '2',
+    name: 'Emily R.',
+    text: 'A wonderful experience. The facilities are top notch and the care is very personalized.',
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop',
+    isVideo: true,
+  },
+  {
+    id: '3',
+    name: 'David K.',
+    text: 'I felt so well taken care of during my entire stay. Thank you Midtown team.',
+    rating: 4,
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=500&auto=format&fit=crop',
+    isVideo: true,
+  },
+  {
+    id: '4',
+    name: 'Michael T.',
+    text: 'The best hospital in the city. Expert doctors and great technology.',
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500&auto=format&fit=crop',
+    isVideo: true,
+  }
+];
+
 export default function TestimonialsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (!TESTIMONIALS || TESTIMONIALS.length === 0) return;
-    
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 6000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!TESTIMONIALS || TESTIMONIALS.length === 0) return null;
-
-  const current = TESTIMONIALS[currentIndex];
-  
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(n => n[0])
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-  };
-
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <SectionHeading 
-          title="Patient Stories" 
-          subtitle="Hear from those who trusted us with their care" 
-        />
-        
-        <div className={styles.carouselContainer}>
-          <div className={styles.testimonialCard} key={current.id}>
-            <div className={styles.quoteIcon}>"</div>
-            <p className={styles.quoteText}>{current.quote}</p>
-            
-            <div className={styles.ratingContainer}>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <svg 
-                  key={star} 
-                  className={`${styles.star} ${star <= current.rating ? styles.starFilled : styles.starEmpty}`} 
-                  viewBox="0 0 20 20" 
-                  fill="currentColor"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-            
-            <div className={styles.divider}></div>
-            
-            <div className={styles.patientInfo}>
-              <div className={styles.avatar}>
-                {getInitials(current.name)}
-              </div>
-              <h4 className={styles.patientName}>{current.name}</h4>
-              <p className={styles.patientCondition}>{current.condition}</p>
-            </div>
+        <div className={styles.textColumn}>
+          <h2 className={styles.title}>Voices of Trust<br/>Our Patients</h2>
+          <p className={styles.subtitle}>
+            Real stories from our patients about their journey to healing at Midtown Hospital.
+          </p>
+          <div className={styles.controls}>
+            <button className={styles.controlBtn} aria-label="Previous">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button className={styles.controlBtn} aria-label="Next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
           </div>
-          
-          <div className={styles.dotsContainer}>
-            {TESTIMONIALS.map((_, index) => (
-              <button 
-                key={index} 
-                className={`${styles.dot} ${index === currentIndex ? styles.dotActive : ''}`}
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
+        </div>
+
+        <div className={styles.carouselColumn}>
+          <div className={styles.carouselTrack}>
+            {TESTIMONIALS.map((t, idx) => (
+              <div key={t.id} className={`${styles.testimonialCard} ${idx === 0 ? styles.activeCard : ''}`}>
+                <div className={styles.imageWrapper}>
+                  <Image src={t.image} alt={t.name} fill style={{ objectFit: 'cover' }} />
+                  {t.isVideo && (
+                    <div className={styles.playIcon}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  )}
+                </div>
+                {idx === 0 && (
+                  <div className={styles.activeContent}>
+                    <div className={styles.stars}>
+                      {'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
+                    </div>
+                    <h4 className={styles.activeTitle}>Exceptional Care and Support</h4>
+                    <p className={styles.activeText}>{t.text}</p>
+                    <div className={styles.activeAuthor}>
+                      <span>{t.name}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

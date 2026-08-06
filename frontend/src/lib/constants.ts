@@ -159,7 +159,7 @@ export const HEALTH_PACKAGES: HealthPackage[] = [
 ];
 
 export interface Stat {
-  number: number;
+  number: number | string;
   suffix: string;
   label: string;
 }
@@ -168,7 +168,7 @@ export const STATS: Stat[] = [
   { number: 15, suffix: '+', label: 'Years of Excellence' },
   { number: 100, suffix: '+', label: 'Expert Doctors' },
   { number: 50, suffix: '+', label: 'Specialties & Services' },
-  { number: 100000, suffix: '+', label: 'Patients Treated' },
+  { number: '10L', suffix: '+', label: 'Patients Treated' },
 ];
 
 export interface Testimonial {

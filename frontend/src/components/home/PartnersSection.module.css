@@ -1,0 +1,59 @@
+.section {
+  padding: 5rem 0;
+  background-color: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0F4C81;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.logoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 60px;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.logoItem:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.logoText {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #334155;
+  letter-spacing: -0.5px;
+}

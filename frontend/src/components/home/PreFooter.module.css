@@ -1,0 +1,68 @@
+.section {
+  padding: 4rem 0 0 0;
+  background-color: #0F4C81;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.title {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  transform: translateY(2rem); /* Pulls it down to overlap footer/border slightly if desired, or just sit cleanly */
+}
+
+@media (min-width: 768px) {
+  .actionGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.actionCard {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 50px; /* Highly rounded pills like the image */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: #1e293b;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.actionCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00A676;
+}
+
+.actionText {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.arrowIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00A676;
+}

@@ -1,0 +1,119 @@
+.section {
+  padding: 4rem 0;
+  background-color: #f8fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0F4C81;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.02);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(15, 76, 129, 0.08);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #f0fdf4; /* Light teal bg */
+  color: #00A676; /* Midtown secondary */
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.cardDesc {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.viewAllButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #FFC107; /* Orange/Yellow from Omnio reference */
+  color: #111;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.viewAllButton:hover {
+  background-color: #ffb300;
+  transform: translateY(-2px);
+}
