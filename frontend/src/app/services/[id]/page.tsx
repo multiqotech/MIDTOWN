@@ -1,103 +1,107 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, CheckCircle2, Lightbulb } from 'lucide-react';
-import { api } from '../../../lib/api';
+import Link from 'next/link';
+import { notFound, useParams } from 'next/navigation';
+import { ArrowLeft, CheckCircle2, Calendar } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import styles from './ServiceDetails.module.css';
+import { api } from '../../../lib/api';
 
 interface Service {
   id: string;
   name: string;
-  description: string;
   imageUrl: string;
+  description: string;
   keyPoints: string[];
   suggestions: string[];
 }
 
 export default function ServiceDetailsPage() {
   const params = useParams();
-  const router = useRouter();
+  const id = params?.id as string;
+
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const data = await api.get(`/api/services/${params.id}`);
+        const data = await api.get(`/api/services/${id}`);
         setService(data);
-      } catch (error) {
-        console.error('Failed to fetch service details:', error);
+      } catch (err) {
+        console.error('Failed to fetch service details:', err);
+        setError(true);
       } finally {
         setLoading(false);
       }
     };
-    if (params.id) {
+    
+    if (id) {
       fetchService();
     }
-  }, [params.id]);
+  }, [id]);
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f9f9f9', color: '#00A676' }}>
-        Loading service details...
-      </div>
+      <>
+        <Header />
+        <div style={{ padding: '8rem 2rem', textAlign: 'center', minHeight: '60vh' }}>
+          Loading service details...
+        </div>
+        <Footer />
+      </>
     );
   }
 
-  if (!service) {
-    return (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f9f9f9', color: '#555' }}>
-        <h2>Service not found.</h2>
-        <button 
-          onClick={() => router.back()}
-          style={{ marginTop: '1rem', padding: '0.75rem 1.5rem', backgroundColor: '#00A676', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
-        >
-          Go Back
-        </button>
-      </div>
-    );
+  if (error || !service) {
+    return notFound();
   }
 
   return (
     <>
       <Header />
-      <div style={{ backgroundColor: '#fdfdfd', color: '#333', fontFamily: '"Inter", sans-serif' }}>
-      
-      {/* Container */}
-      <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto', minHeight: '60vh' }}>
-        
-        <button 
-          onClick={() => router.back()}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'transparent', border: 'none', color: '#00A676', cursor: 'pointer', fontSize: '1rem', fontWeight: '500', marginBottom: '2rem' }}
-        >
-          <ArrowLeft size={20} /> Back to Services
-        </button>
+      <main className={styles.pageContainer}>
+        {/* Back navigation */}
+        <div className={styles.navContainer}>
+          <Link href="/services" className={styles.backLink}>
+            <ArrowLeft size={18} />
+            Back to Services
+          </Link>
+        </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'flex-start' }}>
-          
-          {/* Left Column - Details */}
-          <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-            <div>
-              <h1 style={{ fontSize: '2.5rem', fontWeight: '700', color: '#111', margin: '0 0 1rem', lineHeight: '1.2' }}>
-                {service.name}
-              </h1>
-              <p style={{ fontSize: '1.1rem', color: '#555', lineHeight: '1.6', margin: 0 }}>
-                {service.description || 'No detailed description is available for this service yet.'}
-              </p>
+        <div className={styles.contentWrapper}>
+          <div className={styles.mainContent}>
+            {/* Hero Image */}
+            <div className={styles.heroImageWrapper}>
+              <Image
+                src={service.imageUrl}
+                alt={service.name}
+                fill
+                className={styles.heroImage}
+                priority
+              />
+              <div className={styles.heroOverlay}></div>
+              <h1 className={styles.title}>{service.name}</h1>
             </div>
 
+            {/* Description */}
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>Overview</h2>
+              <p className={styles.description}>{service.description}</p>
+            </div>
+
+            {/* Key Points */}
             {service.keyPoints && service.keyPoints.length > 0 && (
-              <div>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: '600', color: '#222', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <CheckCircle2 color="#00A676" /> Key Features & Points
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>What to Expect</h2>
+                <ul className={styles.list}>
                   {service.keyPoints.map((point, idx) => (
-                    <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '1.05rem', color: '#444' }}>
-                      <span style={{ color: '#00A676', marginTop: '2px' }}>•</span>
+                    <li key={idx} className={styles.listItem}>
+                      <CheckCircle2 className={styles.listIcon} size={20} />
                       <span>{point}</span>
                     </li>
                   ))}
@@ -105,16 +109,15 @@ export default function ServiceDetailsPage() {
               </div>
             )}
 
+            {/* Suggestions */}
             {service.suggestions && service.suggestions.length > 0 && (
-              <div style={{ backgroundColor: '#f0faf6', padding: '1.5rem', borderRadius: '12px', border: '1px solid #ccece0' }}>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#008a62', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: '0 0 1rem' }}>
-                  <Lightbulb size={22} /> Suggestions for Patients
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {service.suggestions.map((sug, idx) => (
-                    <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '1rem', color: '#2b5a4b' }}>
-                      <span style={{ opacity: 0.6 }}>-</span>
-                      <span>{sug}</span>
+              <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>Our Recommendations</h2>
+                <ul className={styles.list}>
+                  {service.suggestions.map((suggestion, idx) => (
+                    <li key={idx} className={styles.listItem}>
+                      <span className={styles.bullet}></span>
+                      <span>{suggestion}</span>
                     </li>
                   ))}
                 </ul>
@@ -122,24 +125,27 @@ export default function ServiceDetailsPage() {
             )}
           </div>
 
-          {/* Right Column - Image */}
-          <div style={{ flex: '1 1 500px', position: 'sticky', top: '6rem' }}>
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-              <Image 
-                src={service.imageUrl} 
-                alt={service.name} 
-                fill 
-                style={{ objectFit: 'cover' }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
+          {/* Sidebar CTA */}
+          <aside className={styles.sidebar}>
+            <div className={styles.ctaCard}>
+              <h3 className={styles.ctaTitle}>Need this service?</h3>
+              <p className={styles.ctaText}>
+                Book a consultation with our specialists to get started with your personalized care plan.
+              </p>
+              <button className={styles.ctaButton}>
+                <Calendar size={18} />
+                Call Back
+              </button>
+              
+              <div className={styles.contactInfo}>
+                <p>Or call us directly at:</p>
+                <strong>+1 (800) 123-4567</strong>
+              </div>
             </div>
-          </div>
-          
+          </aside>
         </div>
-      </div>
-    </div>
-    <Footer />
+      </main>
+      <Footer />
     </>
   );
 }

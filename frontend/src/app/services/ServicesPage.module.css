@@ -1,0 +1,143 @@
+.pageContainer {
+  padding: 8rem 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  background-color: white;
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #eaeaea;
+}
+
+.searchIcon {
+  color: var(--color-gray-light);
+  margin-right: 0.8rem;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--color-gray-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(15, 76, 129, 0.8) 0%, rgba(0, 0, 0, 0.2) 100%);
+  transition: background 0.3s ease;
+}
+
+.card:hover .overlay {
+  background: linear-gradient(to top, rgba(15, 76, 129, 0.9) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.cardTitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem;
+  color: #666;
+  font-size: 1.1rem;
+  background-color: #f9fafb;
+  border-radius: 12px;
+}
