@@ -15,6 +15,7 @@ import Doctor from './models/Doctor.js';
 import Testimonial from './models/Testimonial.js';
 import Partner from './models/Partner.js';
 import Faq from './models/Faq.js';
+import Enquiry from './models/Enquiry.js';
 
 const app = express();
 const PORT = 5000;
@@ -612,6 +613,104 @@ app.delete('/api/faqs/:id', requireAdmin, async (req: Request, res: Response) =>
       res.status(204).send();
     } else {
       res.status(404).json({ message: 'FAQ not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// --- Enquiries API Endpoints ---
+
+// GET all enquiries
+app.get('/api/enquiries', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const enquiries = await Enquiry.find().sort({ createdAt: -1 });
+    res.json(enquiries);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// POST new enquiry (Frontend Callback Form)
+app.post('/api/enquiries', async (req: Request, res: Response) => {
+  try {
+    const { phone } = req.body;
+    
+    // Validate phone number
+    if (!phone || !/^\d{10}$/.test(phone)) {
+      return res.status(400).json({ message: 'Invalid phone number. Must be exactly 10 digits.' });
+    }
+
+    const enquiry = await Enquiry.create(req.body);
+    
+    // Send email via Brevo if API key is provided
+    if (process.env.BREVO_API_KEY) {
+      try {
+        await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': process.env.BREVO_API_KEY,
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: { name: 'Midtown Hospitals', email: 'noreply@midtownhospitals.com' },
+            to: [{ email: 'admin@midtownhospitals.com', name: 'Admin' }],
+            subject: 'New Callback Request - Midtown Hospitals',
+            htmlContent: `
+              <html>
+                <body>
+                  <h2>New Callback Request</h2>
+                  <p><strong>Name:</strong> ${enquiry.name}</p>
+                  <p><strong>Phone:</strong> ${enquiry.phone}</p>
+                  <p><strong>Speciality:</strong> ${enquiry.speciality}</p>
+                  <p><strong>Description:</strong> ${enquiry.description || 'N/A'}</p>
+                </body>
+              </html>
+            `
+          })
+        });
+        console.log(`[EMAIL] Successfully sent notification to admin via Brevo.`);
+      } catch (emailErr) {
+        console.error(`[EMAIL ERROR] Failed to send email via Brevo:`, emailErr);
+      }
+    } else {
+      console.log(`[EMAIL SIMULATION] New callback request received! (Add BREVO_API_KEY to .env to send real emails)`);
+      console.log(`Name: ${enquiry.name}, Phone: ${enquiry.phone}`);
+    }
+    
+    res.status(201).json(enquiry);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// PUT update enquiry status
+app.put('/api/enquiries/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const enquiry = await Enquiry.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (enquiry) {
+      res.json(enquiry);
+    } else {
+      res.status(404).json({ message: 'Enquiry not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE enquiry
+app.delete('/api/enquiries/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const enquiry = await Enquiry.findByIdAndDelete(req.params.id);
+    if (enquiry) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'Enquiry not found' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, Image as ImageIcon, MapPin, Users, Settings, LogOut, UploadCloud, Link as LinkIcon, CheckCircle2, Stethoscope, Award, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, Image as ImageIcon, MapPin, Users, Settings, LogOut, UploadCloud, Link as LinkIcon, CheckCircle2, Stethoscope, Award, MessageSquare, PhoneCall } from 'lucide-react';
 import { api } from '../../lib/api';
 import LocationsManager from './LocationsManager';
 import ServicesManager from './ServicesManager';
@@ -11,6 +11,7 @@ import DoctorsManager from './DoctorsManager';
 import TestimonialsManager from './TestimonialsManager';
 import PartnersManager from './PartnersManager';
 import FaqsManager from './FaqsManager';
+import EnquiriesManager from './EnquiriesManager';
 
 const CLOUDINARY_UPLOAD_PRESET = 'midtown'; // Replace with your actual unsigned preset
 const CLOUDINARY_CLOUD_NAME = 'dkhyb43ae';
@@ -120,6 +121,7 @@ export default function DashboardPage() {
     { id: 'whychoose', label: 'Why Choose Us', icon: <Award size={20} /> },
     { id: 'partners', label: 'Partners', icon: <MapPin size={20} /> },
     { id: 'faqs', label: 'FAQs', icon: <MessageSquare size={20} /> },
+    { id: 'enquiries', label: 'Enquiries', icon: <PhoneCall size={20} /> },
     { id: 'users', label: 'Users', icon: <Users size={20} /> },
     { id: 'settings', label: 'System Settings', icon: <Settings size={20} /> },
   ];
@@ -403,7 +405,11 @@ export default function DashboardPage() {
             <FaqsManager />
           )}
 
-          {activeTab !== 'hero' && activeTab !== 'locations' && activeTab !== 'services' && activeTab !== 'whychoose' && activeTab !== 'doctors' && activeTab !== 'testimonials' && activeTab !== 'partners' && activeTab !== 'faqs' && (
+          {activeTab === 'enquiries' && (
+            <EnquiriesManager />
+          )}
+
+          {activeTab !== 'hero' && activeTab !== 'locations' && activeTab !== 'services' && activeTab !== 'whychoose' && activeTab !== 'doctors' && activeTab !== 'testimonials' && activeTab !== 'partners' && activeTab !== 'faqs' && activeTab !== 'enquiries' && (
             <div style={{ backgroundColor: '#1A1A1A', borderRadius: '12px', padding: '3rem', border: '1px solid #2a2a2a', textAlign: 'center' }}>
               <div style={{ width: '60px', height: '60px', backgroundColor: '#222', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
                 <Settings size={24} color="#666" />
