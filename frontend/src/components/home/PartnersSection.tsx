@@ -1,14 +1,51 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from './PartnersSection.module.css';
+import { api } from '../../lib/api';
 
-const PARTNERS = [
-  'BPJS Kesehatan', 'Allianz', 'avrist', 'AXA', 'Bina Pertiwi',
-  'Cigna', 'Manulife', 'Prudential', 'grapiku', 'AIA', 'BCALife'
-];
+interface Partner {
+  _id: string;
+  name: string;
+  logo: string;
+}
 
 export default function PartnersSection() {
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const data = await api.get('/api/partners');
+        setPartners(data);
+      } catch (err) {
+        console.error('Failed to fetch partners', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPartners();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Trusted by Leading Healthcare Partners</h2>
+            <p className={styles.subtitle}>Loading partners...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (partners.length === 0) {
+    return null;
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -18,10 +55,20 @@ export default function PartnersSection() {
         </div>
 
         <div className={styles.logoGrid}>
-          {PARTNERS.map((partner, index) => (
-            <div key={index} className={styles.logoItem}>
-              {/* Placeholder for actual logos */}
-              <span className={styles.logoText}>{partner}</span>
+          {partners.map((partner) => (
+            <div key={partner._id} className={styles.logoItem}>
+              {partner.logo ? (
+                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <Image 
+                    src={partner.logo} 
+                    alt={partner.name} 
+                    fill
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+              ) : (
+                <span className={styles.logoText}>{partner.name}</span>
+              )}
             </div>
           ))}
         </div>

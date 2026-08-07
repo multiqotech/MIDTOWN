@@ -13,6 +13,8 @@ import Service from './models/Service.js';
 import WhyChoose from './models/WhyChoose.js';
 import Doctor from './models/Doctor.js';
 import Testimonial from './models/Testimonial.js';
+import Partner from './models/Partner.js';
+import Faq from './models/Faq.js';
 
 const app = express();
 const PORT = 5000;
@@ -474,6 +476,142 @@ app.delete('/api/testimonials/:id', requireAdmin, async (req: Request, res: Resp
       res.status(204).send();
     } else {
       res.status(404).json({ message: 'Testimonial not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// --- Partner API Endpoints ---
+
+// GET all partners
+app.get('/api/partners', async (req: Request, res: Response) => {
+  try {
+    const partners = await Partner.find().sort({ createdAt: -1 });
+    res.json(partners);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// GET single partner
+app.get('/api/partners/:id', async (req: Request, res: Response) => {
+  try {
+    const partner = await Partner.findById(req.params.id);
+    if (partner) {
+      res.json(partner);
+    } else {
+      res.status(404).json({ message: 'Partner not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// POST new partner
+app.post('/api/partners', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const partner = await Partner.create(req.body);
+    res.status(201).json(partner);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// PUT update partner
+app.put('/api/partners/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const partner = await Partner.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (partner) {
+      res.json(partner);
+    } else {
+      res.status(404).json({ message: 'Partner not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE partner
+app.delete('/api/partners/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const partner = await Partner.findByIdAndDelete(req.params.id);
+    if (partner) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'Partner not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// --- FAQs API Endpoints ---
+
+// GET all faqs
+app.get('/api/faqs', async (req: Request, res: Response) => {
+  try {
+    const faqs = await Faq.find().sort({ createdAt: 1 });
+    res.json(faqs);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// GET single faq
+app.get('/api/faqs/:id', async (req: Request, res: Response) => {
+  try {
+    const faq = await Faq.findById(req.params.id);
+    if (faq) {
+      res.json(faq);
+    } else {
+      res.status(404).json({ message: 'FAQ not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// POST new faq
+app.post('/api/faqs', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const faq = await Faq.create(req.body);
+    res.status(201).json(faq);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// PUT update faq
+app.put('/api/faqs/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const faq = await Faq.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (faq) {
+      res.json(faq);
+    } else {
+      res.status(404).json({ message: 'FAQ not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE faq
+app.delete('/api/faqs/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const faq = await Faq.findByIdAndDelete(req.params.id);
+    if (faq) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'FAQ not found' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

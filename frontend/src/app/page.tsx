@@ -8,6 +8,7 @@ import WhyChooseUs from '@/components/home/WhyChooseUs';
 import ExpertDoctors from '@/components/home/ExpertDoctors';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import PartnersSection from '@/components/home/PartnersSection';
+import FaqsSection from '@/components/home/FaqsSection';
 import Footer from '@/components/layout/Footer';
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
         <ExpertDoctors />
         <TestimonialsSection />
         <PartnersSection />
+        <FaqsSection />
       </main>
       <Footer />
     </>
