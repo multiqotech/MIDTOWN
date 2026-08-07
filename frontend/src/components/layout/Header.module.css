@@ -2,11 +2,11 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: #262626; /* Dark gray to match Image 5 */
-  color: #fff;
+  background-color: #ffffff; /* White background */
+  color: #003b5c; /* Dark text */
   transition: all 0.3s ease;
   font-family: var(--font-primary);
-  border-bottom: 2px solid #333;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .scrolled {
@@ -21,23 +21,24 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 60px;
+  height: 70px; /* Slimmer header to allow logo overlap */
+  position: relative;
 }
 
-/* Left Utilities */
-.leftUtilities {
+/* Right Utilities */
+.rightUtilities {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .iconCircleYellow {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background-color: #FFC107; /* Yellow like image 5 */
   color: #000;
   border-radius: 50%;
@@ -46,82 +47,6 @@
 
 .iconCircleYellow:hover {
   transform: scale(1.05);
-}
-
-.iconCircleOrange {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background-color: #F57C00; /* Orange search */
-  color: #fff;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.iconCircleOrange:hover {
-  transform: scale(1.05);
-}
-
-.emergency {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #ccc;
-  line-height: 1.1;
-  gap: 2px;
-}
-
-.sirenIcon {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sirenTop {
-  width: 6px;
-  height: 6px;
-  background-color: #E53935;
-  border-radius: 50% 50% 0 0;
-  animation: flash 1s infinite alternate;
-}
-
-.sirenBase {
-  width: 10px;
-  height: 4px;
-  background-color: #999;
-  border-radius: 2px;
-}
-
-@keyframes flash {
-  from { box-shadow: 0 0 2px #E53935; }
-  to { box-shadow: 0 0 8px #E53935; background-color: #ff5252; }
-}
-
-.languageSelect {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  border: 1px solid #555;
-  padding: 0.3rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-left: 0.5rem;
-  transition: border-color 0.2s;
-}
-
-.languageSelect:hover {
-  border-color: #888;
 }
 
 /* Main Nav */
@@ -153,19 +78,22 @@
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #fff;
+  color: #003b5c; /* Dark text for white background */
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .navItem:hover {
-  color: #aaa;
+  color: #0076a8;
 }
 
 /* Center Logo */
 .logoLink {
   text-decoration: none;
   margin: 0 1rem;
+  width: 150px; /* Hold space for the absolute logo */
+  display: flex;
+  justify-content: center;
 }
 
 .logoWrapper {
@@ -173,34 +101,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Perfectly center vertically and horizontally */
+  z-index: 60; /* Above the header */
 }
 
-.logoSvg {
-  width: 35px;
-  height: 35px;
-  margin-bottom: 2px;
-}
-
-.logoTextWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.logoTitle {
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: #fff;
-  letter-spacing: 1px;
-  line-height: 1;
-}
-
-.logoTagline {
-  font-size: 0.5rem;
-  color: #ccc;
-  letter-spacing: 2px;
-  font-weight: 600;
-  margin-top: 2px;
+.logoImage {
+  object-fit: contain;
+  margin: 0 auto;
+  height: 130px !important; /* Zoomed larger */
+  width: auto !important;
 }
 
 /* Mobile Toggle */

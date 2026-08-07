@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Footer.module.css';
 import { FOOTER_LINKS, CONTACT_INFO } from '@/lib/constants';
 
@@ -13,7 +14,24 @@ export default function Footer() {
           <div className={styles.grid}>
             {/* Col 1: About */}
             <div className={styles.col}>
-              <div className={styles.logoText}>MIDTOWN</div>
+              <div className={styles.logoText} style={{ 
+                height: '75px', 
+                overflow: 'hidden', 
+                display: 'flex', 
+                alignItems: 'center', 
+                marginTop: '-0.5rem',
+                marginBottom: '1rem' 
+              }}>
+                <img 
+                  src="https://res.cloudinary.com/dkhyb43ae/image/upload/v1786082805/logo_midtown_ixg9f7.png" 
+                  alt="Midtown Hospitals Logo" 
+                  style={{ 
+                    width: '100%', 
+                    maxWidth: '280px', 
+                    display: 'block'
+                  }}
+                />
+              </div>
               <div className={styles.tagline}>Where Care Meets Excellence</div>
               <p className={styles.description}>
                 Providing world-class medical facilities and compassionate care to our community. State-of-the-art clinic, advanced diagnostic center, and 24/7 pharmacy all under one roof.

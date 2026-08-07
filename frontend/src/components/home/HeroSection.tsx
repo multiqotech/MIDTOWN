@@ -1,14 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './HeroSection.module.css';
 
 export default function HeroSection() {
+  const [heroImage, setHeroImage] = useState('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1920&auto=format&fit=crop');
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data.heroImageUrl) {
+          setHeroImage(data.heroImageUrl);
+        }
+      })
+      .catch(err => console.error('Failed to fetch settings:', err));
+  }, []);
+
   return (
     <section className={styles.heroSection}>
       <Image
-        src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1920&auto=format&fit=crop"
+        src={heroImage}
         alt="Doctor consulting with patient"
         fill
         className={styles.backgroundImage}
