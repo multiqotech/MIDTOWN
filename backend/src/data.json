@@ -1,0 +1,57 @@
+{
+  "cities": [
+    {
+      "id": "1",
+      "name": "Delhi",
+      "imageUrl": "https://picsum.photos/seed/delhi/80/80",
+      "locations": [
+        {
+          "id": "l1",
+          "name": "Midtown Hospitals, Indraprastha",
+          "mapUrl": "https://maps.google.com/?q=New+Delhi"
+        },
+        {
+          "id": "l2",
+          "name": "Midtown Hospitals, Noida",
+          "mapUrl": "https://maps.google.com/?q=Noida"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Indore",
+      "imageUrl": "https://picsum.photos/seed/indore/80/80",
+      "locations": [
+        {
+          "id": "l3",
+          "name": "Midtown Hospitals, Indore",
+          "mapUrl": "https://maps.google.com/?q=Indore"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Karaikudi",
+      "imageUrl": "https://picsum.photos/seed/karaikudi/80/80",
+      "locations": [
+        {
+          "id": "l4",
+          "name": "Midtown Hospitals, Karaikudi",
+          "mapUrl": "https://maps.google.com/?q=Karaikudi"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Kochi",
+      "imageUrl": "https://picsum.photos/seed/kochi/80/80",
+      "locations": [
+        {
+          "id": "l5",
+          "name": "Midtown Hospitals, Kochi",
+          "mapUrl": "https://maps.google.com/?q=Kochi"
+        }
+      ]
+    }
+  ]
+}

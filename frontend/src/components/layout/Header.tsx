@@ -5,12 +5,16 @@ import Link from 'next/link';
 import styles from './Header.module.css';
 import { CONTACT_INFO } from '@/lib/constants';
 import DiscoverMegaMenu from './DiscoverMegaMenu';
+import FindHospitalMegaMenu from './FindHospitalMegaMenu';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const discoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const [hospitalOpen, setHospitalOpen] = useState(false);
+  const hospitalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleDiscoverEnter = () => {
     if (discoverTimeoutRef.current) clearTimeout(discoverTimeoutRef.current);
@@ -20,6 +24,17 @@ export default function Header() {
   const handleDiscoverLeave = () => {
     discoverTimeoutRef.current = setTimeout(() => {
       setDiscoverOpen(false);
+    }, 150);
+  };
+
+  const handleHospitalEnter = () => {
+    if (hospitalTimeoutRef.current) clearTimeout(hospitalTimeoutRef.current);
+    setHospitalOpen(true);
+  };
+
+  const handleHospitalLeave = () => {
+    hospitalTimeoutRef.current = setTimeout(() => {
+      setHospitalOpen(false);
     }, 150);
   };
 
@@ -72,9 +87,15 @@ export default function Header() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </div>
             </div>
-            <div className={styles.navItem}>
-              FIND HOSPITAL
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <div 
+              className={styles.navItemWrapper}
+              onMouseEnter={handleHospitalEnter}
+              onMouseLeave={handleHospitalLeave}
+            >
+              <div className={styles.navItem}>
+                FIND HOSPITAL
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
             </div>
           </div>
 
@@ -124,6 +145,15 @@ export default function Header() {
           onMouseLeave={handleDiscoverLeave}
         >
           <DiscoverMegaMenu onClose={() => setDiscoverOpen(false)} />
+        </div>
+      )}
+
+      {hospitalOpen && (
+        <div 
+          onMouseEnter={handleHospitalEnter}
+          onMouseLeave={handleHospitalLeave}
+        >
+          <FindHospitalMegaMenu onClose={() => setHospitalOpen(false)} />
         </div>
       )}
     </header>

@@ -1,0 +1,223 @@
+.wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #f2f8f9; /* Light blueish background */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  color: #333;
+  z-index: 100;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1400px;
+  width: 100%;
+  padding: 2.5rem 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.headerText {
+  flex: 1;
+  max-width: 800px;
+}
+
+.headerText h2 {
+  font-size: 1.5rem;
+  color: #003b5c; /* Dark blue/teal */
+  margin: 0 0 1rem 0;
+}
+
+.headerText p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin: 0;
+}
+
+.exploreBtn {
+  background-color: #f6c84c; /* Yellow */
+  color: #003b5c;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.exploreBtn:hover {
+  background-color: #e5b73b;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-weight: 600;
+  color: #003b5c;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s;
+  min-height: 120px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.cardContent {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.cityImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.cityInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.cityLabel {
+  font-size: 0.7rem;
+  color: #0076a8;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.cityName {
+  font-size: 1.25rem;
+  margin: 0 0 0.25rem 0;
+  color: #1a202c;
+}
+
+.locationCount {
+  font-size: 0.8rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Hover Overlay */
+.locationsOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #003b5c !important; /* Force opaque background */
+  color: #ffffff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.2s ease-out forwards;
+  z-index: 50;
+  border-radius: 12px;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.locationsOverlay h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 0.5rem;
+  color: #ffffff !important;
+}
+
+.locationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.locationsList li a {
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: color 0.2s;
+  padding: 0.5rem 0;
+}
+
+.locationInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.locationIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.locationName {
+  line-height: 1.4;
+  text-align: left;
+}
+
+.locationsList li a:hover,
+.locationsList li a:hover .locationIcon {
+  color: #f6c84c !important;
+}
+
+.directionIcon {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .header {
+    flex-direction: column;
+  }
+}
