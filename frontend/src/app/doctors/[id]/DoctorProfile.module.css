@@ -1,0 +1,117 @@
+.pageContainer {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.profileCard {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .profileCard {
+    flex-direction: column;
+  }
+}
+
+.imageSection {
+  flex: 0 0 400px;
+  position: relative;
+  background: #f8f9fa;
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .imageSection {
+    flex: 0 0 350px;
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.detailsSection {
+  flex: 1;
+  padding: 3rem;
+}
+
+.name {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.specialty {
+  color: #00A676;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  background: rgba(0, 166, 118, 0.1);
+  border-radius: 20px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoLabel {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.infoValue {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.descriptionSection h3 {
+  font-size: 1.5rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  white-space: pre-line;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #00A676;
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Edit2, Trash2, UploadCloud, Link as LinkIcon, X, CheckCircle2, Stethoscope } from 'lucide-react';
 import { api } from '../../lib/api';
 
-const CLOUDINARY_UPLOAD_PRESET = 'hospital-cms'; // Unsigned preset
+const CLOUDINARY_UPLOAD_PRESET = 'midtown'; // Unsigned preset
 const CLOUDINARY_CLOUD_NAME = 'dkhyb43ae';
 
 interface Service {

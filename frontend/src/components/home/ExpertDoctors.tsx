@@ -1,18 +1,37 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './ExpertDoctors.module.css';
+import { api } from '../../lib/api';
 
-const DOCTORS = [
-  { id: '1', name: 'Dr. Fiona Wood', specialty: 'Cardiology', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400&auto=format&fit=crop' },
-  { id: '2', name: 'Dr. Fiona Wood', specialty: 'Dentist', image: 'https://images.unsplash.com/photo-1594824432258-f7b579048a1c?q=80&w=400&auto=format&fit=crop' },
-  { id: '3', name: 'Dr. Fiona Wood', specialty: 'Pediatrician', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=400&auto=format&fit=crop' },
-  { id: '4', name: 'Dr. Charlie Teo', specialty: 'Cardiology', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop' }, // Using a generic doctor image as placeholder
-];
+interface Doctor {
+  _id: string;
+  name: string;
+  specialist: string;
+  imageUrl: string;
+}
 
 export default function ExpertDoctors() {
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const data = await api.get('/api/doctors');
+        // Show up to 4 doctors on the home page
+        setDoctors(data.slice(0, 4));
+      } catch (err) {
+        console.error('Failed to fetch doctors:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -26,25 +45,31 @@ export default function ExpertDoctors() {
           </Link>
         </div>
 
-        <div className={styles.grid}>
-          {DOCTORS.map((doctor) => (
-            <div key={doctor.id} className={styles.card}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={doctor.image}
-                  alt={doctor.name}
-                  fill
-                  className={styles.image}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className={styles.cardContent}>
-                <h3 className={styles.cardName}>{doctor.name}</h3>
-                <p className={styles.cardSpecialty}>{doctor.specialty}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '2rem 0' }}>Loading doctors...</div>
+        ) : (
+          <div className={styles.grid}>
+            {doctors.map((doctor) => (
+              <Link key={doctor._id} href={`/doctors/${doctor._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div className={styles.card}>
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={doctor.imageUrl}
+                      alt={doctor.name}
+                      fill
+                      className={styles.image}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardName}>{doctor.name}</h3>
+                    <p className={styles.cardSpecialty}>{doctor.specialty}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import express from 'express';
 import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
@@ -10,6 +11,7 @@ import City from './models/City.js';
 import Settings from './models/Settings.js';
 import Service from './models/Service.js';
 import WhyChoose from './models/WhyChoose.js';
+import Doctor from './models/Doctor.js';
 
 const app = express();
 const PORT = 5000;
@@ -341,8 +343,77 @@ app.put('/api/why-choose', requireAdmin, async (req: Request, res: Response) => 
   }
 });
 
+// --- Doctor API Endpoints ---
+
+// GET all doctors
+app.get('/api/doctors', async (req: Request, res: Response) => {
+  try {
+    const doctors = await Doctor.find().sort({ createdAt: -1 });
+    res.json(doctors);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// GET single doctor
+app.get('/api/doctors/:id', async (req: Request, res: Response) => {
+  try {
+    const doctor = await Doctor.findById(req.params.id);
+    if (doctor) {
+      res.json(doctor);
+    } else {
+      res.status(404).json({ message: 'Doctor not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// POST new doctor
+app.post('/api/doctors', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const doctor = await Doctor.create(req.body);
+    res.status(201).json(doctor);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// PUT update doctor
+app.put('/api/doctors/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const doctor = await Doctor.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (doctor) {
+      res.json(doctor);
+    } else {
+      res.status(404).json({ message: 'Doctor not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE doctor
+app.delete('/api/doctors/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const doctor = await Doctor.findByIdAndDelete(req.params.id);
+    if (doctor) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'Doctor not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Start Server
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
   });
 });
