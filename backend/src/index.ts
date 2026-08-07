@@ -6,10 +6,10 @@ import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import type { Request, Response, NextFunction } from 'express';
 import City from './models/City.js';
 import Settings from './models/Settings.js';
 import Service from './models/Service.js';
+import WhyChoose from './models/WhyChoose.js';
 
 const app = express();
 const PORT = 5000;
@@ -272,6 +272,71 @@ app.delete('/api/services/:id', requireAdmin, async (req: Request, res: Response
       res.status(404).json({ message: 'Service not found' });
     }
   } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+// --- Why Choose Us API Endpoints ---
+app.get('/api/why-choose', async (req: Request, res: Response) => {
+  try {
+    let whyChoose = await WhyChoose.findOne();
+    if (!whyChoose) {
+      // Return default if none exists
+      whyChoose = new WhyChoose({
+        description: "At Midtown Hospital, we combine expert medical care with compassion, offering personalized treatments to ensure every patient feels supported and valued throughout their healing journey.",
+        heroFeature: {
+          title: "60+ Years of Excellence",
+          description: "Decades of medical care prioritizing your health and well-being.",
+          imageUrl: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000&auto=format&fit=crop"
+        },
+        features: [
+          {
+            title: "1000+ Expert Medical Care",
+            description: "A team of professionals committed to your health and well-being.",
+            imageUrl: "https://images.unsplash.com/photo-1537368910025-702800faa86b?q=80&w=500&auto=format&fit=crop"
+          },
+          {
+            title: "Advanced Medical Technology",
+            description: "Modern technology for accurate diagnostics and effective treatments.",
+            imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=500&auto=format&fit=crop"
+          },
+          {
+            title: "98% Happy Patients",
+            description: "We prioritize delivering a positive experience for every patient.",
+            imageUrl: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=500&auto=format&fit=crop"
+          },
+          {
+            title: "40+ Years Trusted Pharmacy",
+            description: "We trusted pharmacy solutions delivering quality care and reliability.",
+            imageUrl: "https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=500&auto=format&fit=crop"
+          }
+        ]
+      });
+      await whyChoose.save();
+    }
+    res.json(whyChoose);
+  } catch (error) {
+    console.error('Error fetching why-choose:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+app.put('/api/why-choose', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { description, heroFeature, features } = req.body;
+    let whyChoose = await WhyChoose.findOne();
+    
+    if (!whyChoose) {
+      whyChoose = new WhyChoose({ description, heroFeature, features });
+    } else {
+      whyChoose.description = description;
+      whyChoose.heroFeature = heroFeature;
+      whyChoose.features = features;
+    }
+    
+    await whyChoose.save();
+    res.json(whyChoose);
+  } catch (error) {
+    console.error('Error updating why-choose:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
