@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutDashboard, Image as ImageIcon, MapPin, Users, Settings, LogOut, UploadCloud, Link as LinkIcon, CheckCircle2 } from 'lucide-react';
 import { api } from '../../lib/api';
+import LocationsManager from './LocationsManager';
 
 const CLOUDINARY_UPLOAD_PRESET = 'midtown'; // Replace with your actual unsigned preset
 const CLOUDINARY_CLOUD_NAME = 'dkhyb43ae';
@@ -362,7 +363,11 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {activeTab !== 'hero' && (
+          {activeTab === 'locations' && (
+            <LocationsManager />
+          )}
+
+          {activeTab !== 'hero' && activeTab !== 'locations' && (
             <div style={{ backgroundColor: '#1A1A1A', borderRadius: '12px', padding: '3rem', border: '1px solid #2a2a2a', textAlign: 'center' }}>
               <div style={{ width: '60px', height: '60px', backgroundColor: '#222', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
                 <Settings size={24} color="#666" />
