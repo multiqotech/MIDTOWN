@@ -17,10 +17,23 @@ interface Doctor {
   imageUrl: string;
 }
 
-export default function DoctorsPage() {
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+
+function DoctorsContent() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const searchParams = useSearchParams();
+  const initialSpecialty = searchParams.get('specialty') || '';
+  const [searchQuery, setSearchQuery] = useState(initialSpecialty);
   const [loading, setLoading] = useState(true);
+
+  // Update search query if URL changes while already on the page
+  useEffect(() => {
+    const specialty = searchParams.get('specialty');
+    if (specialty) {
+      setSearchQuery(specialty);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -37,8 +50,8 @@ export default function DoctorsPage() {
   }, []);
 
   const filteredDoctors = doctors.filter(doctor => 
-    doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    doctor.specialist.toLowerCase().includes(searchQuery.toLowerCase())
+    (doctor.name && doctor.name.toLowerCase().includes(searchQuery.toLowerCase())) || 
+    (doctor.specialist && doctor.specialist.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -79,7 +92,7 @@ export default function DoctorsPage() {
                   </div>
                   <div className={styles.cardContent}>
                     <h3 className={styles.cardName}>{doctor.name}</h3>
-                    <p className={styles.cardSpecialty}>{doctor.specialty}</p>
+                    <p className={styles.cardSpecialty}>{doctor.specialist}</p>
                     <p className={styles.qualification}>{doctor.qualification}</p>
                   </div>
                 </div>
@@ -96,5 +109,13 @@ export default function DoctorsPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function DoctorsPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '3rem' }}>Loading doctors...</div>}>
+      <DoctorsContent />
+    </Suspense>
   );
 }

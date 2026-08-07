@@ -217,18 +217,18 @@ export const FOOTER_LINKS: FooterLinks = {
     { label: 'Contact Us', href: '/contact' },
   ],
   quickLinks: [
-    { label: 'Find a Doctor', href: '/doctors' },
-    { label: 'Book an Appointment', href: '/appointment' },
-    { label: 'Health Packages', href: '/packages' },
-    { label: 'Patient Portal', href: '/portal' },
-    { label: 'Pay Bill Online', href: '/billing' },
+    { label: 'Home', href: '/' },
+    { label: 'DOCTORS', href: '/doctors' },
+    { label: 'MEDICAL SERVICES', href: '/services' },
+    { label: 'RECENT NEWS', href: '/news' },
+    { label: 'HEALTH LIBRARY', href: '/#health-library' },
   ],
   specialtyLinks: [
-    { label: 'Cardiology', href: '/specialties/cardiology' },
-    { label: 'Orthopedics', href: '/specialties/orthopedics' },
-    { label: 'Neurology', href: '/specialties/neurology' },
-    { label: 'Oncology', href: '/specialties/oncology' },
-    { label: 'Pediatrics', href: '/specialties/pediatrics' },
+    { label: 'Cardiology', href: '/doctors?specialty=Cardiology' },
+    { label: 'Orthopedics', href: '/doctors?specialty=Orthopedics' },
+    { label: 'Neurology', href: '/doctors?specialty=Neurology' },
+    { label: 'Oncology', href: '/doctors?specialty=Oncology' },
+    { label: 'Pediatrics', href: '/doctors?specialty=Pediatrics' },
   ],
 };
 
