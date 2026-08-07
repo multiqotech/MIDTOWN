@@ -34,7 +34,7 @@ export default function ExpertDoctors() {
   }, []);
 
   return (
-    <section className={styles.section}>
+    <section id="meet-our-doctors" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.titleWrapper}>

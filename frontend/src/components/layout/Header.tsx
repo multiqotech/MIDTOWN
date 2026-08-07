@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Header.module.css';
 import { CONTACT_INFO } from '@/lib/constants';
+import { usePathname, useRouter } from 'next/navigation';
 import DiscoverMegaMenu from './DiscoverMegaMenu';
 import FindHospitalMegaMenu from './FindHospitalMegaMenu';
 import CallbackModal from '../common/CallbackModal';
@@ -15,6 +16,9 @@ export default function Header() {
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const discoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
+  const pathname = usePathname();
+  const router = useRouter();
+
   const [hospitalOpen, setHospitalOpen] = useState(false);
   const hospitalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -66,11 +70,15 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (id: string) => {
+    if (pathname !== '/') {
+      router.push(`/#${id}`);
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
-      // Small timeout to allow Next.js routing if we were on another page
       setTimeout(() => {
-        const offset = 80; // approximate header height
+        const offset = 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
         
@@ -111,6 +119,13 @@ export default function Header() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </div>
             </div>
+            <div 
+              className={styles.navItem} 
+              style={{ cursor: 'pointer' }}
+              onClick={() => scrollToSection('meet-our-doctors')}
+            >
+              DOCTORS
+            </div>
           </div>
 
           {/* Center Logo */}
@@ -128,6 +143,9 @@ export default function Header() {
           </Link>
 
           <div className={styles.navGroup}>
+            <Link href="/news" className={styles.navItem} style={{ textDecoration: 'none' }}>
+              RECENT NEWS
+            </Link>
             <div 
               className={styles.navItem} 
               style={{ cursor: 'pointer' }}
@@ -183,6 +201,16 @@ export default function Header() {
           <span></span>
         </button>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileMenu}>
+          <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('meet-our-doctors'); }}>DOCTORS</div>
+          <Link href="/news" className={styles.mobileNavItem} onClick={() => setMobileMenuOpen(false)}>RECENT NEWS</Link>
+          <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('our-services'); }}>MEDICAL SERVICES</div>
+          <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('health-library'); }}>HEALTH LIBRARY</div>
+        </div>
+      )}
 
       {discoverOpen && (
         <div 

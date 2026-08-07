@@ -16,6 +16,7 @@ import Testimonial from './models/Testimonial.js';
 import Partner from './models/Partner.js';
 import Faq from './models/Faq.js';
 import Enquiry from './models/Enquiry.js';
+import News from './models/News.js';
 
 const app = express();
 const PORT = 5000;
@@ -682,6 +683,74 @@ app.delete('/api/enquiries/:id', requireAdmin, async (req: Request, res: Respons
       res.status(204).send();
     } else {
       res.status(404).json({ message: 'Enquiry not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// --- News API Endpoints ---
+
+// GET all news
+app.get('/api/news', async (req: Request, res: Response) => {
+  try {
+    const news = await News.find().sort({ createdAt: -1 });
+    res.json(news);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// GET single news
+app.get('/api/news/:id', async (req: Request, res: Response) => {
+  try {
+    const newsItem = await News.findById(req.params.id);
+    if (newsItem) {
+      res.json(newsItem);
+    } else {
+      res.status(404).json({ message: 'News not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// POST new news
+app.post('/api/news', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const newsItem = await News.create(req.body);
+    res.status(201).json(newsItem);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// PUT update news
+app.put('/api/news/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const newsItem = await News.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (newsItem) {
+      res.json(newsItem);
+    } else {
+      res.status(404).json({ message: 'News not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE news
+app.delete('/api/news/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const newsItem = await News.findByIdAndDelete(req.params.id);
+    if (newsItem) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'News not found' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
