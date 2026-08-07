@@ -594,35 +594,54 @@ app.post('/api/enquiries', async (req: Request, res: Response) => {
     }
 
     const enquiry = await Enquiry.create(req.body);
-    
+    console.log("BREVO_API_KEY exists:", !!process.env.BREVO_API_KEY);
+    console.log(
+      "Key prefix:",
+      process.env.BREVO_API_KEY?.substring(0, 15)
+    );
     // Send email via Brevo if API key is provided
     if (process.env.BREVO_API_KEY) {
       try {
-        await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
-          headers: {
-            'accept': 'application/json',
-            'api-key': process.env.BREVO_API_KEY,
-            'content-type': 'application/json'
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'api-key': process.env.BREVO_API_KEY!,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          sender: {
+            name: 'Midtown Hospitals',
+            email: 'multiqotech@gmail.com'
           },
-          body: JSON.stringify({
-            sender: { name: 'Midtown Hospitals', email: 'noreply@midtownhospitals.com' },
-            to: [{ email: 'admin@midtownhospitals.com', name: 'Admin' }],
-            subject: 'New Callback Request - Midtown Hospitals',
-            htmlContent: `
-              <html>
-                <body>
-                  <h2>New Callback Request</h2>
-                  <p><strong>Name:</strong> ${enquiry.name}</p>
-                  <p><strong>Phone:</strong> ${enquiry.phone}</p>
-                  <p><strong>Speciality:</strong> ${enquiry.speciality}</p>
-                  <p><strong>Description:</strong> ${enquiry.description || 'N/A'}</p>
-                </body>
-              </html>
-            `
-          })
-        });
-        console.log(`[EMAIL] Successfully sent notification to admin via Brevo.`);
+          to: [
+            {
+              email: 'krishnagupta831844@gmail.com',
+              name: 'Admin'
+            }
+          ],
+          subject: 'New Callback Request - Midtown Hospitals',
+          htmlContent: `
+            <html>
+              <body>
+                <h2>New Callback Request</h2>
+                <p><strong>Name:</strong> ${enquiry.name}</p>
+                <p><strong>Phone:</strong> ${enquiry.phone}</p>
+                <p><strong>Speciality:</strong> ${enquiry.speciality}</p>
+                <p><strong>Description:</strong> ${enquiry.description || 'N/A'}</p>
+              </body>
+            </html>
+          `
+        })
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`Brevo API Error (${response.status}): ${errorBody}`);
+      }
+
+      const result = await response.json();
+      console.log('[EMAIL] Sent successfully:', result);
       } catch (emailErr) {
         console.error(`[EMAIL ERROR] Failed to send email via Brevo:`, emailErr);
       }
