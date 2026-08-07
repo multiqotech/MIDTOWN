@@ -10,7 +10,7 @@ export default function SearchDiseases() {
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
 
   return (
-    <section className={styles.section}>
+    <section id="health-library" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.leftColumn}>
           <div className={styles.imageCard}>

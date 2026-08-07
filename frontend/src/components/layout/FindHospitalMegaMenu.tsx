@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './FindHospitalMegaMenu.module.css';
 
+import { api } from '@/lib/api';
+
 interface Location {
   id: string;
   name: string;
@@ -24,8 +26,7 @@ export default function FindHospitalMegaMenu({ onClose }: Props) {
   const [hoveredCityId, setHoveredCityId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/cities')
-      .then(res => res.json())
+    api.get('/api/cities')
       .then(data => {
         setCities(data);
         setLoading(false);

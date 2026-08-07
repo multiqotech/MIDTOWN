@@ -47,6 +47,23 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      // Small timeout to allow Next.js routing if we were on another page
+      setTimeout(() => {
+        const offset = 80; // approximate header height
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+  };
+
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
@@ -116,13 +133,19 @@ export default function Header() {
           </Link>
 
           <div className={styles.navGroup}>
-            <div className={styles.navItem}>
+            <div 
+              className={styles.navItem} 
+              style={{ cursor: 'pointer' }}
+              onClick={() => scrollToSection('our-services')}
+            >
               MEDICAL SERVICES
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
-            <div className={styles.navItem}>
+            <div 
+              className={styles.navItem}
+              style={{ cursor: 'pointer' }}
+              onClick={() => scrollToSection('health-library')}
+            >
               HEALTH LIBRARY
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
           </div>
         </nav>

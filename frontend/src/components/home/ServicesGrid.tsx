@@ -24,7 +24,7 @@ const SERVICES = [
 
 export default function ServicesGrid() {
   return (
-    <section className={styles.section}>
+    <section id="our-services" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>Our Services</h2>
