@@ -1,25 +1,27 @@
 .heroSection {
   position: relative;
-  min-height: 85vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 4rem 0;
+  padding: 6rem 0;
+  color: white;
 }
 
 .backgroundImage {
   object-fit: cover;
-  object-position: center;
+  object-position: top center;
   z-index: 0;
 }
 
-.overlay {
+/* Dark Gradient Overlay */
+.darkOverlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to right, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(105deg, rgba(11, 25, 44, 0.95) 0%, rgba(15, 76, 129, 0.8) 55%, rgba(15, 76, 129, 0.2) 100%);
   z-index: 1;
 }
 
@@ -28,76 +30,323 @@
   margin: 0 auto;
   padding: 0 2rem;
   width: 100%;
-  display: flex;
   position: relative;
   z-index: 2;
 }
 
-.content {
-  max-width: 600px;
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* LEFT COLUMN */
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.badgeWrapper {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+.badgeText {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #a7f3d0;
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 4.5rem;
   line-height: 1.1;
   font-weight: 800;
-  color: #111;
-  margin-bottom: 1.5rem;
+  color: #ffffff;
   letter-spacing: -1px;
 }
 
 .highlight {
-  color: #00A676; /* Teal from Midtown palette */
+  color: #00c98e;
 }
 
 .subtitle {
-  font-size: 1.15rem;
-  color: #0F4C81;
-  font-weight: 600;
-  margin-bottom: 2.5rem;
-  max-width: 80%;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  max-width: 85%;
   line-height: 1.6;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
 }
 
+/* Search Container */
 .searchContainer {
   position: relative;
   max-width: 550px;
   width: 100%;
+  margin-top: 0.5rem;
 }
 
 .searchBar {
   display: flex;
   align-items: center;
-  background: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-  box-shadow: 0 10px 30px rgba(15, 76, 129, 0.15);
-  border: 1px solid rgba(0,0,0,0.05);
+  padding: 1rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
   position: relative;
   z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.searchBar:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .searchIconWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
 }
 
 .searchInput {
   flex: 1;
   border: none;
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.05rem;
+  color: #ffffff;
   outline: none;
   background: transparent;
 }
 
 .searchInput::placeholder {
-  color: #888;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+/* Popular Tags */
+.popularTags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: -0.5rem;
+}
+
+.popularLabel {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.tagBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.tagBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.primaryBtn, .secondaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background-color: #00A676;
+  color: white;
+  border: 2px solid #00A676;
+  box-shadow: 0 4px 15px rgba(0, 166, 118, 0.3);
+}
+
+.primaryBtn:hover {
+  background-color: #008a62;
+  border-color: #008a62;
+  transform: translateY(-2px);
+}
+
+.secondaryBtn {
+  background-color: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.secondaryBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+/* Trust Badge */
+.trustBadge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.trustText {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.trustText strong {
+  color: #ffffff;
+}
+
+/* RIGHT COLUMN - Floating Cards */
+.rightColumn {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatingCardsContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.floatingCard {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  color: #111;
+  font-weight: 600;
   font-size: 0.95rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #e6f6f1;
+  border-radius: 50%;
+}
+
+.card1 {
+  top: 15%;
+  right: 10%;
+  animation-delay: 0s;
+}
+
+.card2 {
+  top: 45%;
+  left: 0;
+  animation-delay: 2s;
+}
+
+.card3 {
+  bottom: 20%;
+  right: 20%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* BOTTOM STATS BAR */
+.statsBarWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(11, 25, 44, 0.8);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  padding: 1.5rem 0;
+}
+
+.statsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statItem h3 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+  letter-spacing: -1px;
+}
+
+.statItem p {
+  font-size: 0.85rem;
+  color: #a7f3d0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Dropdown */
@@ -115,6 +364,7 @@
   max-height: 400px;
   overflow-y: auto;
   border: 1px solid #eaeaea;
+  color: #333;
 }
 
 @keyframes slideDown {
@@ -173,16 +423,6 @@
   border: 2px solid #eaeaea;
 }
 
-.conditionIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #e6f6f1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .resultName {
   font-weight: 700;
   color: #111;
@@ -196,28 +436,65 @@
   font-weight: 500;
 }
 
-.resultSymptoms {
-  font-size: 0.8rem;
-  color: #666;
-}
-
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-  .overlay {
-    background: linear-gradient(to right, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 100%);
+  .contentGrid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .leftColumn {
+    align-items: center;
+  }
+  
+  .subtitle {
+    max-width: 100%;
+  }
+
+  .actionButtons {
+    justify-content: center;
+  }
+
+  .rightColumn {
+    display: none; /* Hide floating cards on tablet/mobile for space */
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .heroSection {
+    padding-bottom: 10rem; /* Space for stacked stats */
+  }
+
   .title {
     font-size: 3rem;
   }
   
-  .searchBar {
-    padding: 0.5rem;
-    padding-left: 1rem;
+  .statsContainer {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
   }
   
-  .searchInput::placeholder {
-    font-size: 0.85rem;
+  .statItem {
+    width: 40%;
+  }
+
+  .statDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .actionButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primaryBtn, .secondaryBtn {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.5rem;
   }
 }

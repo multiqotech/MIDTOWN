@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './HeroSection.module.css';
 import { api } from '../../lib/api';
-import { Search, User, AlertCircle } from 'lucide-react';
+import { Search, User, AlertCircle, Star, CheckCircle, ArrowRight, Phone } from 'lucide-react';
+import CallbackModal from '../common/CallbackModal';
 
 interface Doctor {
   _id: string;
@@ -22,6 +23,7 @@ export default function HeroSection() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
+  const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
   
   const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -76,6 +78,10 @@ export default function HeroSection() {
 
   }, [searchQuery, doctors]);
 
+  const handlePopularClick = (specialty: string) => {
+    setSearchQuery(specialty);
+  };
+
   return (
     <section className={styles.heroSection}>
       <Image
@@ -85,76 +91,169 @@ export default function HeroSection() {
         className={styles.backgroundImage}
         priority
       />
-      <div className={styles.overlay}></div>
+      
+      {/* Dark Gradient Overlay */}
+      <div className={styles.darkOverlay}></div>
+      
       <div className={styles.container}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>
-            Where Healing<br />
-            Feels Like <span className={styles.highlight}>Home</span>
-          </h1>
-          <p className={styles.subtitle}>
-            Start your journey to better health. Find the right doctor and specialty below.
-          </p>
+        <div className={styles.contentGrid}>
           
-          <div className={styles.searchContainer} ref={searchRef}>
-            <div className={styles.searchBar}>
-              <div className={styles.searchIconWrapper}>
-                <Search size={20} color="#0076a8" />
+          {/* LEFT COLUMN */}
+          <div className={styles.leftColumn}>
+            <div className={styles.badgeWrapper}>
+              <span className={styles.badgeText}>Excellence in Healthcare</span>
+            </div>
+            
+            <h1 className={styles.title}>
+              Where Healing<br />
+              Feels Like <span className={styles.highlight}>Home</span>
+            </h1>
+            
+            <p className={styles.subtitle}>
+              Start your journey to better health. Find the right doctor and specialty below.
+            </p>
+            
+            <div className={styles.searchContainer} ref={searchRef}>
+              <div className={styles.searchBar}>
+                <div className={styles.searchIconWrapper}>
+                  <Search size={20} color="#00A676" />
+                </div>
+                <input 
+                  type="text" 
+                  placeholder="Search doctor name or specialty..." 
+                  className={styles.searchInput}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => {
+                    if (searchQuery.length >= 2) setShowDropdown(true);
+                  }}
+                />
               </div>
-              <input 
-                type="text" 
-                placeholder="Search doctor name or specialty..." 
-                className={styles.searchInput}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => {
-                  if (searchQuery.length >= 2) setShowDropdown(true);
-                }}
-              />
+
+              {/* Dropdown Results */}
+              {showDropdown && (searchQuery.length >= 2) && (
+                <div className={styles.dropdown}>
+                  {filteredDoctors.length === 0 ? (
+                    <div className={styles.noResults}>
+                      <AlertCircle size={18} color="#666" />
+                      <p>No doctors found for "{searchQuery}"</p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Doctors Section */}
+                      {filteredDoctors.length > 0 && (
+                        <div className={styles.resultSection}>
+                          <div className={styles.sectionTitle}>
+                            <User size={16} />
+                            <span>Doctors & Specialists</span>
+                          </div>
+                          {filteredDoctors.map(doctor => (
+                            <Link 
+                              key={doctor._id} 
+                              href={`/doctors/${doctor._id}`}
+                              className={styles.resultItem}
+                              onClick={() => setShowDropdown(false)}
+                              style={{ textDecoration: 'none' }}
+                            >
+                              <img src={doctor.imageUrl} alt={doctor.name} className={styles.doctorAvatar} />
+                              <div>
+                                <div className={styles.resultName}>{doctor.name}</div>
+                                <div className={styles.resultSubtitle}>{doctor.specialist}</div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            <div className={styles.popularTags}>
+              <span className={styles.popularLabel}>Popular:</span>
+              <button className={styles.tagBtn} onClick={() => handlePopularClick('Cardiology')}>Cardiology</button>
+              <button className={styles.tagBtn} onClick={() => handlePopularClick('Neurology')}>Neurology</button>
+              <button className={styles.tagBtn} onClick={() => handlePopularClick('Pediatrics')}>Pediatrics</button>
             </div>
 
-            {/* Dropdown Results */}
-            {showDropdown && (searchQuery.length >= 2) && (
-              <div className={styles.dropdown}>
-                {filteredDoctors.length === 0 ? (
-                  <div className={styles.noResults}>
-                    <AlertCircle size={18} color="#666" />
-                    <p>No doctors found for "{searchQuery}"</p>
-                  </div>
-                ) : (
-                  <>
-                    {/* Doctors Section */}
-                    {filteredDoctors.length > 0 && (
-                      <div className={styles.resultSection}>
-                        <div className={styles.sectionTitle}>
-                          <User size={16} />
-                          <span>Doctors & Specialists</span>
-                        </div>
-                        {filteredDoctors.map(doctor => (
-                          <Link 
-                            key={doctor._id} 
-                            href={`/doctors/${doctor._id}`}
-                            className={styles.resultItem}
-                            onClick={() => setShowDropdown(false)}
-                            style={{ textDecoration: 'none' }}
-                          >
-                            <img src={doctor.imageUrl} alt={doctor.name} className={styles.doctorAvatar} />
-                            <div>
-                              <div className={styles.resultName}>{doctor.name}</div>
-                              <div className={styles.resultSubtitle}>{doctor.specialist}</div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                )}
+            <div className={styles.actionButtons}>
+              <Link href="/doctors" className={styles.primaryBtn}>
+                Find Doctor <ArrowRight size={18} />
+              </Link>
+              <button className={styles.secondaryBtn} onClick={() => setIsCallbackModalOpen(true)}>
+                Call Back <Phone size={18} />
+              </button>
+            </div>
+
+            <div className={styles.trustBadge}>
+              <div className={styles.stars}>
+                <Star size={16} fill="#FACC15" color="#FACC15" />
+                <Star size={16} fill="#FACC15" color="#FACC15" />
+                <Star size={16} fill="#FACC15" color="#FACC15" />
+                <Star size={16} fill="#FACC15" color="#FACC15" />
+                <Star size={16} fill="#FACC15" color="#FACC15" />
               </div>
-            )}
+              <p className={styles.trustText}>Trusted by <strong>50,000+</strong> Patients</p>
+            </div>
           </div>
 
+          {/* RIGHT COLUMN */}
+          <div className={styles.rightColumn}>
+            {/* The doctor image is using the background for now, but we can layer floating cards on the right */}
+            <div className={styles.floatingCardsContainer}>
+              <div className={`${styles.floatingCard} ${styles.card1}`}>
+                <div className={styles.iconCircle}>
+                  <CheckCircle size={20} color="#00A676" />
+                </div>
+                <span>24/7 Emergency</span>
+              </div>
+              
+              <div className={`${styles.floatingCard} ${styles.card2}`}>
+                <div className={styles.iconCircle}>
+                  <CheckCircle size={20} color="#00A676" />
+                </div>
+                <span>NABH Accredited</span>
+              </div>
+              
+              <div className={`${styles.floatingCard} ${styles.card3}`}>
+                <div className={styles.iconCircle}>
+                  <CheckCircle size={20} color="#00A676" />
+                </div>
+                <span>200+ Specialists</span>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
+
+      {/* BOTTOM STATS BAR */}
+      <div className={styles.statsBarWrapper}>
+        <div className={styles.statsContainer}>
+          <div className={styles.statItem}>
+            <h3>120+</h3>
+            <p>Expert Doctors</p>
+          </div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.statItem}>
+            <h3>35+</h3>
+            <p>Departments</p>
+          </div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.statItem}>
+            <h3>4.9</h3>
+            <p>Patient Rating</p>
+          </div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.statItem}>
+            <h3>1M+</h3>
+            <p>Happy Patients</p>
+          </div>
+        </div>
+      </div>
+
+      <CallbackModal isOpen={isCallbackModalOpen} onClose={() => setIsCallbackModalOpen(false)} />
     </section>
   );
 }
