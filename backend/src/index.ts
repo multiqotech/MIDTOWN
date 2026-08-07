@@ -917,10 +917,22 @@ app.post('/api/subscribe', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
-
+app.get("/ping", (_req, res) => {
+  res.status(200).send("pong");
+});
 // Start Server
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+
+    setInterval(async () => {
+      try {
+        // const url = process.env.APP_URL || `http://localhost:${PORT}`;
+        await fetch('https://midtown.onrender.com/ping');
+        console.log("Self ping successful");
+      } catch (err) {
+        console.error("Self ping failed:", err);
+      }
+    }, 10 * 1000); // 10 seconds
   });
 });
