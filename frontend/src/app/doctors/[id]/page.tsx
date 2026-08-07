@@ -91,7 +91,7 @@ export default function DoctorProfilePage() {
           
           <div className={styles.detailsSection}>
             <h1 className={styles.name}>{doctor.name}</h1>
-            <div className={styles.specialty}>{doctor.specialty}</div>
+            <div className={styles.specialty}>{doctor.specialist}</div>
             
             <div className={styles.infoGrid}>
               <div className={styles.infoItem}>
