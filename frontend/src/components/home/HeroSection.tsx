@@ -4,12 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './HeroSection.module.css';
 
+import { api } from '../../lib/api';
+
 export default function HeroSection() {
   const [heroImage, setHeroImage] = useState('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1920&auto=format&fit=crop');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/settings')
-      .then(res => res.json())
+    api.get('/api/settings')
       .then(data => {
         if (data.heroImageUrl) {
           setHeroImage(data.heroImageUrl);

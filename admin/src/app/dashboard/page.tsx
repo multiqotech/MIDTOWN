@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutDashboard, Image as ImageIcon, MapPin, Users, Settings, LogOut, UploadCloud, Link as LinkIcon, CheckCircle2 } from 'lucide-react';
+import { api } from '../../lib/api';
 
 const CLOUDINARY_UPLOAD_PRESET = 'midtown'; // Replace with your actual unsigned preset
 const CLOUDINARY_CLOUD_NAME = 'dkhyb43ae';
@@ -24,8 +25,7 @@ export default function DashboardPage() {
       return;
     }
 
-    fetch('http://localhost:5000/api/settings')
-      .then(res => res.json())
+    api.get('/api/settings')
       .then(data => {
         if (data.heroImageUrl) {
           setHeroImageUrl(data.heroImageUrl);
@@ -46,17 +46,8 @@ export default function DashboardPage() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch('http://localhost:5000/api/settings', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ heroImageUrl })
-      });
-      
-      if (res.ok) {
-        showMessage('Hero settings saved successfully!', 'success');
-      } else {
-        showMessage('Failed to save settings.', 'error');
-      }
+      await api.put('/api/settings', { heroImageUrl });
+      showMessage('Hero settings saved successfully!', 'success');
     } catch (err) {
       showMessage('Error connecting to backend.', 'error');
     } finally {
