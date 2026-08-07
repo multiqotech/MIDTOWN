@@ -1,12 +1,44 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Footer.module.css';
 import { FOOTER_LINKS, CONTACT_INFO } from '@/lib/constants';
+import { api } from '@/lib/api';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'exists'>('idle');
+  const [message, setMessage] = useState('');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setStatus('error');
+      setMessage('Please enter a valid email address.');
+      return;
+    }
+
+    setStatus('loading');
+    setMessage('');
+
+    try {
+      const response = await api.post('/api/subscribe', { email });
+      if (response.status === 'exists') {
+        setStatus('exists');
+        setMessage(response.message || "You're already subscribed.");
+      } else {
+        setStatus('success');
+        setMessage(response.message || "Thank you! You'll receive health tips and updates in your inbox.");
+        setEmail('');
+      }
+    } catch (err: any) {
+      setStatus('error');
+      setMessage(err.response?.data?.message || err.message || 'An error occurred. Please try again.');
+    }
+  };
+
   return (
     <footer className={styles.footer}>
       <div className={styles.topSection}>
@@ -152,9 +184,34 @@ export default function Footer() {
               <h4>Subscribe to our Newsletter</h4>
               <p>Get health tips, latest news, and updates directly in your inbox.</p>
             </div>
-            <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your Email Address" className={styles.newsletterInput} required />
-              <button type="submit" className={styles.newsletterBtn}>Subscribe</button>
+            <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
+              <div className={styles.inputGroup} style={{ width: '100%', position: 'relative' }}>
+                <div style={{ display: 'flex', width: '100%' }}>
+                  <input 
+                    type="email" 
+                    placeholder="Your Email Address" 
+                    className={styles.newsletterInput} 
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (status !== 'idle') setStatus('idle');
+                    }}
+                    required 
+                  />
+                  <button type="submit" className={styles.newsletterBtn} disabled={status === 'loading'}>
+                    {status === 'loading' ? '...' : 'Subscribe'}
+                  </button>
+                </div>
+                {status !== 'idle' && (
+                  <div style={{ 
+                    marginTop: '0.5rem', 
+                    fontSize: '0.9rem', 
+                    color: status === 'error' ? '#ff6b6b' : (status === 'exists' ? '#f59e0b' : '#10b981') 
+                  }}>
+                    {message}
+                  </div>
+                )}
+              </div>
             </form>
           </div>
         </div>

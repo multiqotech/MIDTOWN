@@ -11,6 +11,7 @@ interface NewsItem {
   description: string;
   keyPoints: string[];
   imageUrl: string;
+  isPublishedToSubscribers?: boolean;
   createdAt: string;
 }
 
@@ -27,6 +28,8 @@ export default function NewsManager() {
     description: '',
     keyPoints: [] as string[],
     imageUrl: '',
+    publishToSubscribers: false,
+    isPublishedToSubscribers: false,
   });
 
   const [currentKeyPoint, setCurrentKeyPoint] = useState('');
@@ -142,6 +145,8 @@ export default function NewsManager() {
       description: item.description,
       keyPoints: item.keyPoints || [],
       imageUrl: item.imageUrl,
+      publishToSubscribers: false, // Default to false when editing
+      isPublishedToSubscribers: item.isPublishedToSubscribers || false,
     });
     setIsModalOpen(true);
   };
@@ -154,6 +159,8 @@ export default function NewsManager() {
       description: '',
       keyPoints: [],
       imageUrl: '',
+      publishToSubscribers: false,
+      isPublishedToSubscribers: false,
     });
     setCurrentKeyPoint('');
   };
@@ -350,6 +357,30 @@ export default function NewsManager() {
                     ))}
                   </ul>
                 )}
+              </div>
+
+              {/* Broadcast Checkbox */}
+              <div style={{ backgroundColor: '#111827', padding: '1rem', borderRadius: '8px', border: '1px solid #1f2937' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: formData.isPublishedToSubscribers ? 'not-allowed' : 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={formData.isPublishedToSubscribers ? true : formData.publishToSubscribers}
+                    disabled={formData.isPublishedToSubscribers}
+                    onChange={(e) => setFormData({ ...formData, publishToSubscribers: e.target.checked })}
+                    style={{ width: '1.2rem', height: '1.2rem', accentColor: '#00A676', cursor: formData.isPublishedToSubscribers ? 'not-allowed' : 'pointer' }}
+                  />
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ color: formData.isPublishedToSubscribers ? '#6b7280' : '#fff', fontWeight: '500' }}>
+                      Broadcast to all Subscribed Users via Email
+                    </span>
+                    {formData.isPublishedToSubscribers && (
+                      <span style={{ fontSize: '0.8rem', color: '#00A676', marginTop: '0.2rem' }}>
+                        <CheckCircle2 size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }} />
+                        Already broadcasted to subscribers
+                      </span>
+                    )}
+                  </div>
+                </label>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem', paddingTop: '1.5rem', borderTop: '1px solid #333' }}>

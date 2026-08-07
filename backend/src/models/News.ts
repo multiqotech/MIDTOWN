@@ -6,6 +6,7 @@ const NewsSchema = new mongoose.Schema({
   description: { type: String, required: true },
   keyPoints: [{ type: String }],
   imageUrl: { type: String, required: true },
+  isPublishedToSubscribers: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default mongoose.models.News || mongoose.model('News', NewsSchema);

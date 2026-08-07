@@ -17,6 +17,7 @@ import Partner from './models/Partner.js';
 import Faq from './models/Faq.js';
 import Enquiry from './models/Enquiry.js';
 import News from './models/News.js';
+import Subscriber from './models/Subscriber.js';
 
 const app = express();
 const PORT = 5000;
@@ -691,6 +692,74 @@ app.delete('/api/enquiries/:id', requireAdmin, async (req: Request, res: Respons
 
 // --- News API Endpoints ---
 
+// Helper function to broadcast news to all subscribers
+async function broadcastNewsToSubscribers(newsItem: any) {
+  try {
+    const subscribers = await Subscriber.find({});
+    if (subscribers.length === 0) return;
+    
+    console.log(`Starting broadcast for news: ${newsItem.title} to ${subscribers.length} subscribers`);
+    
+    for (const sub of subscribers) {
+      if (process.env.BREVO_API_KEY) {
+        try {
+          const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+              accept: 'application/json',
+              'api-key': process.env.BREVO_API_KEY,
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              sender: {
+                name: 'Midtown Hospitals',
+                email: 'multiqotech@gmail.com'
+              },
+              to: [{ email: sub.email }],
+              subject: `New Update: ${newsItem.title}`,
+              htmlContent: `
+                <html>
+                  <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; text-align: center;">
+                      <h2 style="color: #0f172a; margin-bottom: 10px;">${newsItem.title}</h2>
+                      <h4 style="color: #64748b; margin-top: 0; font-weight: normal;">${newsItem.subtitle}</h4>
+                    </div>
+                    <div style="padding: 20px 0;">
+                      ${newsItem.imageUrl ? `<img src="${newsItem.imageUrl}" alt="${newsItem.title}" style="width: 100%; border-radius: 8px; margin-bottom: 20px;"/>` : ''}
+                      <p style="line-height: 1.6;">
+                        ${newsItem.description.length > 200 ? newsItem.description.substring(0, 200) + '...' : newsItem.description}
+                      </p>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                      <a href="https://midtown-lime.vercel.app/news" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Read Full Article</a>
+                    </div>
+                    <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 40px 0 20px 0;" />
+                    <p style="font-size: 12px; color: #94a3b8; text-align: center;">
+                      You are receiving this email because you subscribed to updates from Midtown Hospitals.
+                    </p>
+                  </body>
+                </html>
+              `
+            })
+          });
+          
+          if (!response.ok) {
+            const errorBody = await response.text();
+            console.error(`Brevo API Error for ${sub.email} (${response.status}): ${errorBody}`);
+          }
+        } catch (emailErr) {
+          console.error(`[EMAIL ERROR] Failed to send broadcast to ${sub.email}:`, emailErr);
+        }
+      } else {
+        console.log(`[EMAIL SIMULATION] Broadcast sent to ${sub.email} for news: ${newsItem.title}`);
+      }
+    }
+    console.log(`Finished broadcast for news: ${newsItem.title}`);
+  } catch (err) {
+    console.error('Error during subscriber broadcast:', err);
+  }
+}
+
 // GET all news
 app.get('/api/news', async (req: Request, res: Response) => {
   try {
@@ -718,7 +787,16 @@ app.get('/api/news/:id', async (req: Request, res: Response) => {
 // POST new news
 app.post('/api/news', requireAdmin, async (req: Request, res: Response) => {
   try {
-    const newsItem = await News.create(req.body);
+    const { publishToSubscribers, ...newsData } = req.body;
+    let newsItem: any = await News.create(newsData);
+    
+    // Broadcast if requested and not yet published
+    if (publishToSubscribers && !newsItem.isPublishedToSubscribers) {
+      await broadcastNewsToSubscribers(newsItem);
+      newsItem.isPublishedToSubscribers = true;
+      await newsItem.save();
+    }
+    
     res.status(201).json(newsItem);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
@@ -728,12 +806,20 @@ app.post('/api/news', requireAdmin, async (req: Request, res: Response) => {
 // PUT update news
 app.put('/api/news/:id', requireAdmin, async (req: Request, res: Response) => {
   try {
-    const newsItem = await News.findByIdAndUpdate(
+    const { publishToSubscribers, ...newsData } = req.body;
+    let newsItem: any = await (News as any).findByIdAndUpdate(
       req.params.id, 
-      req.body, 
+      newsData, 
       { new: true }
     );
+    
     if (newsItem) {
+      // Broadcast if requested and not yet published
+      if (publishToSubscribers && !newsItem.isPublishedToSubscribers) {
+        await broadcastNewsToSubscribers(newsItem);
+        newsItem.isPublishedToSubscribers = true;
+        await newsItem.save();
+      }
       res.json(newsItem);
     } else {
       res.status(404).json({ message: 'News not found' });
@@ -754,6 +840,81 @@ app.delete('/api/news/:id', requireAdmin, async (req: Request, res: Response) =>
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// --- Newsletter Subscription API Endpoints ---
+
+// POST new subscriber
+app.post('/api/subscribe', async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return res.status(400).json({ message: 'Invalid email address' });
+    }
+
+    // Check if already subscribed
+    const existingSubscriber = await Subscriber.findOne({ email });
+    if (existingSubscriber) {
+      // 200 OK because the email is in the list, but it's not an error state in terms of DB
+      return res.status(200).json({ status: 'exists', message: "You're already subscribed." });
+    }
+
+    const subscriber = await Subscriber.create({ email });
+
+    // Send Welcome Email via Brevo API
+    if (process.env.BREVO_API_KEY) {
+      try {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'api-key': process.env.BREVO_API_KEY,
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: {
+              name: 'Midtown Hospitals',
+              email: 'multiqotech@gmail.com'
+            },
+            to: [
+              {
+                email: email
+              }
+            ],
+            subject: 'Welcome to Midtown Hospitals Newsletter!',
+            htmlContent: `
+              <html>
+                <body>
+                  <h2>Welcome to Midtown Hospitals Newsletter!</h2>
+                  <p>Thank you for subscribing.</p>
+                  <p>You'll receive health tips, latest news, and updates directly in your inbox.</p>
+                  <br/>
+                  <p>Stay healthy,</p>
+                  <p>The Midtown Hospitals Team</p>
+                </body>
+              </html>
+            `
+          })
+        });
+
+        if (!response.ok) {
+          const errorBody = await response.text();
+          console.error(`Brevo API Error (${response.status}): ${errorBody}`);
+        } else {
+          console.log(`[EMAIL] Welcome email sent successfully to ${email}`);
+        }
+      } catch (emailErr) {
+        console.error(`[EMAIL ERROR] Failed to send welcome email via Brevo:`, emailErr);
+      }
+    } else {
+      console.log(`[EMAIL SIMULATION] Welcome email generated for ${email}! (Add BREVO_API_KEY to .env to send real emails)`);
+    }
+
+    res.status(201).json({ status: 'success', message: "Thank you! You'll receive health tips and updates in your inbox." });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
   }
 });
 
