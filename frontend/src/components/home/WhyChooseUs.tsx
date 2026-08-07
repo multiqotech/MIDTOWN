@@ -23,6 +23,15 @@ export default function WhyChooseUs() {
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize(); // set initially
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,17 +64,13 @@ export default function WhyChooseUs() {
     );
   }
 
-  // We group features into pairs (columns) for the slider
-  // 4 features = 2 columns. If > 4, we have more columns.
+  // 1 item per column on mobile, 2 on desktop
+  const itemsPerCol = isDesktop ? 2 : 1;
   const featureColumns = [];
-  for (let i = 0; i < data.features.length; i += 2) {
-    featureColumns.push(data.features.slice(i, i + 2));
+  for (let i = 0; i < data.features.length; i += itemsPerCol) {
+    featureColumns.push(data.features.slice(i, i + itemsPerCol));
   }
 
-  // Calculate max index to slide to.
-  // 1 visible column at a time on mobile. 2 on desktop (but CSS handles width).
-  // On desktop, we show 2 columns (4 items).
-  const isDesktop = typeof window !== 'undefined' ? window.innerWidth >= 1024 : true;
   const itemsPerView = isDesktop ? 2 : 1;
   const maxIndex = Math.max(0, featureColumns.length - itemsPerView);
 
@@ -111,7 +116,7 @@ export default function WhyChooseUs() {
         <div className={styles.sliderContainer}>
           {/* Main Large Card (Fixed) */}
           <div className={styles.heroCardContainer}>
-            <div className={`${styles.bentoCard} ${styles.cardLarge}`} style={{ height: '100%' }}>
+            <div className={`${styles.bentoCard} ${styles.cardLarge}`} style={{ flex: 1 }}>
               <Image
                 src={data.heroFeature.imageUrl || "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000&auto=format&fit=crop"}
                 alt={data.heroFeature.title}

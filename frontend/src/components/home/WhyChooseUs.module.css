@@ -196,13 +196,14 @@
 }
 
 .heroCardContainer {
-  flex: 1;
-  min-height: 500px;
+  display: none;
 }
 
 @media (min-width: 1024px) {
   .heroCardContainer {
+    display: flex;
     flex: 0 0 calc(33.333% - 0.85rem);
+    min-height: 500px;
   }
 }
 
@@ -239,6 +240,6 @@
 }
 
 .featureCardWrapper {
-  height: calc(50% - 0.625rem);
+  flex: 1;
   min-height: 250px;
 }
