@@ -108,11 +108,11 @@ export default function TestimonialsSection() {
                 >
                   <div className={styles.imageWrapper}>
                     <Image src={t.image} alt={t.name} fill style={{ objectFit: 'cover' }} />
-                    {t.isVideo && (
+                    {/* t.isVideo && (
                       <div className={styles.playIcon}>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                       </div>
-                    )}
+                    ) */}
                   </div>
                   {idx === 0 && (
                     <div className={styles.activeContent}>
