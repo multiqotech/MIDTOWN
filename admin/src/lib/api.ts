@@ -1,13 +1,26 @@
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
 
+const getAuthHeaders = () => {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  }
+  
+  return headers;
+};
+
 export const api = {
   get: async (endpoint: string) => {
     const url = `${BACKEND_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
     });
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
@@ -19,9 +32,7 @@ export const api = {
     const url = `${BACKEND_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(data),
     });
     if (!response.ok) {
@@ -34,9 +45,7 @@ export const api = {
     const url = `${BACKEND_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(data),
     });
     if (!response.ok) {
@@ -49,6 +58,7 @@ export const api = {
     const url = `${BACKEND_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'DELETE',
+      headers: getAuthHeaders(),
     });
     if (!response.ok) {
       throw new Error(`Failed to delete ${url}: ${response.statusText}`);

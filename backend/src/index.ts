@@ -5,6 +5,8 @@ import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import type { Request, Response, NextFunction } from 'express';
 import City from './models/City.js';
 import Settings from './models/Settings.js';
 
@@ -63,12 +65,35 @@ const seedDatabase = async () => {
 // Admin Login
 app.post('/api/admin/login', (req: Request, res: Response) => {
   const { username, password } = req.body;
+  
   if (username === 'admin' && password === 'password') {
-    res.json({ success: true, token: 'fake-jwt-token-123' });
+    const token = jwt.sign(
+      { role: 'admin' }, 
+      process.env.JWT_SECRET || 'fallback_secret_123', 
+      { expiresIn: '24h' }
+    );
+    res.json({ success: true, token });
   } else {
     res.status(401).json({ success: false, message: 'Invalid credentials' });
   }
 });
+
+// Auth Middleware
+const requireAdmin = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    res.status(401).json({ message: 'Unauthorized: No token provided' });
+    return;
+  }
+
+  const token = authHeader.split(' ')[1];
+  try {
+    jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_123');
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Unauthorized: Invalid token' });
+  }
+};
 
 // GET Settings
 app.get('/api/settings', async (req: Request, res: Response) => {
@@ -81,7 +106,7 @@ app.get('/api/settings', async (req: Request, res: Response) => {
 });
 
 // PUT Settings
-app.put('/api/settings', async (req: Request, res: Response) => {
+app.put('/api/settings', requireAdmin, async (req: Request, res: Response) => {
   try {
     const settings = await Settings.findOneAndUpdate({}, req.body, { 
       new: true, 
@@ -105,7 +130,7 @@ app.get('/api/cities', async (req: Request, res: Response) => {
 });
 
 // POST new city
-app.post('/api/cities', async (req: Request, res: Response) => {
+app.post('/api/cities', requireAdmin, async (req: Request, res: Response) => {
   try {
     const newCity = {
       id: Date.now().toString(),
@@ -121,7 +146,7 @@ app.post('/api/cities', async (req: Request, res: Response) => {
 });
 
 // PUT update city
-app.put('/api/cities/:id', async (req: Request, res: Response) => {
+app.put('/api/cities/:id', requireAdmin, async (req: Request, res: Response) => {
   try {
     const city = await City.findOneAndUpdate(
       { id: req.params.id }, 
@@ -139,7 +164,7 @@ app.put('/api/cities/:id', async (req: Request, res: Response) => {
 });
 
 // DELETE city
-app.delete('/api/cities/:id', async (req: Request, res: Response) => {
+app.delete('/api/cities/:id', requireAdmin, async (req: Request, res: Response) => {
   try {
     const city = await City.findOneAndDelete({ id: req.params.id });
     if (city) {
