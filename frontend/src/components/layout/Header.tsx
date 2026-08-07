@@ -1,14 +1,27 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './Header.module.css';
 import { CONTACT_INFO } from '@/lib/constants';
+import DiscoverMegaMenu from './DiscoverMegaMenu';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [discoverOpen, setDiscoverOpen] = useState(false);
+  const discoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleDiscoverEnter = () => {
+    if (discoverTimeoutRef.current) clearTimeout(discoverTimeoutRef.current);
+    setDiscoverOpen(true);
+  };
+
+  const handleDiscoverLeave = () => {
+    discoverTimeoutRef.current = setTimeout(() => {
+      setDiscoverOpen(false);
+    }, 150);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,9 +62,15 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className={styles.mainNav}>
           <div className={styles.navGroup}>
-            <div className={styles.navItem}>
-              DISCOVER MIDTOWN
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <div 
+              className={styles.navItemWrapper}
+              onMouseEnter={handleDiscoverEnter}
+              onMouseLeave={handleDiscoverLeave}
+            >
+              <div className={styles.navItem}>
+                DISCOVER MIDTOWN
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
             </div>
             <div className={styles.navItem}>
               FIND HOSPITAL
@@ -98,6 +117,15 @@ export default function Header() {
           <span></span>
         </button>
       </div>
+
+      {discoverOpen && (
+        <div 
+          onMouseEnter={handleDiscoverEnter}
+          onMouseLeave={handleDiscoverLeave}
+        >
+          <DiscoverMegaMenu onClose={() => setDiscoverOpen(false)} />
+        </div>
+      )}
     </header>
   );
 }
