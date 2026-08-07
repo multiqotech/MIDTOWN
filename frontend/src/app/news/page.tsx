@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import styles from './page.module.css';
+import { api } from '../../lib/api';
 
 interface NewsItem {
   _id: string;
@@ -23,8 +24,7 @@ export default function NewsPage() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/news');
-        const data = await res.json();
+        const data = await api.get('/api/news');
         setNews(data);
       } catch (err) {
         console.error('Failed to fetch news', err);
