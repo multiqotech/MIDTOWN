@@ -10,6 +10,7 @@ interface Doctor {
   _id: string;
   name: string;
   specialist: string;
+  qualification: string;
   imageUrl: string;
 }
 
@@ -63,7 +64,8 @@ export default function ExpertDoctors() {
                   </div>
                   <div className={styles.cardContent}>
                     <h3 className={styles.cardName}>{doctor.name}</h3>
-                    <p className={styles.cardSpecialty}>{doctor.specialty}</p>
+                    <p className={styles.cardSpecialty}>{doctor.specialist}</p>
+                    <p className={styles.cardQualification}>{doctor.qualification}</p>
                   </div>
                 </div>
               </Link>
