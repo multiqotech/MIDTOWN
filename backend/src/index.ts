@@ -12,6 +12,7 @@ import Settings from './models/Settings.js';
 import Service from './models/Service.js';
 import WhyChoose from './models/WhyChoose.js';
 import Doctor from './models/Doctor.js';
+import Testimonial from './models/Testimonial.js';
 
 const app = express();
 const PORT = 5000;
@@ -405,6 +406,74 @@ app.delete('/api/doctors/:id', requireAdmin, async (req: Request, res: Response)
       res.status(204).send();
     } else {
       res.status(404).json({ message: 'Doctor not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// --- Testimonial API Endpoints ---
+
+// GET all testimonials
+app.get('/api/testimonials', async (req: Request, res: Response) => {
+  try {
+    const testimonials = await Testimonial.find().sort({ createdAt: -1 });
+    res.json(testimonials);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// GET single testimonial
+app.get('/api/testimonials/:id', async (req: Request, res: Response) => {
+  try {
+    const testimonial = await Testimonial.findById(req.params.id);
+    if (testimonial) {
+      res.json(testimonial);
+    } else {
+      res.status(404).json({ message: 'Testimonial not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// POST new testimonial
+app.post('/api/testimonials', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const testimonial = await Testimonial.create(req.body);
+    res.status(201).json(testimonial);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// PUT update testimonial
+app.put('/api/testimonials/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const testimonial = await Testimonial.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (testimonial) {
+      res.json(testimonial);
+    } else {
+      res.status(404).json({ message: 'Testimonial not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE testimonial
+app.delete('/api/testimonials/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const testimonial = await Testimonial.findByIdAndDelete(req.params.id);
+    if (testimonial) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'Testimonial not found' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
