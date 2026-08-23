@@ -928,7 +928,7 @@ connectDB().then(() => {
     setInterval(async () => {
       try {
         // const url = process.env.APP_URL || `http://localhost:${PORT}`;
-        await fetch('https://midtown.onrender.com/ping');
+        await fetch('https://midtown-d1ze.onrender.com/ping');
         console.log("Self ping successful");
       } catch (err) {
         console.error("Self ping failed:", err);
