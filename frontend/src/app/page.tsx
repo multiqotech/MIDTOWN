@@ -1,14 +1,16 @@
 import React from 'react';
 import Header from '@/components/layout/Header';
 import HeroSection from '@/components/home/HeroSection';
-import ClinicalExcellence from '@/components/home/ClinicalExcellence';
-import ServicesGrid from '@/components/home/ServicesGrid';
+import AboutSection from '@/components/home/AboutSection';
+import OurSpecialtiesSection from '@/components/home/OurSpecialtiesSection';
 import SearchDiseases from '@/components/home/SearchDiseases';
-import WhyChooseUs from '@/components/home/WhyChooseUs';
+import WhyChooseMidtownSection from '@/components/home/WhyChooseMidtownSection';
+import LocationsSection from '@/components/home/LocationsSection';
 import ExpertDoctors from '@/components/home/ExpertDoctors';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import PartnersSection from '@/components/home/PartnersSection';
 import FaqsSection from '@/components/home/FaqsSection';
+import CTASection from '@/components/home/CTASection';
 import Footer from '@/components/layout/Footer';
 
 export default function Home() {
@@ -17,14 +19,16 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        {/* <ClinicalExcellence /> */}
-        <ServicesGrid />
+        <AboutSection />
+        <OurSpecialtiesSection />
         <SearchDiseases />
-        <WhyChooseUs />
+        <WhyChooseMidtownSection />
+        <LocationsSection />
         <ExpertDoctors />
         <TestimonialsSection />
         <PartnersSection />
         <FaqsSection />
+        <CTASection />
       </main>
       <Footer />
     </>

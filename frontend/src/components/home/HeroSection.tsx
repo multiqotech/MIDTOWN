@@ -105,12 +105,12 @@ export default function HeroSection() {
             </div>
             
             <h1 className={styles.title}>
-              Where Healing<br />
-              Feels Like <span className={styles.highlight}>Home</span>
+              Midtown Hospital:<br />
+              Where Care Meets <span className={styles.highlight}>Excellence</span>
             </h1>
             
             <p className={styles.subtitle}>
-              Start your journey to better health. Find the right doctor and specialty below.
+              Compassionate, affordable healthcare — closer to home.
             </p>
             
             <div className={styles.searchContainer} ref={searchRef}>
@@ -179,10 +179,10 @@ export default function HeroSection() {
 
             <div className={styles.actionButtons}>
               <Link href="/doctors" className={styles.primaryBtn}>
-                Find Doctor <ArrowRight size={18} />
+                Book an Appointment <ArrowRight size={18} />
               </Link>
-              <button className={styles.secondaryBtn} onClick={() => setIsCallbackModalOpen(true)}>
-                Call Back <Phone size={18} />
+              <button className={styles.secondaryBtn} onClick={() => window.location.href = '#locations'}>
+                Find a Location <Search size={18} />
               </button>
             </div>
 

@@ -29,17 +29,11 @@ export default function CTASection() {
       </div>
 
       <div className={styles.container}>
-        <h2 className={styles.heading}>Need Medical Assistance?</h2>
-        <p className={styles.subheading}>
-          Book an appointment with our specialists or call our 24/7 helpline
-        </p>
+        <h2 className={styles.heading}>Ready to experience healthcare that puts you first?</h2>
         
         <div className={styles.buttonRow}>
-          <a href="/appointments" className={styles.btnPrimary}>
-            Book Appointment
-          </a>
-          <a href="tel:18001234567" className={styles.btnOutline}>
-            Call Now: 1800-XXX-XXXX
+          <a href="#contact" className={styles.btnPrimary}>
+            Contact Us Today
           </a>
         </div>
       </div>
