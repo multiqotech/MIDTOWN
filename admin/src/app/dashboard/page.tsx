@@ -13,6 +13,16 @@ import PartnersManager from './PartnersManager';
 import FaqsManager from './FaqsManager';
 import EnquiriesManager from './EnquiriesManager';
 import NewsManager from './NewsManager';
+import OverviewManager from './discover/OverviewManager';
+import DayAtMidtownManager from './discover/DayAtMidtownManager';
+import VisionMissionManager from './discover/VisionMissionManager';
+import AnthemManager from './discover/AnthemManager';
+import CareersManager from './discover/CareersManager';
+import LeadershipManager from './discover/LeadershipManager';
+import GroupBrandsManager from './discover/GroupBrandsManager';
+import AwardsManager from './discover/AwardsManager';
+import AlliancesManager from './discover/AlliancesManager';
+import AchievementsManager from './discover/AchievementsManager';
 
 const CLOUDINARY_UPLOAD_PRESET = 'midtown'; // Replace with your actual unsigned preset
 const CLOUDINARY_CLOUD_NAME = 'dkhyb43ae';
@@ -128,6 +138,19 @@ export default function DashboardPage() {
     { id: 'settings', label: 'System Settings', icon: <Settings size={20} /> },
   ];
 
+  const discoverTabs = [
+    { id: 'discover-overview', label: 'Overview', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-day', label: 'Day at Midtown', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-vision', label: 'Vision & Mission', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-anthem', label: 'Anthem', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-careers', label: 'Careers', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-leadership', label: 'Leadership', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-brands', label: 'Group Brands', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-awards', label: 'Awards', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-alliances', label: 'Alliances', icon: <LayoutDashboard size={20} /> },
+    { id: 'discover-achievements', label: 'Achievements', icon: <LayoutDashboard size={20} /> },
+  ];
+
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#111', color: '#eee', fontFamily: 'var(--font-primary)' }}>
       
@@ -141,7 +164,36 @@ export default function DashboardPage() {
         </div>
         
         <nav style={{ flex: 1, padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 0.5rem 0.5rem' }}>Main</h4>
           {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+          
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Discover Midtown</h4>
+          {discoverTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
@@ -202,7 +254,7 @@ export default function DashboardPage() {
         {/* Topbar */}
         <header style={{ padding: '1.5rem 2.5rem', backgroundColor: '#1A1A1A', borderBottom: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: '700', color: '#fff' }}>
-            {tabs.find(t => t.id === activeTab)?.label || 'Dashboard'}
+            {(tabs.find(t => t.id === activeTab) || discoverTabs.find(t => t.id === activeTab))?.label || 'Dashboard'}
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div style={{ width: '35px', height: '35px', borderRadius: '50%', backgroundColor: '#0F4C81', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
@@ -415,13 +467,24 @@ export default function DashboardPage() {
             <NewsManager />
           )}
 
-          {activeTab !== 'hero' && activeTab !== 'locations' && activeTab !== 'services' && activeTab !== 'whychoose' && activeTab !== 'doctors' && activeTab !== 'testimonials' && activeTab !== 'partners' && activeTab !== 'faqs' && activeTab !== 'enquiries' && activeTab !== 'news' && (
+          {activeTab === 'discover-overview' && <OverviewManager />}
+          {activeTab === 'discover-day' && <DayAtMidtownManager />}
+          {activeTab === 'discover-vision' && <VisionMissionManager />}
+          {activeTab === 'discover-anthem' && <AnthemManager />}
+          {activeTab === 'discover-careers' && <CareersManager />}
+          {activeTab === 'discover-leadership' && <LeadershipManager />}
+          {activeTab === 'discover-brands' && <GroupBrandsManager />}
+          {activeTab === 'discover-awards' && <AwardsManager />}
+          {activeTab === 'discover-alliances' && <AlliancesManager />}
+          {activeTab === 'discover-achievements' && <AchievementsManager />}
+
+          {activeTab !== 'hero' && activeTab !== 'locations' && activeTab !== 'services' && activeTab !== 'whychoose' && activeTab !== 'doctors' && activeTab !== 'testimonials' && activeTab !== 'partners' && activeTab !== 'faqs' && activeTab !== 'enquiries' && activeTab !== 'news' && !discoverTabs.find(t => t.id === activeTab) && (
             <div style={{ backgroundColor: '#1A1A1A', borderRadius: '12px', padding: '3rem', border: '1px solid #2a2a2a', textAlign: 'center' }}>
               <div style={{ width: '60px', height: '60px', backgroundColor: '#222', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
                 <Settings size={24} color="#666" />
               </div>
               <h3 style={{ margin: '0 0 0.5rem', color: '#fff', fontSize: '1.25rem' }}>Module in Development</h3>
-              <p style={{ color: '#aaa', margin: 0 }}>The {tabs.find(t => t.id === activeTab)?.label} section is currently being built.</p>
+              <p style={{ color: '#aaa', margin: 0 }}>The {(tabs.find(t => t.id === activeTab) || discoverTabs.find(t => t.id === activeTab))?.label} section is currently being built.</p>
             </div>
           )}
 

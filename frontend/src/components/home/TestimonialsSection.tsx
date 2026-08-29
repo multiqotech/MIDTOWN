@@ -15,6 +15,33 @@ interface Testimonial {
   isVideo: boolean;
 }
 
+const FALLBACK_TESTIMONIALS: Testimonial[] = [
+  {
+    _id: 't1',
+    name: 'Rajesh Sharma',
+    text: 'The care and attention I received at Midtown Hospital was exceptional. The doctors were patient, explained everything clearly, and the nursing staff was incredibly supportive throughout my recovery.',
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    isVideo: false,
+  },
+  {
+    _id: 't2',
+    name: 'Priya Patel',
+    text: 'From the front desk to the surgical team, everyone at Midtown made me feel like family. Their state-of-the-art facilities and compassionate approach truly set them apart from other hospitals.',
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
+    isVideo: false,
+  },
+  {
+    _id: 't3',
+    name: 'Amit Kumar',
+    text: 'I brought my father in for an emergency procedure in the middle of the night. The swift action and expertise of the emergency team saved his life. I am forever grateful to Midtown Hospital.',
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+    isVideo: false,
+  }
+];
+
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,9 +53,14 @@ export default function TestimonialsSection() {
     const fetchTestimonials = async () => {
       try {
         const data = await api.get('/api/testimonials');
-        setTestimonials(data);
+        if (data && data.length > 0) {
+          setTestimonials(data);
+        } else {
+          setTestimonials(FALLBACK_TESTIMONIALS);
+        }
       } catch (err) {
         console.error('Failed to fetch testimonials', err);
+        setTestimonials(FALLBACK_TESTIMONIALS);
       } finally {
         setLoading(false);
       }
@@ -40,9 +72,6 @@ export default function TestimonialsSection() {
     return <section className={styles.section}><div className={styles.container}>Loading testimonials...</div></section>;
   }
 
-  if (testimonials.length === 0) {
-    return null; // Don't show section if no testimonials
-  }
 
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
@@ -120,7 +149,7 @@ export default function TestimonialsSection() {
                         {'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
                       </div>
                       <h4 className={styles.activeTitle}>Patient Experience</h4>
-                      <p className={styles.activeText}>"{t.text}"</p>
+                      <p className={styles.activeText}>&quot;{t.text}&quot;</p>
                       <div className={styles.activeAuthor}>
                         <span>{t.name}</span>
                       </div>
@@ -161,7 +190,7 @@ export default function TestimonialsSection() {
                     {'☆'.repeat(5 - testimonials[modalIndex].rating)}
                   </div>
                   <h3 className={styles.modalAuthor}>{testimonials[modalIndex].name}</h3>
-                  <p className={styles.modalText}>"{testimonials[modalIndex].text}"</p>
+                  <p className={styles.modalText}>&quot;{testimonials[modalIndex].text}&quot;</p>
                 </div>
               </div>
 

@@ -18,7 +18,16 @@ import Faq from './models/Faq.js';
 import Enquiry from './models/Enquiry.js';
 import News from './models/News.js';
 import Subscriber from './models/Subscriber.js';
-
+import { Job } from './models/Job.js';
+import { LeadershipMember } from './models/LeadershipMember.js';
+import { GroupBrand } from './models/GroupBrand.js';
+import { Award } from './models/Award.js';
+import { Alliance } from './models/Alliance.js';
+import { Milestone } from './models/Milestone.js';
+import { DiscoverOverview } from './models/DiscoverOverview.js';
+import { DayAtMidtownContent } from './models/DayAtMidtownContent.js';
+import { VisionMission } from './models/VisionMission.js';
+import { AnthemContent } from './models/AnthemContent.js';
 const app = express();
 const PORT = 5000;
 
@@ -842,6 +851,114 @@ app.delete('/api/news/:id', requireAdmin, async (req: Request, res: Response) =>
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// --- Discover Midtown API Endpoints ---
+
+// Helper function for singleton GET
+const getSingleton = async (Model: mongoose.Model<any>, req: Request, res: Response) => {
+  try {
+    const item = await Model.findOne();
+    res.json(item || {});
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Helper function for singleton PUT
+const putSingleton = async (Model: mongoose.Model<any>, req: Request, res: Response) => {
+  try {
+    const item = await Model.findOneAndUpdate({}, req.body, { 
+      new: true, 
+      upsert: true,
+      setDefaultsOnInsert: true 
+    });
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// DiscoverOverview
+app.get('/api/discover/overview', (req, res) => getSingleton(DiscoverOverview, req, res));
+app.put('/api/discover/overview', requireAdmin, (req, res) => putSingleton(DiscoverOverview, req, res));
+
+// DayAtMidtownContent
+app.get('/api/discover/day-at-midtown', (req, res) => getSingleton(DayAtMidtownContent, req, res));
+app.put('/api/discover/day-at-midtown', requireAdmin, (req, res) => putSingleton(DayAtMidtownContent, req, res));
+
+// VisionMission
+app.get('/api/discover/vision-mission', (req, res) => getSingleton(VisionMission, req, res));
+app.put('/api/discover/vision-mission', requireAdmin, (req, res) => putSingleton(VisionMission, req, res));
+
+// AnthemContent
+app.get('/api/discover/anthem', (req, res) => getSingleton(AnthemContent, req, res));
+app.put('/api/discover/anthem', requireAdmin, (req, res) => putSingleton(AnthemContent, req, res));
+
+// Helper functions for CRUD
+const getCollection = async (Model: mongoose.Model<any>, req: Request, res: Response, sortField = 'displayOrder') => {
+  try {
+    const items = await Model.find().sort({ [sortField]: 1, createdAt: -1 });
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const getCollectionItem = async (Model: mongoose.Model<any>, req: Request, res: Response) => {
+  try {
+    const item = await Model.findById(req.params.id);
+    if (item) res.json(item);
+    else res.status(404).json({ message: 'Not found' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const postCollectionItem = async (Model: mongoose.Model<any>, req: Request, res: Response) => {
+  try {
+    const item = await Model.create(req.body);
+    res.status(201).json(item);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+const putCollectionItem = async (Model: mongoose.Model<any>, req: Request, res: Response) => {
+  try {
+    const item = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (item) res.json(item);
+    else res.status(404).json({ message: 'Not found' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const deleteCollectionItem = async (Model: mongoose.Model<any>, req: Request, res: Response) => {
+  try {
+    const item = await Model.findByIdAndDelete(req.params.id);
+    if (item) res.status(204).send();
+    else res.status(404).json({ message: 'Not found' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const generateCrudRoutes = (path: string, Model: mongoose.Model<any>, sortField?: string) => {
+  app.get(`/api/discover/${path}`, (req, res) => getCollection(Model, req, res, sortField));
+  app.get(`/api/discover/${path}/:id`, (req, res) => getCollectionItem(Model, req, res));
+  app.post(`/api/discover/${path}`, requireAdmin, (req, res) => postCollectionItem(Model, req, res));
+  app.put(`/api/discover/${path}/:id`, requireAdmin, (req, res) => putCollectionItem(Model, req, res));
+  app.delete(`/api/discover/${path}/:id`, requireAdmin, (req, res) => deleteCollectionItem(Model, req, res));
+};
+
+// Collections
+generateCrudRoutes('jobs', Job, 'createdAt');
+generateCrudRoutes('leadership', LeadershipMember);
+generateCrudRoutes('group-brands', GroupBrand);
+generateCrudRoutes('awards', Award);
+generateCrudRoutes('alliances', Alliance);
+generateCrudRoutes('milestones', Milestone);
+
 
 // --- Newsletter Subscription API Endpoints ---
 

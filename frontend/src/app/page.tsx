@@ -1,7 +1,10 @@
 import React from 'react';
 import Header from '@/components/layout/Header';
 import HeroSection from '@/components/home/HeroSection';
+import StatsSection from '@/components/home/StatsSection';
+import ValueProposition from '@/components/home/ValueProposition';
 import AboutSection from '@/components/home/AboutSection';
+import ClinicalExcellence from '@/components/home/ClinicalExcellence';
 import OurSpecialtiesSection from '@/components/home/OurSpecialtiesSection';
 import SearchDiseases from '@/components/home/SearchDiseases';
 import WhyChooseMidtownSection from '@/components/home/WhyChooseMidtownSection';
@@ -19,7 +22,10 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <StatsSection />
+        <ValueProposition />
         <AboutSection />
+        <ClinicalExcellence />
         <OurSpecialtiesSection />
         <SearchDiseases />
         <WhyChooseMidtownSection />
