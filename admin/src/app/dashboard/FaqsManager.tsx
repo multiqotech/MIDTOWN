@@ -180,7 +180,7 @@ export default function FaqsManager() {
                 required
                 type="text" 
                 value={editingFaq?.question || ''}
-                onChange={(e) => setEditingFaq(prev => ({ ...prev!, question: e.target.value }))}
+                onChange={(e: any) => setEditingFaq(prev => ({ ...prev!, question: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                 placeholder="e.g. What are the visiting hours?"
               />
@@ -192,7 +192,7 @@ export default function FaqsManager() {
                 required
                 rows={4}
                 value={editingFaq?.answer || ''}
-                onChange={(e) => setEditingFaq(prev => ({ ...prev!, answer: e.target.value }))}
+                onChange={(e: any) => setEditingFaq(prev => ({ ...prev!, answer: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', resize: 'vertical' }}
                 placeholder="Enter the detailed answer here..."
               />

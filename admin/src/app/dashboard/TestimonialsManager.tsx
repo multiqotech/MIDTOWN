@@ -246,7 +246,7 @@ export default function TestimonialsManager() {
                   required
                   type="text" 
                   value={editingTestimonial?.name || ''}
-                  onChange={(e) => setEditingTestimonial(prev => ({ ...prev!, name: e.target.value }))}
+                  onChange={(e: any) => setEditingTestimonial(prev => ({ ...prev!, name: e.target.value }))}
                   style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="e.g. Sarah M."
                 />
@@ -260,7 +260,7 @@ export default function TestimonialsManager() {
                   min="1"
                   max="5"
                   value={editingTestimonial?.rating || 5}
-                  onChange={(e) => setEditingTestimonial(prev => ({ ...prev!, rating: Number(e.target.value) }))}
+                  onChange={(e: any) => setEditingTestimonial(prev => ({ ...prev!, rating: Number(e.target.value) }))}
                   style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                 />
               </div>
@@ -271,7 +271,7 @@ export default function TestimonialsManager() {
               <textarea 
                 required
                 value={editingTestimonial?.text || ''}
-                onChange={(e) => setEditingTestimonial(prev => ({ ...prev!, text: e.target.value }))}
+                onChange={(e: any) => setEditingTestimonial(prev => ({ ...prev!, text: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '100px', fontFamily: 'inherit' }}
                 placeholder="What did the patient say..."
               />
@@ -282,7 +282,7 @@ export default function TestimonialsManager() {
                 <input 
                   type="checkbox" 
                   checked={editingTestimonial?.isVideo || false}
-                  onChange={(e) => setEditingTestimonial(prev => ({ ...prev!, isVideo: e.target.checked }))}
+                  onChange={(e: any) => setEditingTestimonial(prev => ({ ...prev!, isVideo: e.target.checked }))}
                   style={{ width: '18px', height: '18px', accentColor: '#00A676' }}
                 />
                 Show Play Video Overlay Icon on Image
@@ -297,7 +297,7 @@ export default function TestimonialsManager() {
                   required
                   type="text" 
                   value={editingTestimonial?.image || ''}
-                  onChange={(e) => setEditingTestimonial(prev => ({ ...prev!, image: e.target.value }))}
+                  onChange={(e: any) => setEditingTestimonial(prev => ({ ...prev!, image: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter image URL or upload file"
                 />

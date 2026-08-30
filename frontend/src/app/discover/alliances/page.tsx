@@ -30,7 +30,7 @@ export default function AlliancesPage() {
         const published = response.filter((item: Alliance) => item.publishedStatus === 'published');
         published.sort((a: Alliance, b: Alliance) => a.displayOrder - b.displayOrder);
         setAlliances(published);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load alliances data', err);
       } finally {
         setLoading(false);

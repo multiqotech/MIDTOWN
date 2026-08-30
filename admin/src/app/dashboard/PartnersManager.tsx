@@ -231,7 +231,7 @@ export default function PartnersManager() {
                 required
                 type="text" 
                 value={editingPartner?.name || ''}
-                onChange={(e) => setEditingPartner(prev => ({ ...prev!, name: e.target.value }))}
+                onChange={(e: any) => setEditingPartner(prev => ({ ...prev!, name: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                 placeholder="e.g. Allianz"
               />
@@ -244,7 +244,7 @@ export default function PartnersManager() {
                 <input 
                   type="text" 
                   value={editingPartner?.logo || ''}
-                  onChange={(e) => setEditingPartner(prev => ({ ...prev!, logo: e.target.value }))}
+                  onChange={(e: any) => setEditingPartner(prev => ({ ...prev!, logo: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter image URL or upload file"
                 />

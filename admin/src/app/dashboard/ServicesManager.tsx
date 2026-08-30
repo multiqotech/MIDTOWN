@@ -262,7 +262,7 @@ export default function ServicesManager() {
               <input 
                 type="text" 
                 value={editingService?.name || ''}
-                onChange={(e) => setEditingService({ ...editingService!, name: e.target.value })}
+                onChange={(e: any) => setEditingService({ ...editingService!, name: e.target.value })}
                 placeholder="e.g. Emergency Department"
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
@@ -273,7 +273,7 @@ export default function ServicesManager() {
               <label style={{ display: 'block', color: '#aaa', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '500' }}>Description</label>
               <textarea 
                 value={editingService?.description || ''}
-                onChange={(e) => setEditingService({ ...editingService!, description: e.target.value })}
+                onChange={(e: any) => setEditingService({ ...editingService!, description: e.target.value })}
                 placeholder="Detailed description of the service..."
                 rows={4}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', resize: 'vertical' }}
@@ -291,7 +291,7 @@ export default function ServicesManager() {
                     <input 
                       type="url" 
                       value={editingService?.imageUrl || ''}
-                      onChange={(e) => setEditingService({ ...editingService!, imageUrl: e.target.value })}
+                      onChange={(e: any) => setEditingService({ ...editingService!, imageUrl: e.target.value })}
                       placeholder="Paste Image URL"
                       style={{ flex: 1, padding: '0.375rem 0', backgroundColor: 'transparent', border: 'none', color: '#fff', outline: 'none' }}
                     />
@@ -309,7 +309,7 @@ export default function ServicesManager() {
                       <input 
                         type="text" 
                         value={uploadPreset}
-                        onChange={(e) => setUploadPreset(e.target.value)}
+                        onChange={(e: any) => setUploadPreset(e.target.value)}
                         style={{ padding: '0.25rem 0.5rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '4px', color: '#fff', fontSize: '0.75rem', flex: 1 }}
                       />
                     </div>
@@ -354,7 +354,7 @@ export default function ServicesManager() {
                     <input 
                       type="text" 
                       value={point}
-                      onChange={(e) => updateArrayItem('keyPoints', index, e.target.value)}
+                      onChange={(e: any) => updateArrayItem('keyPoints', index, e.target.value)}
                       placeholder="e.g. 24/7 Availability"
                       style={{ flex: 1, padding: '0.75rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '6px', color: '#fff', outline: 'none' }}
                     />
@@ -387,7 +387,7 @@ export default function ServicesManager() {
                     <input 
                       type="text" 
                       value={sug}
-                      onChange={(e) => updateArrayItem('suggestions', index, e.target.value)}
+                      onChange={(e: any) => updateArrayItem('suggestions', index, e.target.value)}
                       placeholder="e.g. Bring your medical records"
                       style={{ flex: 1, padding: '0.75rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '6px', color: '#fff', outline: 'none' }}
                     />

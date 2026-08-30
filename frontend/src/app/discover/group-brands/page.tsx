@@ -31,7 +31,7 @@ export default function GroupBrandsPage() {
         const published = response.filter((item: Brand) => item.publishedStatus === 'published');
         published.sort((a: Brand, b: Brand) => a.displayOrder - b.displayOrder);
         setBrands(published);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load group brands data', err);
       } finally {
         setLoading(false);

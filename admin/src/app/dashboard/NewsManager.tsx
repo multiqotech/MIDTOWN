@@ -280,7 +280,7 @@ export default function NewsManager() {
                       type="text" 
                       placeholder="Or paste image URL here" 
                       value={formData.imageUrl || ''}
-                      onChange={(e) => setFormData({...formData, imageUrl: e.target.value})}
+                      onChange={(e: any) => setFormData({...formData, imageUrl: e.target.value})}
                       style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', backgroundColor: '#0A0A0A', border: '1px solid #333', color: '#fff' }}
                     />
                     <label style={{
@@ -301,7 +301,7 @@ export default function NewsManager() {
                     type="text" 
                     required 
                     value={formData.title || ''}
-                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    onChange={(e: any) => setFormData({...formData, title: e.target.value})}
                     style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', backgroundColor: '#0A0A0A', border: '1px solid #333', color: '#fff' }}
                   />
                 </div>
@@ -310,7 +310,7 @@ export default function NewsManager() {
                   <input 
                     type="text" 
                     value={formData.subtitle || ''}
-                    onChange={(e) => setFormData({...formData, subtitle: e.target.value})}
+                    onChange={(e: any) => setFormData({...formData, subtitle: e.target.value})}
                     style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', backgroundColor: '#0A0A0A', border: '1px solid #333', color: '#fff' }}
                   />
                 </div>
@@ -323,7 +323,7 @@ export default function NewsManager() {
                   rows={4}
                   required
                   value={formData.description || ''}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e: any) => setFormData({...formData, description: e.target.value})}
                   style={{ width: '100%', padding: '0.75rem', borderRadius: '6px', backgroundColor: '#0A0A0A', border: '1px solid #333', color: '#fff', fontFamily: 'inherit', resize: 'vertical' }}
                 />
               </div>
@@ -335,8 +335,8 @@ export default function NewsManager() {
                   <input 
                     type="text" 
                     value={currentKeyPoint}
-                    onChange={(e) => setCurrentKeyPoint(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addKeyPoint())}
+                    onChange={(e: any) => setCurrentKeyPoint(e.target.value)}
+                    onKeyPress={(e: any) => e.key === 'Enter' && (e.preventDefault(), addKeyPoint())}
                     placeholder="Enter a key point and click Add"
                     style={{ flex: 1, padding: '0.75rem', borderRadius: '6px', backgroundColor: '#0A0A0A', border: '1px solid #333', color: '#fff' }}
                   />
@@ -366,7 +366,7 @@ export default function NewsManager() {
                     type="checkbox"
                     checked={formData.isPublishedToSubscribers ? true : formData.publishToSubscribers}
                     disabled={formData.isPublishedToSubscribers}
-                    onChange={(e) => setFormData({ ...formData, publishToSubscribers: e.target.checked })}
+                    onChange={(e: any) => setFormData({ ...formData, publishToSubscribers: e.target.checked })}
                     style={{ width: '1.2rem', height: '1.2rem', accentColor: '#00A676', cursor: formData.isPublishedToSubscribers ? 'not-allowed' : 'pointer' }}
                   />
                   <div style={{ display: 'flex', flexDirection: 'column' }}>

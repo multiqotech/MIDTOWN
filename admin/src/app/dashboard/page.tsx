@@ -18,11 +18,53 @@ import DayAtMidtownManager from './discover/DayAtMidtownManager';
 import VisionMissionManager from './discover/VisionMissionManager';
 import AnthemManager from './discover/AnthemManager';
 import CareersManager from './discover/CareersManager';
-import LeadershipManager from './discover/LeadershipManager';
+import BoardOfDirectorsManager from './leadership/BoardOfDirectorsManager';
+import ExecutiveTeamManager from './leadership/ExecutiveTeamManager';
+import MedicalCouncilManager from './leadership/MedicalCouncilManager';
 import GroupBrandsManager from './discover/GroupBrandsManager';
 import AwardsManager from './discover/AwardsManager';
 import AlliancesManager from './discover/AlliancesManager';
 import AchievementsManager from './discover/AchievementsManager';
+import BoardCommitteesManager from './corporate-governance/BoardCommitteesManager';
+import PoliciesGuidelinesManager from './corporate-governance/PoliciesGuidelinesManager';
+import EthicsComplianceManager from './corporate-governance/EthicsComplianceManager';
+import FinancialResultsManager from './investor-relations/FinancialResultsManager';
+import AnnualReportsManager from './investor-relations/AnnualReportsManager';
+import ShareholderInfoManager from './investor-relations/ShareholderInfoManager';
+import CorporateAnnouncementsManager from './investor-relations/CorporateAnnouncementsManager';
+import StockInformationManager from './investor-relations/StockInformationManager';
+import NursingExcellenceManager from './healers-circle/NursingExcellenceManager';
+import DoctorAwardsManager from './healers-circle/DoctorAwardsManager';
+import ParamedicalStaffManager from './healers-circle/ParamedicalStaffManager';
+import EmployeeSpotlightsManager from './healers-circle/EmployeeSpotlightsManager';
+import QualityCertificationsManager from './clinical-quality/QualityCertificationsManager';
+import InfectionControlManager from './clinical-quality/InfectionControlManager';
+import PatientSafetyManager from './clinical-quality/PatientSafetyManager';
+import ClinicalIndicatorsManager from './clinical-quality/ClinicalIndicatorsManager';
+import FeedbackMechanismManager from './clinical-quality/FeedbackMechanismManager';
+
+import PressReleasesManager from './media-centre/PressReleasesManager';
+import InTheNewsManager from './media-centre/InTheNewsManager';
+import MediaKitManager from './media-centre/MediaKitManager';
+import BrandGuidelinesManager from './media-centre/BrandGuidelinesManager';
+import EventGalleryManager from './media-centre/EventGalleryManager';
+
+import CorporateTieUpsManager from './corporate-partnerships/CorporateTieUpsManager';
+import WellnessProgramsManager from './corporate-partnerships/WellnessProgramsManager';
+import InsurancePartnersManager from './corporate-partnerships/InsurancePartnersManager';
+import TpaDeskManager from './corporate-partnerships/TpaDeskManager';
+import MedicalEducationManager from './academics/MedicalEducationManager';
+import NursingEducationManager from './academics/NursingEducationManager';
+import ResearchInstitutesManager from './academics/ResearchInstitutesManager';
+import ClinicalTrialsManager from './academics/ClinicalTrialsManager';
+import PublicationsManager from './academics/PublicationsManager';
+import FellowshipsManager from './academics/FellowshipsManager';
+
+import HealthCampsManager from './csr/HealthCampsManager';
+import CommunityOutreachManager from './csr/CommunityOutreachManager';
+import EnvironmentalInitiativesManager from './csr/EnvironmentalInitiativesManager';
+import WasteManagementManager from './csr/WasteManagementManager';
+import GreenHospitalsManager from './csr/GreenHospitalsManager';
 
 const CLOUDINARY_UPLOAD_PRESET = 'midtown'; // Replace with your actual unsigned preset
 const CLOUDINARY_CLOUD_NAME = 'dkhyb43ae';
@@ -144,11 +186,77 @@ export default function DashboardPage() {
     { id: 'discover-vision', label: 'Vision & Mission', icon: <LayoutDashboard size={20} /> },
     { id: 'discover-anthem', label: 'Anthem', icon: <LayoutDashboard size={20} /> },
     { id: 'discover-careers', label: 'Careers', icon: <LayoutDashboard size={20} /> },
-    { id: 'discover-leadership', label: 'Leadership', icon: <LayoutDashboard size={20} /> },
     { id: 'discover-brands', label: 'Group Brands', icon: <LayoutDashboard size={20} /> },
     { id: 'discover-awards', label: 'Awards', icon: <LayoutDashboard size={20} /> },
     { id: 'discover-alliances', label: 'Alliances', icon: <LayoutDashboard size={20} /> },
     { id: 'discover-achievements', label: 'Achievements', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const corporateGovernanceTabs = [
+    { id: 'board-committees', label: 'Board Committees', icon: <LayoutDashboard size={20} /> },
+    { id: 'policies-guidelines', label: 'Policies & Guidelines', icon: <LayoutDashboard size={20} /> },
+    { id: 'ethics-compliance', label: 'Ethics & Compliance', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const investorRelationsTabs = [
+    { id: 'financial-results', label: 'Financial Results', icon: <LayoutDashboard size={20} /> },
+    { id: 'annual-reports', label: 'Annual Reports', icon: <LayoutDashboard size={20} /> },
+    { id: 'shareholder-info', label: 'Shareholder Info', icon: <LayoutDashboard size={20} /> },
+    { id: 'corporate-announcements', label: 'Corporate Announcements', icon: <LayoutDashboard size={20} /> },
+    { id: 'stock-information', label: 'Stock Information', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const leadershipTabs = [
+    { id: 'board-of-directors', label: 'Board of Directors', icon: <LayoutDashboard size={20} /> },
+    { id: 'executive-team', label: 'Executive Team', icon: <LayoutDashboard size={20} /> },
+    { id: 'medical-council', label: 'Medical Council', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const healersCircleTabs = [
+    { id: 'nursing-excellence', label: 'Nursing Excellence', icon: <LayoutDashboard size={20} /> },
+    { id: 'doctor-awards', label: 'Doctor Awards', icon: <LayoutDashboard size={20} /> },
+    { id: 'paramedical-staff', label: 'Paramedical Staff', icon: <LayoutDashboard size={20} /> },
+    { id: 'employee-spotlights', label: 'Employee Spotlights', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const clinicalQualityTabs = [
+    { id: 'quality-certifications', label: 'Quality Certifications', icon: <LayoutDashboard size={20} /> },
+    { id: 'infection-control', label: 'Infection Control', icon: <LayoutDashboard size={20} /> },
+    { id: 'patient-safety', label: 'Patient Safety', icon: <LayoutDashboard size={20} /> },
+    { id: 'clinical-indicators', label: 'Clinical Indicators', icon: <LayoutDashboard size={20} /> },
+    { id: 'feedback-mechanism', label: 'Feedback Mechanism', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const mediaCentreTabs = [
+    { id: 'mc-press-releases', label: 'Press Releases', icon: <Newspaper size={20} /> },
+    { id: 'mc-in-the-news', label: 'In The News', icon: <Newspaper size={20} /> },
+    { id: 'mc-media-kit', label: 'Media Kit', icon: <ImageIcon size={20} /> },
+    { id: 'mc-brand-guidelines', label: 'Brand Guidelines', icon: <LayoutDashboard size={20} /> },
+    { id: 'mc-event-gallery', label: 'Event Gallery', icon: <ImageIcon size={20} /> },
+  ];
+
+  const corporatePartnershipsTabs = [
+    { id: 'cp-corporate-tie-ups', label: 'Corporate Tie Ups', icon: <Users size={20} /> },
+    { id: 'cp-wellness-programs', label: 'Wellness Programs', icon: <Award size={20} /> },
+    { id: 'cp-insurance-partners', label: 'Insurance Partners', icon: <Users size={20} /> },
+    { id: 'cp-tpa-desk', label: 'TPA Desk', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const academicsTabs = [
+    { id: 'medical-education', label: 'Medical Education', icon: <LayoutDashboard size={20} /> },
+    { id: 'nursing-education', label: 'Nursing Education', icon: <LayoutDashboard size={20} /> },
+    { id: 'research-institutes', label: 'Research Institutes', icon: <LayoutDashboard size={20} /> },
+    { id: 'clinical-trials', label: 'Clinical Trials', icon: <LayoutDashboard size={20} /> },
+    { id: 'publications', label: 'Publications', icon: <LayoutDashboard size={20} /> },
+    { id: 'fellowships', label: 'Fellowships', icon: <LayoutDashboard size={20} /> },
+  ];
+
+  const csrTabs = [
+    { id: 'health-camps', label: 'Health Camps', icon: <LayoutDashboard size={20} /> },
+    { id: 'community-outreach', label: 'Community Outreach', icon: <LayoutDashboard size={20} /> },
+    { id: 'environmental-initiatives', label: 'Environmental Initiatives', icon: <LayoutDashboard size={20} /> },
+    { id: 'waste-management', label: 'Waste Management', icon: <LayoutDashboard size={20} /> },
+    { id: 'green-hospitals', label: 'Green Hospitals', icon: <LayoutDashboard size={20} /> },
   ];
 
   return (
@@ -184,8 +292,8 @@ export default function DashboardPage() {
                 transition: 'all 0.2s',
                 textAlign: 'left'
               }}
-              onMouseOver={(e) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
-              onMouseOut={(e) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
             >
               {tab.icon}
               {tab.label}
@@ -212,8 +320,259 @@ export default function DashboardPage() {
                 transition: 'all 0.2s',
                 textAlign: 'left'
               }}
-              onMouseOver={(e) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
-              onMouseOut={(e) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+          
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Leadership</h4>
+          {leadershipTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Academics & Research</h4>
+          {academicsTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>CSR & Sustainability</h4>
+          {csrTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+          
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Media Centre</h4>
+          {mediaCentreTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Corporate Partnerships</h4>
+          {corporatePartnershipsTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Healers' Circle</h4>
+          {healersCircleTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Clinical Quality</h4>
+          {clinicalQualityTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Corporate Governance</h4>
+          {corporateGovernanceTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+
+          <h4 style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: '1.5rem 0 0.5rem 0.5rem' }}>Investor Relations</h4>
+          {investorRelationsTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.875rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeTab === tab.id ? '#00A676' : 'transparent',
+                color: activeTab === tab.id ? '#fff' : '#aaa',
+                cursor: 'pointer',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                transition: 'all 0.2s',
+                textAlign: 'left'
+              }}
+              onMouseOver={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = '#252525' }}
+              onMouseOut={(e: any) => { if(activeTab !== tab.id) e.currentTarget.style.backgroundColor = 'transparent' }}
             >
               {tab.icon}
               {tab.label}
@@ -239,8 +598,8 @@ export default function DashboardPage() {
               fontSize: '0.95rem',
               transition: 'all 0.2s'
             }}
-            onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 77, 79, 0.1)'}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+            onMouseOver={(e: any) => e.currentTarget.style.backgroundColor = 'rgba(255, 77, 79, 0.1)'}
+            onMouseOut={(e: any) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
             <LogOut size={20} />
             Sign Out
@@ -254,7 +613,7 @@ export default function DashboardPage() {
         {/* Topbar */}
         <header style={{ padding: '1.5rem 2.5rem', backgroundColor: '#1A1A1A', borderBottom: '1px solid #2a2a2a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: '700', color: '#fff' }}>
-            {(tabs.find(t => t.id === activeTab) || discoverTabs.find(t => t.id === activeTab))?.label || 'Dashboard'}
+            {(tabs.find(t => t.id === activeTab) || discoverTabs.find(t => t.id === activeTab) || leadershipTabs.find(t => t.id === activeTab) || healersCircleTabs.find(t => t.id === activeTab) || clinicalQualityTabs.find(t => t.id === activeTab) || academicsTabs.find(t => t.id === activeTab) || csrTabs.find(t => t.id === activeTab) || mediaCentreTabs.find(t => t.id === activeTab) || corporatePartnershipsTabs.find(t => t.id === activeTab) || corporateGovernanceTabs.find(t => t.id === activeTab) || investorRelationsTabs.find(t => t.id === activeTab))?.label || 'Dashboard'}
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div style={{ width: '35px', height: '35px', borderRadius: '50%', backgroundColor: '#0F4C81', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
@@ -299,7 +658,7 @@ export default function DashboardPage() {
                     <input 
                       type="url" 
                       value={heroImageUrl}
-                      onChange={(e) => setHeroImageUrl(e.target.value)}
+                      onChange={(e: any) => setHeroImageUrl(e.target.value)}
                       placeholder="https://example.com/image.jpg"
                       style={{ 
                         width: '100%', 
@@ -311,8 +670,8 @@ export default function DashboardPage() {
                         outline: 'none',
                         transition: 'border-color 0.2s'
                       }}
-                      onFocus={(e) => e.target.style.borderColor = '#00A676'}
-                      onBlur={(e) => e.target.style.borderColor = '#333'}
+                      onFocus={(e: any) => e.target.style.borderColor = '#00A676'}
+                      onBlur={(e: any) => e.target.style.borderColor = '#333'}
                     />
                   </div>
 
@@ -333,7 +692,7 @@ export default function DashboardPage() {
                       <input 
                         type="text" 
                         value={uploadPreset}
-                        onChange={(e) => setUploadPreset(e.target.value)}
+                        onChange={(e: any) => setUploadPreset(e.target.value)}
                         placeholder="e.g. unsigned_preset"
                         style={{ 
                           padding: '0.5rem', 
@@ -360,8 +719,8 @@ export default function DashboardPage() {
                         position: 'relative'
                       }}
                       onClick={() => fileInputRef.current?.click()}
-                      onMouseOver={(e) => e.currentTarget.style.borderColor = '#00A676'}
-                      onMouseOut={(e) => e.currentTarget.style.borderColor = '#333'}
+                      onMouseOver={(e: any) => e.currentTarget.style.borderColor = '#00A676'}
+                      onMouseOut={(e: any) => e.currentTarget.style.borderColor = '#333'}
                     >
                       <UploadCloud size={40} color="#555" style={{ margin: '0 auto 1rem' }} />
                       <p style={{ margin: 0, color: '#aaa', fontSize: '0.95rem' }}>
@@ -402,8 +761,8 @@ export default function DashboardPage() {
                         opacity: saving ? 0.7 : 1,
                         transition: 'all 0.2s'
                       }}
-                      onMouseOver={(e) => !saving && (e.currentTarget.style.backgroundColor = '#00d28c')}
-                      onMouseOut={(e) => !saving && (e.currentTarget.style.backgroundColor = '#00A676')}
+                      onMouseOver={(e: any) => !saving && (e.currentTarget.style.backgroundColor = '#00d28c')}
+                      onMouseOut={(e: any) => !saving && (e.currentTarget.style.backgroundColor = '#00A676')}
                     >
                       {saving ? 'Saving...' : 'Save Configuration'}
                     </button>
@@ -422,7 +781,7 @@ export default function DashboardPage() {
                       src={heroImageUrl} 
                       alt="Hero Preview" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
-                      onError={(e) => (e.currentTarget.style.display = 'none')}
+                      onError={(e: any) => (e.currentTarget.style.display = 'none')}
                     />
                   </div>
                 </div>
@@ -431,60 +790,79 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {activeTab === 'locations' && (
-            <LocationsManager />
-          )}
-
-          {activeTab === 'services' && (
-            <ServicesManager />
-          )}
-
-          {activeTab === 'whychoose' && (
-            <WhyChooseManager />
-          )}
-
-          {activeTab === 'doctors' && (
-            <DoctorsManager />
-          )}
-
-          {activeTab === 'testimonials' && (
-            <TestimonialsManager />
-          )}
-
-          {activeTab === 'partners' && (
-            <PartnersManager />
-          )}
-
-          {activeTab === 'faqs' && (
-            <FaqsManager />
-          )}
-
-          {activeTab === 'enquiries' && (
-            <EnquiriesManager />
-          )}
-
-          {activeTab === 'news' && (
-            <NewsManager />
-          )}
+          {activeTab === 'locations' && <LocationsManager />}
+          {activeTab === 'services' && <ServicesManager />}
+          {activeTab === 'whychoose' && <WhyChooseManager />}
+          {activeTab === 'doctors' && <DoctorsManager />}
+          {activeTab === 'testimonials' && <TestimonialsManager />}
+          {activeTab === 'partners' && <PartnersManager />}
+          {activeTab === 'faqs' && <FaqsManager />}
+          {activeTab === 'enquiries' && <EnquiriesManager />}
+          {activeTab === 'news' && <NewsManager />}
 
           {activeTab === 'discover-overview' && <OverviewManager />}
           {activeTab === 'discover-day' && <DayAtMidtownManager />}
           {activeTab === 'discover-vision' && <VisionMissionManager />}
           {activeTab === 'discover-anthem' && <AnthemManager />}
           {activeTab === 'discover-careers' && <CareersManager />}
-          {activeTab === 'discover-leadership' && <LeadershipManager />}
+          {activeTab === 'board-of-directors' && <BoardOfDirectorsManager />}
+          {activeTab === 'executive-team' && <ExecutiveTeamManager />}
+          {activeTab === 'medical-council' && <MedicalCouncilManager />}
           {activeTab === 'discover-brands' && <GroupBrandsManager />}
           {activeTab === 'discover-awards' && <AwardsManager />}
           {activeTab === 'discover-alliances' && <AlliancesManager />}
           {activeTab === 'discover-achievements' && <AchievementsManager />}
+          {activeTab === 'board-committees' && <BoardCommitteesManager />}
+          {activeTab === 'policies-guidelines' && <PoliciesGuidelinesManager />}
+          {activeTab === 'ethics-compliance' && <EthicsComplianceManager />}
+          {activeTab === 'financial-results' && <FinancialResultsManager />}
+          {activeTab === 'annual-reports' && <AnnualReportsManager />}
+          {activeTab === 'shareholder-info' && <ShareholderInfoManager />}
+          {activeTab === 'corporate-announcements' && <CorporateAnnouncementsManager />}
+          {activeTab === 'stock-information' && <StockInformationManager />}
 
-          {activeTab !== 'hero' && activeTab !== 'locations' && activeTab !== 'services' && activeTab !== 'whychoose' && activeTab !== 'doctors' && activeTab !== 'testimonials' && activeTab !== 'partners' && activeTab !== 'faqs' && activeTab !== 'enquiries' && activeTab !== 'news' && !discoverTabs.find(t => t.id === activeTab) && (
+          {activeTab === 'medical-education' && <MedicalEducationManager />}
+          {activeTab === 'nursing-education' && <NursingEducationManager />}
+          {activeTab === 'research-institutes' && <ResearchInstitutesManager />}
+          {activeTab === 'clinical-trials' && <ClinicalTrialsManager />}
+          {activeTab === 'publications' && <PublicationsManager />}
+          {activeTab === 'fellowships' && <FellowshipsManager />}
+
+          {activeTab === 'health-camps' && <HealthCampsManager />}
+          {activeTab === 'community-outreach' && <CommunityOutreachManager />}
+          {activeTab === 'environmental-initiatives' && <EnvironmentalInitiativesManager />}
+          {activeTab === 'waste-management' && <WasteManagementManager />}
+          {activeTab === 'green-hospitals' && <GreenHospitalsManager />}
+
+          {activeTab === 'mc-press-releases' && <PressReleasesManager />}
+          {activeTab === 'mc-in-the-news' && <InTheNewsManager />}
+          {activeTab === 'mc-media-kit' && <MediaKitManager />}
+          {activeTab === 'mc-brand-guidelines' && <BrandGuidelinesManager />}
+          {activeTab === 'mc-event-gallery' && <EventGalleryManager />}
+          
+          {activeTab === 'cp-corporate-tie-ups' && <CorporateTieUpsManager />}
+          {activeTab === 'cp-wellness-programs' && <WellnessProgramsManager />}
+          {activeTab === 'cp-insurance-partners' && <InsurancePartnersManager />}
+          {activeTab === 'cp-tpa-desk' && <TpaDeskManager />}
+
+          {activeTab === 'nursing-excellence' && <NursingExcellenceManager />}
+          {activeTab === 'doctor-awards' && <DoctorAwardsManager />}
+          {activeTab === 'paramedical-staff' && <ParamedicalStaffManager />}
+          {activeTab === 'employee-spotlights' && <EmployeeSpotlightsManager />}
+
+          {activeTab === 'quality-certifications' && <QualityCertificationsManager />}
+          {activeTab === 'infection-control' && <InfectionControlManager />}
+          {activeTab === 'patient-safety' && <PatientSafetyManager />}
+          {activeTab === 'clinical-indicators' && <ClinicalIndicatorsManager />}
+          {activeTab === 'feedback-mechanism' && <FeedbackMechanismManager />}
+
+          {activeTab !== 'hero' && activeTab !== 'locations' && activeTab !== 'services' && activeTab !== 'whychoose' && activeTab !== 'doctors' && activeTab !== 'testimonials' && activeTab !== 'partners' && activeTab !== 'faqs' && activeTab !== 'enquiries' && activeTab !== 'news' && !discoverTabs.find(t => t.id === activeTab) && !leadershipTabs.find(t => t.id === activeTab) && !academicsTabs.find(t => t.id === activeTab) && !csrTabs.find(t => t.id === activeTab) && !mediaCentreTabs.find(t => t.id === activeTab) && !corporatePartnershipsTabs.find(t => t.id === activeTab) && !healersCircleTabs.find(t => t.id === activeTab) && !clinicalQualityTabs.find(t => t.id === activeTab) && !corporateGovernanceTabs.find(t => t.id === activeTab) && !investorRelationsTabs.find(t => t.id === activeTab) && (
             <div style={{ backgroundColor: '#1A1A1A', borderRadius: '12px', padding: '3rem', border: '1px solid #2a2a2a', textAlign: 'center' }}>
               <div style={{ width: '60px', height: '60px', backgroundColor: '#222', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
                 <Settings size={24} color="#666" />
               </div>
               <h3 style={{ margin: '0 0 0.5rem', color: '#fff', fontSize: '1.25rem' }}>Module in Development</h3>
-              <p style={{ color: '#aaa', margin: 0 }}>The {(tabs.find(t => t.id === activeTab) || discoverTabs.find(t => t.id === activeTab))?.label} section is currently being built.</p>
+              <p style={{ color: '#aaa', margin: 0 }}>The {(tabs.find(t => t.id === activeTab) || discoverTabs.find(t => t.id === activeTab) || leadershipTabs.find(t => t.id === activeTab) || academicsTabs.find(t => t.id === activeTab) || csrTabs.find(t => t.id === activeTab) || mediaCentreTabs.find(t => t.id === activeTab) || corporatePartnershipsTabs.find(t => t.id === activeTab) || healersCircleTabs.find(t => t.id === activeTab) || clinicalQualityTabs.find(t => t.id === activeTab) || corporateGovernanceTabs.find(t => t.id === activeTab) || investorRelationsTabs.find(t => t.id === activeTab))?.label} section is currently being built.</p>
             </div>
           )}
 

@@ -6,12 +6,13 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 450px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-align: center;
+  background: linear-gradient(135deg, #0a2540 0%, #0d3b66 100%);
 }
 
 .overlay {
@@ -20,7 +21,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 23, 42, 0.6);
+  background: linear-gradient(135deg, rgba(10, 37, 64, 0.75) 0%, rgba(14, 165, 233, 0.3) 100%);
   z-index: 1;
 }
 
@@ -29,20 +30,60 @@
   z-index: 2;
   max-width: 800px;
   padding: 0 1.5rem;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .title {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .subtitle {
   font-size: 1.25rem;
   font-weight: 400;
   opacity: 0.9;
+  line-height: 1.6;
 }
 
+/* Stats */
+.statsSection {
+  background: linear-gradient(135deg, #0a2540 0%, #0d3b66 100%);
+  padding: 3rem 1.5rem;
+}
+
+.statsGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.statCard {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+
+.statValue {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0ea5e9;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem;
+}
+
+/* Content */
 .contentContainer {
   max-width: 1000px;
   margin: 0 auto;
@@ -54,6 +95,16 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(10, 37, 64, 0.06);
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.3s ease;
+}
+
+.section:hover {
+  box-shadow: 0 8px 30px rgba(10, 37, 64, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -68,14 +119,27 @@
 }
 
 .heading {
-  font-size: 2rem;
-  color: #1e293b;
-  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: #0a2540;
+  margin-bottom: 1.25rem;
   font-weight: 700;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  border-radius: 2px;
 }
 
 .paragraph {
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   color: #475569;
   line-height: 1.8;
   margin-bottom: 1rem;
@@ -87,9 +151,30 @@
   height: 300px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
+/* Loading */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  color: #64748b;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #0ea5e9;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Not Found */
 .notFound {
   text-align: center;
   padding: 8rem 2rem;
@@ -98,26 +183,44 @@
 
 .notFound h1 {
   font-size: 2.5rem;
-  color: #1e293b;
+  color: #0a2540;
   margin-bottom: 1rem;
 }
 
 .notFound p {
   color: #475569;
   margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
 .btnPrimary {
   display: inline-block;
-  background-color: #0076a8;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
 }
 
 .btnPrimary:hover {
-  background-color: #005a82;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 2rem; }
+  .hero { height: 350px; }
+  .section { padding: 1.5rem; }
 }

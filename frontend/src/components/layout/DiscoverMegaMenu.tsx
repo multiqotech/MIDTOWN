@@ -9,7 +9,7 @@ interface DiscoverMegaMenuProps {
 
 const MENU_CATEGORIES = [
   { id: 'the-midtown-story', label: 'The Midtown Story', slug: '/discover/the-midtown-story' },
-  { id: 'leadership', label: 'Leadership', slug: '/discover/our-leadership' },
+  { id: 'leadership', label: 'Leadership', slug: '/discover/board-of-directors' },
   { id: 'academics-research', label: 'Academics & Research', slug: '/discover/academics-research' },
   { id: 'csr-sustainability', label: 'CSR & Sustainability', slug: '/discover/csr-sustainability' },
   { id: 'corporate-governance', label: 'Corporate Governance', slug: '/discover/corporate-governance' },
@@ -27,7 +27,7 @@ const SUBMENU_DATA: Record<string, { label: string; slug: string }[]> = {
     { label: 'Vision & Mission', slug: '/discover/vision-mission' },
     { label: 'Careers', slug: '/discover/careers' },
     { label: 'Midtown Anthem', slug: '/discover/anthem' },
-    { label: 'Leadership', slug: '/discover/our-leadership' },
+    { label: 'Leadership', slug: '/discover/board-of-directors' },
     { label: 'Our Group Brands', slug: '/discover/group-brands' },
     { label: 'Awards & Accolades', slug: '/discover/awards' },
     { label: 'Alliances', slug: '/discover/alliances' },

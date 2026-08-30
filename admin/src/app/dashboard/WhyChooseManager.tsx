@@ -163,7 +163,7 @@ export default function WhyChooseManager() {
           <label style={{ display: 'block', marginBottom: '0.5rem', color: '#aaa', fontSize: '0.9rem' }}>Subtitle Text</label>
           <textarea
             value={data.description}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
+            onChange={(e: any) => setData({ ...data, description: e.target.value })}
             placeholder="At Midtown Hospital..."
             style={{ 
               width: '100%', 
@@ -189,14 +189,14 @@ export default function WhyChooseManager() {
             <input
               type="text"
               value={data.heroFeature.title}
-              onChange={(e) => setData({ ...data, heroFeature: { ...data.heroFeature, title: e.target.value } })}
+              onChange={(e: any) => setData({ ...data, heroFeature: { ...data.heroFeature, title: e.target.value } })}
               style={{ width: '100%', padding: '1rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', marginBottom: '1.5rem' }}
             />
             
             <label style={{ display: 'block', marginBottom: '0.5rem', color: '#aaa', fontSize: '0.9rem' }}>Description</label>
             <textarea
               value={data.heroFeature.description}
-              onChange={(e) => setData({ ...data, heroFeature: { ...data.heroFeature, description: e.target.value } })}
+              onChange={(e: any) => setData({ ...data, heroFeature: { ...data.heroFeature, description: e.target.value } })}
               style={{ width: '100%', padding: '1rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '100px', fontFamily: 'inherit' }}
             />
           </div>
@@ -221,7 +221,7 @@ export default function WhyChooseManager() {
                 type="file" 
                 accept="image/*" 
                 style={{ display: 'none' }} 
-                onChange={(e) => uploadImage(e, 'hero')}
+                onChange={(e: any) => uploadImage(e, 'hero')}
                 disabled={uploadingState['hero']}
               />
             </label>
@@ -229,7 +229,7 @@ export default function WhyChooseManager() {
             <input
               type="text"
               value={data.heroFeature.imageUrl}
-              onChange={(e) => setData({ ...data, heroFeature: { ...data.heroFeature, imageUrl: e.target.value } })}
+              onChange={(e: any) => setData({ ...data, heroFeature: { ...data.heroFeature, imageUrl: e.target.value } })}
               placeholder="https://..."
               style={{ width: '100%', padding: '0.75rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '6px', color: '#fff', outline: 'none', marginTop: '0.5rem', fontSize: '0.9rem' }}
             />
@@ -269,14 +269,14 @@ export default function WhyChooseManager() {
                 <input
                   type="text"
                   value={feature.title}
-                  onChange={(e) => updateFeature(index, 'title', e.target.value)}
+                  onChange={(e: any) => updateFeature(index, 'title', e.target.value)}
                   placeholder="Title"
                   style={{ width: '100%', padding: '0.75rem', backgroundColor: '#1A1A1A', border: '1px solid #333', borderRadius: '6px', color: '#fff', outline: 'none', marginBottom: '1rem', fontWeight: '600' }}
                 />
                 <textarea
                   rows={2}
                   value={feature.description}
-                  onChange={(e) => updateFeature(index, 'description', e.target.value)}
+                  onChange={(e: any) => updateFeature(index, 'description', e.target.value)}
                   placeholder="Description"
                   style={{ width: '100%', padding: '0.75rem', backgroundColor: '#1A1A1A', border: '1px solid #333', borderRadius: '6px', color: '#fff', outline: 'none', fontSize: '0.9rem', fontFamily: 'inherit' }}
                 />
@@ -301,14 +301,14 @@ export default function WhyChooseManager() {
                     type="file" 
                     accept="image/*" 
                     style={{ display: 'none' }} 
-                    onChange={(e) => uploadImage(e, `feature_${index}`, index)}
+                    onChange={(e: any) => uploadImage(e, `feature_${index}`, index)}
                     disabled={uploadingState[`feature_${index}`]}
                   />
                 </label>
                 <input
                   type="text"
                   value={feature.imageUrl}
-                  onChange={(e) => updateFeature(index, 'imageUrl', e.target.value)}
+                  onChange={(e: any) => updateFeature(index, 'imageUrl', e.target.value)}
                   placeholder="Or URL..."
                   style={{ width: '100%', padding: '0.5rem', backgroundColor: '#1A1A1A', border: '1px solid #333', borderRadius: '4px', color: '#fff', outline: 'none', fontSize: '0.75rem' }}
                 />

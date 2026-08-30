@@ -30,7 +30,7 @@ export default function OverviewPage() {
       try {
         const response = await api.get('/api/discover/overview');
         setData(response);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load overview data', err);
       } finally {
         setLoading(false);

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import ImageUpload from '../../../components/ImageUpload';
 import { CheckCircle2 } from 'lucide-react';
 import { api } from '../../../lib/api';
 
@@ -118,7 +119,7 @@ export default function VisionMissionManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Hero Title *</label>
               <textarea 
                 value={data.heroTitle || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, heroTitle: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, heroTitle: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -127,41 +128,18 @@ export default function VisionMissionManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Hero Subtitle *</label>
               <textarea 
                 value={data.heroSubtitle || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, heroSubtitle: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, heroSubtitle: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
 
-            <div>
-              <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Hero Image URL *</label>
-              <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                <input 
-                  type="text" 
-                  value={data.heroImage || ''}
-                  onChange={(e) => setData((prev: any) => ({ ...prev!, heroImage: e.target.value }))}
-                  style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
-                  placeholder="Enter URL or upload file"
-                />
-                <button 
-                  type="button"
-                  onClick={() => { setCurrentUploadField('heroImage'); fileInputRef.current?.click(); }}
-                  style={{ backgroundColor: '#222', color: '#fff', border: '1px solid #333', padding: '0 1.5rem', borderRadius: '8px', cursor: 'pointer' }}
-                >
-                  Upload
-                </button>
-              </div>
-              {data.heroImage && (
-                <div style={{ width: '150px', height: '150px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #333' }}>
-                  <img src={data.heroImage} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-              )}
-            </div>
+            <ImageUpload label="Hero Image" value={data.heroImage || ''} onChange={(url) => setData((prev: any) => ({ ...prev!, heroImage: url }))} />
 
             <div>
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Vision *</label>
               <textarea 
                 value={data.vision || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, vision: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, vision: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -170,7 +148,7 @@ export default function VisionMissionManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Mission *</label>
               <textarea 
                 value={data.mission || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, mission: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, mission: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -179,7 +157,7 @@ export default function VisionMissionManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Healthcare Philosophy *</label>
               <textarea 
                 value={data.healthcarePhilosophy || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, healthcarePhilosophy: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, healthcarePhilosophy: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -193,7 +171,7 @@ export default function VisionMissionManager() {
                       <input 
                         type="text"
                         value={item.title || ''}
-                        onChange={(e) => handleArrayChange('missionPillars', idx, 'title', e.target.value)}
+                        onChange={(e: any) => handleArrayChange('missionPillars', idx, 'title', e.target.value)}
                         style={{ width: '100%', padding: '0.5rem', backgroundColor: '#222', border: '1px solid #444', borderRadius: '4px', color: '#fff', marginBottom: '0.5rem' }}
                         placeholder="Title"
                       />
@@ -201,7 +179,7 @@ export default function VisionMissionManager() {
                       <input 
                         type="text"
                         value={item.description || ''}
-                        onChange={(e) => handleArrayChange('missionPillars', idx, 'description', e.target.value)}
+                        onChange={(e: any) => handleArrayChange('missionPillars', idx, 'description', e.target.value)}
                         style={{ width: '100%', padding: '0.5rem', backgroundColor: '#222', border: '1px solid #444', borderRadius: '4px', color: '#fff', marginBottom: '0.5rem' }}
                         placeholder="Description"
                       />
@@ -226,7 +204,7 @@ export default function VisionMissionManager() {
                       <input 
                         type="text"
                         value={item.title || ''}
-                        onChange={(e) => handleArrayChange('coreValues', idx, 'title', e.target.value)}
+                        onChange={(e: any) => handleArrayChange('coreValues', idx, 'title', e.target.value)}
                         style={{ width: '100%', padding: '0.5rem', backgroundColor: '#222', border: '1px solid #444', borderRadius: '4px', color: '#fff', marginBottom: '0.5rem' }}
                         placeholder="Title"
                       />
@@ -234,7 +212,7 @@ export default function VisionMissionManager() {
                       <input 
                         type="text"
                         value={item.description || ''}
-                        onChange={(e) => handleArrayChange('coreValues', idx, 'description', e.target.value)}
+                        onChange={(e: any) => handleArrayChange('coreValues', idx, 'description', e.target.value)}
                         style={{ width: '100%', padding: '0.5rem', backgroundColor: '#222', border: '1px solid #444', borderRadius: '4px', color: '#fff', marginBottom: '0.5rem' }}
                         placeholder="Description"
                       />

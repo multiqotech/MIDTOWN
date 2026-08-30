@@ -167,7 +167,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Job Title *</label>
               <textarea 
                 value={editingItem?.title || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, title: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, title: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -176,7 +176,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Slug *</label>
               <textarea 
                 value={editingItem?.slug || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, slug: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, slug: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -185,7 +185,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Department *</label>
               <textarea 
                 value={editingItem?.department || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, department: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, department: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -194,7 +194,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Location *</label>
               <textarea 
                 value={editingItem?.location || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, location: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, location: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -203,7 +203,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Employment Type *</label>
               <textarea 
                 value={editingItem?.employmentType || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, employmentType: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, employmentType: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -212,7 +212,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Experience Required *</label>
               <textarea 
                 value={editingItem?.experienceRequired || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, experienceRequired: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, experienceRequired: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -221,7 +221,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Short Description *</label>
               <textarea 
                 value={editingItem?.shortDescription || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, shortDescription: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, shortDescription: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -230,7 +230,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Full Description *</label>
               <textarea 
                 value={editingItem?.fullDescription || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, fullDescription: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, fullDescription: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -239,7 +239,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Requirements (comma separated) *</label>
               <textarea 
                 value={(editingItem?.requirements || []).join(', ')}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, requirements: e.target.value.split(',').map(s=>s.trim()) }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, requirements: e.target.value.split(',').map(s=>s.trim()) }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -248,7 +248,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Responsibilities (comma separated) *</label>
               <textarea 
                 value={(editingItem?.responsibilities || []).join(', ')}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, responsibilities: e.target.value.split(',').map(s=>s.trim()) }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, responsibilities: e.target.value.split(',').map(s=>s.trim()) }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -257,7 +257,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Application Link *</label>
               <textarea 
                 value={editingItem?.applicationLink || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, applicationLink: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, applicationLink: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -266,7 +266,7 @@ export default function CareersManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Status (published/draft/closed) *</label>
               <textarea 
                 value={editingItem?.status || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, status: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, status: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>

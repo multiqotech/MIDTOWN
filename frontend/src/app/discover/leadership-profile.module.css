@@ -1,0 +1,180 @@
+.main {
+  background-color: #f9fbfd;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profileWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+@media (min-width: 900px) {
+  .profileWrapper {
+    flex-direction: row;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  background-color: #0076a8;
+  color: white;
+  position: relative;
+}
+
+@media (min-width: 900px) {
+  .sidebar {
+    width: 350px;
+    flex-shrink: 0;
+  }
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.sidebarContent {
+  padding: 2rem;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.designation {
+  font-size: 1.1rem;
+  color: #a3d9f3;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.metaSection {
+  margin-bottom: 1.5rem;
+}
+
+.metaTitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #a3d9f3;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.metaValue {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 3rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  color: #0076a8;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.sectionTitle::after {
+  content: '';
+  flex-grow: 1;
+  height: 2px;
+  background: #f1f8fc;
+  margin-left: 1rem;
+}
+
+.biography {
+  color: #4a5568;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.listItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #f6a118;
+}
+
+.messageBox {
+  background: #f1f8fc;
+  border-left: 4px solid #0076a8;
+  padding: 2rem;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #2d3748;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  color: #0076a8;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.backLink span {
+  margin-right: 8px;
+}
+
+.backLink:hover {
+  transform: translateX(-5px);
+}
+
+.loading {
+  text-align: center;
+  padding: 10rem;
+  font-size: 1.5rem;
+  color: #666;
+}

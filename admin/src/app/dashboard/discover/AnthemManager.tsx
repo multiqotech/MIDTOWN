@@ -118,7 +118,7 @@ export default function AnthemManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Page Title *</label>
               <textarea 
                 value={data.pageTitle || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, pageTitle: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, pageTitle: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -127,7 +127,7 @@ export default function AnthemManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Introduction *</label>
               <textarea 
                 value={data.introduction || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, introduction: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, introduction: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -136,7 +136,7 @@ export default function AnthemManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Anthem Story *</label>
               <textarea 
                 value={data.anthemStory || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, anthemStory: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, anthemStory: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -147,7 +147,7 @@ export default function AnthemManager() {
                 <input 
                   type="text" 
                   value={data.audioFileUrl || ''}
-                  onChange={(e) => setData((prev: any) => ({ ...prev!, audioFileUrl: e.target.value }))}
+                  onChange={(e: any) => setData((prev: any) => ({ ...prev!, audioFileUrl: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter URL or upload file"
                 />
@@ -172,7 +172,7 @@ export default function AnthemManager() {
                 <input 
                   type="text" 
                   value={data.videoUrl || ''}
-                  onChange={(e) => setData((prev: any) => ({ ...prev!, videoUrl: e.target.value }))}
+                  onChange={(e: any) => setData((prev: any) => ({ ...prev!, videoUrl: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter URL or upload file"
                 />
@@ -197,7 +197,7 @@ export default function AnthemManager() {
                 <input 
                   type="text" 
                   value={data.coverImage || ''}
-                  onChange={(e) => setData((prev: any) => ({ ...prev!, coverImage: e.target.value }))}
+                  onChange={(e: any) => setData((prev: any) => ({ ...prev!, coverImage: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter URL or upload file"
                 />
@@ -220,7 +220,7 @@ export default function AnthemManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Credits *</label>
               <textarea 
                 value={data.credits || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, credits: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, credits: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>
@@ -229,7 +229,7 @@ export default function AnthemManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Lyrics *</label>
               <textarea 
                 value={data.lyrics || ''}
-                onChange={(e) => setData((prev: any) => ({ ...prev!, lyrics: e.target.value }))}
+                onChange={(e: any) => setData((prev: any) => ({ ...prev!, lyrics: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '80px' }}
               />
             </div>

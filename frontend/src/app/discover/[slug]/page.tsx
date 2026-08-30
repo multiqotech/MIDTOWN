@@ -1,32 +1,70 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import styles from './DiscoverPage.module.css';
-import { discoverContent } from '@/lib/discover-content';
+import { api } from '@/lib/api';
 
-// This function tells Next.js which paths to pre-render at build time
-export function generateStaticParams() {
-  return Object.keys(discoverContent).map((slug) => ({
-    slug: slug,
-  }));
+interface ContentBlock {
+  title: string;
+  text: string;
+  image?: string;
 }
 
-export default async function DiscoverPage({ params }: { params: Promise<{ slug: string }> }) {
-  // the-midtown-story, academics-research, etc.
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
-  
-  // Leadership has its own dedicated page
-  if (slug === 'our-leadership') {
-    return null; // Should be handled by its own route, but just in case
+interface Stat {
+  label: string;
+  value: string;
+}
+
+interface PageData {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroImage: string;
+  contentBlocks: ContentBlock[];
+  statistics?: Stat[];
+}
+
+export default function DiscoverPage({ params }: { params: Promise<{ slug: string }> }) {
+  const [slug, setSlug] = useState('');
+  const [data, setData] = useState<PageData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    params.then(p => {
+      setSlug(p.slug);
+      api.get(`/api/discover/${p.slug}`)
+        .then((result: any) => {
+          if (result && result.heroTitle) {
+            setData(result);
+          } else {
+            setNotFound(true);
+          }
+        })
+        .catch(() => setNotFound(true))
+        .finally(() => setLoading(false));
+    });
+  }, [params]);
+
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <main className={styles.main}>
+          <div className={styles.loadingContainer}>
+            <div className={styles.spinner}></div>
+            <p>Loading...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
   }
 
-  const data = discoverContent[slug];
-
-  if (!data) {
+  if (notFound || !data) {
     return (
       <>
         <Header />
@@ -48,41 +86,57 @@ export default async function DiscoverPage({ params }: { params: Promise<{ slug:
       <main className={styles.main}>
         {/* Hero Section */}
         <section className={styles.hero}>
-          <Image
-            src={data.heroImage}
-            alt={data.title}
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
-          />
+          {data.heroImage && (
+            <Image
+              src={data.heroImage}
+              alt={data.heroTitle}
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+          )}
           <div className={styles.overlay}></div>
           <div className={styles.heroContent}>
-            <h1 className={styles.title}>{data.title}</h1>
-            <p className={styles.subtitle}>{data.subtitle}</p>
+            <h1 className={styles.title}>{data.heroTitle}</h1>
+            <p className={styles.subtitle}>{data.heroSubtitle}</p>
           </div>
         </section>
 
+        {/* Statistics */}
+        {data.statistics && data.statistics.length > 0 && (
+          <section className={styles.statsSection}>
+            <div className={styles.statsGrid}>
+              {data.statistics.map((stat: Stat, i: number) => (
+                <div key={i} className={styles.statCard}>
+                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Content Sections */}
         <div className={styles.contentContainer}>
-          {data.sections.map((section, idx) => (
-            <div 
-              key={idx} 
+          {data.contentBlocks.map((section: ContentBlock, idx: number) => (
+            <div
+              key={idx}
               className={`${styles.section} ${section.image ? styles.sectionWithImage : ''}`}
             >
               <div className={styles.textContent}>
-                <h2 className={styles.heading}>{section.heading}</h2>
-                {section.content.map((paragraph, pIdx) => (
+                <h2 className={styles.heading}>{section.title}</h2>
+                {section.text.split('\n\n').map((paragraph: string, pIdx: number) => (
                   <p key={pIdx} className={styles.paragraph}>{paragraph}</p>
                 ))}
               </div>
-              
+
               {section.image && (
                 <div className={styles.imageWrapper}>
-                  <Image 
-                    src={section.image} 
-                    alt={section.heading} 
-                    fill 
-                    style={{ objectFit: 'cover' }} 
+                  <Image
+                    src={section.image}
+                    alt={section.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
               )}

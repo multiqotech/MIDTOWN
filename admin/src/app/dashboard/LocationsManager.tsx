@@ -267,7 +267,7 @@ export default function LocationsManager() {
               <input 
                 type="text" 
                 value={editingCity?.name || ''}
-                onChange={(e) => setEditingCity({ ...editingCity!, name: e.target.value })}
+                onChange={(e: any) => setEditingCity({ ...editingCity!, name: e.target.value })}
                 placeholder="e.g. New York, London, Delhi"
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
@@ -284,7 +284,7 @@ export default function LocationsManager() {
                     <input 
                       type="url" 
                       value={editingCity?.imageUrl || ''}
-                      onChange={(e) => setEditingCity({ ...editingCity!, imageUrl: e.target.value })}
+                      onChange={(e: any) => setEditingCity({ ...editingCity!, imageUrl: e.target.value })}
                       placeholder="Paste Image URL"
                       style={{ flex: 1, padding: '0.375rem 0', backgroundColor: 'transparent', border: 'none', color: '#fff', outline: 'none' }}
                     />
@@ -302,7 +302,7 @@ export default function LocationsManager() {
                       <input 
                         type="text" 
                         value={uploadPreset}
-                        onChange={(e) => setUploadPreset(e.target.value)}
+                        onChange={(e: any) => setUploadPreset(e.target.value)}
                         style={{ padding: '0.25rem 0.5rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '4px', color: '#fff', fontSize: '0.75rem', flex: 1 }}
                       />
                     </div>
@@ -362,7 +362,7 @@ export default function LocationsManager() {
                           <input 
                             type="text" 
                             value={loc.name}
-                            onChange={(e) => updateLocation(index, 'name', e.target.value)}
+                            onChange={(e: any) => updateLocation(index, 'name', e.target.value)}
                             placeholder="e.g. Midtown Central Hospital"
                             style={{ width: '100%', padding: '0.75rem', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#fff', outline: 'none' }}
                           />
@@ -372,7 +372,7 @@ export default function LocationsManager() {
                           <input 
                             type="text" 
                             value={loc.mapUrl}
-                            onChange={(e) => updateLocation(index, 'mapUrl', e.target.value)}
+                            onChange={(e: any) => updateLocation(index, 'mapUrl', e.target.value)}
                             placeholder="https://www.google.com/maps/embed?..."
                             style={{ width: '100%', padding: '0.75rem', backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: '6px', color: '#fff', outline: 'none' }}
                           />

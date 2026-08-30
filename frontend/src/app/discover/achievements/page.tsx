@@ -31,7 +31,7 @@ export default function AchievementsPage() {
         // Sort by display order or year
         published.sort((a: Milestone, b: Milestone) => a.displayOrder - b.displayOrder);
         setMilestones(published);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load milestones data', err);
       } finally {
         setLoading(false);

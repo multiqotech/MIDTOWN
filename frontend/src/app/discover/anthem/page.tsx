@@ -27,7 +27,7 @@ export default function AnthemPage() {
       try {
         const response = await api.get('/api/discover/anthem');
         setData(response);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load anthem data', err);
       } finally {
         setLoading(false);

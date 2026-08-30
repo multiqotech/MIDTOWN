@@ -30,7 +30,7 @@ export default function AwardsPage() {
         const published = response.filter((item: Award) => item.publishedStatus === 'published');
         published.sort((a: Award, b: Award) => a.displayOrder - b.displayOrder);
         setAwards(published);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load awards data', err);
       } finally {
         setLoading(false);

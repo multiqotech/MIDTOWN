@@ -31,7 +31,7 @@ export default function CareersPage() {
         const response = await api.get('/api/discover/jobs');
         // Filter out drafts
         setJobs(response.filter((job: Job) => job.status === 'published'));
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load jobs', err);
       } finally {
         setLoading(false);

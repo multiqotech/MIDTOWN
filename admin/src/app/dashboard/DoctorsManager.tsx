@@ -242,7 +242,7 @@ export default function DoctorsManager() {
                   required
                   type="text" 
                   value={editingDoctor?.name || ''}
-                  onChange={(e) => setEditingDoctor(prev => ({ ...prev!, name: e.target.value }))}
+                  onChange={(e: any) => setEditingDoctor(prev => ({ ...prev!, name: e.target.value }))}
                   style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="e.g. Dr. John Doe"
                 />
@@ -254,7 +254,7 @@ export default function DoctorsManager() {
                   required
                   type="text" 
                   value={editingDoctor?.specialist || ''}
-                  onChange={(e) => setEditingDoctor(prev => ({ ...prev!, specialist: e.target.value }))}
+                  onChange={(e: any) => setEditingDoctor(prev => ({ ...prev!, specialist: e.target.value }))}
                   style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="e.g. Cardiology"
                 />
@@ -268,7 +268,7 @@ export default function DoctorsManager() {
                   required
                   type="text" 
                   value={editingDoctor?.qualification || ''}
-                  onChange={(e) => setEditingDoctor(prev => ({ ...prev!, qualification: e.target.value }))}
+                  onChange={(e: any) => setEditingDoctor(prev => ({ ...prev!, qualification: e.target.value }))}
                   style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="e.g. MD, MBBS"
                 />
@@ -279,7 +279,7 @@ export default function DoctorsManager() {
                 <input 
                   type="text" 
                   value={editingDoctor?.extra || ''}
-                  onChange={(e) => setEditingDoctor(prev => ({ ...prev!, extra: e.target.value }))}
+                  onChange={(e: any) => setEditingDoctor(prev => ({ ...prev!, extra: e.target.value }))}
                   style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="e.g. 15 Years Experience"
                 />
@@ -291,7 +291,7 @@ export default function DoctorsManager() {
               <textarea 
                 required
                 value={editingDoctor?.description || ''}
-                onChange={(e) => setEditingDoctor(prev => ({ ...prev!, description: e.target.value }))}
+                onChange={(e: any) => setEditingDoctor(prev => ({ ...prev!, description: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none', minHeight: '120px', fontFamily: 'inherit' }}
                 placeholder="Doctor's biography and experience..."
               />
@@ -305,7 +305,7 @@ export default function DoctorsManager() {
                   required
                   type="text" 
                   value={editingDoctor?.imageUrl || ''}
-                  onChange={(e) => setEditingDoctor(prev => ({ ...prev!, imageUrl: e.target.value }))}
+                  onChange={(e: any) => setEditingDoctor(prev => ({ ...prev!, imageUrl: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter image URL or upload file"
                 />

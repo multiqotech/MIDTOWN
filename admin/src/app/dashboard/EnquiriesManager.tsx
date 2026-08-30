@@ -123,7 +123,7 @@ export default function EnquiriesManager() {
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <select 
                   value={enquiry.status}
-                  onChange={(e) => updateStatus(enquiry._id, e.target.value)}
+                  onChange={(e: any) => updateStatus(enquiry._id, e.target.value)}
                   style={{ 
                     backgroundColor: '#333', 
                     color: '#fff', 

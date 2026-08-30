@@ -167,7 +167,7 @@ export default function AwardsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Award Name *</label>
               <textarea 
                 value={editingItem?.awardName || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, awardName: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, awardName: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -176,7 +176,7 @@ export default function AwardsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Awarding Organization *</label>
               <textarea 
                 value={editingItem?.awardingOrganization || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, awardingOrganization: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, awardingOrganization: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -185,7 +185,7 @@ export default function AwardsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Year *</label>
               <textarea 
                 value={editingItem?.year || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, year: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, year: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -194,7 +194,7 @@ export default function AwardsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Category *</label>
               <textarea 
                 value={editingItem?.category || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, category: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, category: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -203,7 +203,7 @@ export default function AwardsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Description *</label>
               <textarea 
                 value={editingItem?.description || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, description: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, description: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -214,7 +214,7 @@ export default function AwardsManager() {
                 <input 
                   type="text" 
                   value={editingItem?.certificateImage || ''}
-                  onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, certificateImage: e.target.value }))}
+                  onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, certificateImage: e.target.value }))}
                   style={{ flex: 1, padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
                   placeholder="Enter URL or upload file"
                 />
@@ -237,7 +237,7 @@ export default function AwardsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Published Status (published/draft) *</label>
               <textarea 
                 value={editingItem?.publishedStatus || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, publishedStatus: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, publishedStatus: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>

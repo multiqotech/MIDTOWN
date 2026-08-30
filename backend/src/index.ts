@@ -28,6 +28,12 @@ import { DiscoverOverview } from './models/DiscoverOverview.js';
 import { DayAtMidtownContent } from './models/DayAtMidtownContent.js';
 import { VisionMission } from './models/VisionMission.js';
 import { AnthemContent } from './models/AnthemContent.js';
+import { DiscoverPageContent } from './models/DiscoverPageContent.js';
+import { ProgramInitiative } from './models/ProgramInitiative.js';
+import { DocumentResource } from './models/DocumentResource.js';
+import { NewsArticle } from './models/NewsArticle.js';
+import { Recognition } from './models/Recognition.js';
+
 const app = express();
 const PORT = 5000;
 
@@ -951,13 +957,163 @@ const generateCrudRoutes = (path: string, Model: mongoose.Model<any>, sortField?
   app.delete(`/api/discover/${path}/:id`, requireAdmin, (req, res) => deleteCollectionItem(Model, req, res));
 };
 
+const generateFilteredCrudRoutes = (path: string, Model: mongoose.Model<any>, filter: any, sortField = 'displayOrder') => {
+  app.get(`/api/discover/${path}`, async (req, res) => {
+    try {
+      const items = await Model.find(filter).sort({ [sortField]: 1, createdAt: -1 });
+      res.json(items);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  app.get(`/api/discover/${path}/:slugOrId`, async (req, res) => {
+    try {
+      let item;
+      if (mongoose.isValidObjectId(req.params.slugOrId)) {
+        item = await Model.findOne({ _id: req.params.slugOrId, ...filter });
+      } else {
+        item = await Model.findOne({ slug: req.params.slugOrId, ...filter });
+      }
+      
+      if (item) res.json(item);
+      else res.status(404).json({ message: 'Not found' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  app.post(`/api/discover/${path}`, requireAdmin, async (req, res) => {
+    try {
+      const item = await Model.create({ ...req.body, ...filter });
+      res.status(201).json(item);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+    }
+  });
+
+  app.put(`/api/discover/${path}/:id`, requireAdmin, async (req, res) => {
+    try {
+      const item = await Model.findOneAndUpdate({ _id: req.params.id, ...filter }, { ...req.body, ...filter }, { new: true });
+      if (item) res.json(item);
+      else res.status(404).json({ message: 'Not found' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  app.delete(`/api/discover/${path}/:id`, requireAdmin, async (req, res) => {
+    try {
+      const item = await Model.findOneAndDelete({ _id: req.params.id, ...filter });
+      if (item) res.status(204).send();
+      else res.status(404).json({ message: 'Not found' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+};
+
+const generateSingletonFilteredRoutes = (path: string, Model: mongoose.Model<any>, filter: any) => {
+  app.get(`/api/discover/${path}`, async (req, res) => {
+    try {
+      let data = await Model.findOne(filter);
+      if (!data) {
+        data = await Model.create(filter);
+      }
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  app.put(`/api/discover/${path}`, requireAdmin, async (req, res) => {
+    try {
+      let data = await Model.findOne(filter);
+      if (data) {
+        data = await Model.findOneAndUpdate(filter, { ...req.body, ...filter }, { new: true });
+      } else {
+        data = await Model.create({ ...req.body, ...filter });
+      }
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+};
+
+// Category Overviews (Singletons)
+generateSingletonFilteredRoutes('the-midtown-story', DiscoverPageContent, { pageType: 'the-midtown-story' });
+generateSingletonFilteredRoutes('academics-research', DiscoverPageContent, { pageType: 'academics-research' });
+generateSingletonFilteredRoutes('csr-sustainability', DiscoverPageContent, { pageType: 'csr-sustainability' });
+generateSingletonFilteredRoutes('corporate-governance', DiscoverPageContent, { pageType: 'corporate-governance' });
+generateSingletonFilteredRoutes('investor-relations', DiscoverPageContent, { pageType: 'investor-relations' });
+generateSingletonFilteredRoutes('media-centre', DiscoverPageContent, { pageType: 'media-centre' });
+generateSingletonFilteredRoutes('corporate-partnerships', DiscoverPageContent, { pageType: 'corporate-partnerships' });
+generateSingletonFilteredRoutes('healers-circle', DiscoverPageContent, { pageType: 'healers-circle' });
+generateSingletonFilteredRoutes('clinical-quality', DiscoverPageContent, { pageType: 'clinical-quality' });
+
 // Collections
 generateCrudRoutes('jobs', Job, 'createdAt');
-generateCrudRoutes('leadership', LeadershipMember);
+generateFilteredCrudRoutes('board-of-directors', LeadershipMember, { type: 'board' });
+generateFilteredCrudRoutes('executive-team', LeadershipMember, { type: 'executive' });
+generateFilteredCrudRoutes('medical-council', LeadershipMember, { type: 'medical-council' });
 generateCrudRoutes('group-brands', GroupBrand);
 generateCrudRoutes('awards', Award);
 generateCrudRoutes('alliances', Alliance);
 generateCrudRoutes('milestones', Milestone);
+
+// Academics & Research
+generateSingletonFilteredRoutes('medical-education', DiscoverPageContent, { pageType: 'medical-education' });
+generateSingletonFilteredRoutes('nursing-education', DiscoverPageContent, { pageType: 'nursing-education' });
+generateFilteredCrudRoutes('research-institutes', ProgramInitiative, { type: 'research-institute' });
+generateFilteredCrudRoutes('clinical-trials', ProgramInitiative, { type: 'clinical-trial' });
+generateFilteredCrudRoutes('publications', DocumentResource, { type: 'publication' });
+generateFilteredCrudRoutes('fellowships', ProgramInitiative, { type: 'fellowship' });
+
+// CSR & Sustainability
+generateFilteredCrudRoutes('health-camps', ProgramInitiative, { type: 'health-camp' });
+generateFilteredCrudRoutes('community-outreach', ProgramInitiative, { type: 'csr-initiative' });
+generateFilteredCrudRoutes('environmental-initiatives', ProgramInitiative, { type: 'environmental-initiative' });
+generateFilteredCrudRoutes('waste-management', ProgramInitiative, { type: 'waste-management' });
+generateFilteredCrudRoutes('green-hospitals', ProgramInitiative, { type: 'green-hospital' });
+
+// Corporate Governance
+generateFilteredCrudRoutes('board-committees', ProgramInitiative, { type: 'board-committee' });
+generateFilteredCrudRoutes('policies-guidelines', DocumentResource, { type: 'policy' });
+generateSingletonFilteredRoutes('ethics-compliance', DiscoverPageContent, { pageType: 'ethics-compliance' });
+
+// Investor Relations
+generateFilteredCrudRoutes('financial-results', DocumentResource, { type: 'financial-result' });
+generateFilteredCrudRoutes('annual-reports', DocumentResource, { type: 'annual-report' });
+generateSingletonFilteredRoutes('shareholder-info', DiscoverPageContent, { pageType: 'shareholder-info' });
+generateFilteredCrudRoutes('corporate-announcements', NewsArticle, { type: 'corporate-announcement' });
+generateSingletonFilteredRoutes('stock-information', DiscoverPageContent, { pageType: 'stock-information' });
+
+// Media Centre
+generateFilteredCrudRoutes('press-releases', NewsArticle, { type: 'press-release' });
+generateFilteredCrudRoutes('in-the-news', NewsArticle, { type: 'in-the-news' });
+generateFilteredCrudRoutes('media-kit', DocumentResource, { type: 'media-kit' });
+generateFilteredCrudRoutes('brand-guidelines', DocumentResource, { type: 'brand-guideline' });
+generateFilteredCrudRoutes('event-gallery', NewsArticle, { type: 'event-gallery' });
+
+// Corporate Partnerships
+generateFilteredCrudRoutes('corporate-tie-ups', ProgramInitiative, { type: 'corporate-tie-up' });
+generateFilteredCrudRoutes('wellness-programs', ProgramInitiative, { type: 'wellness-program' });
+generateFilteredCrudRoutes('insurance-partners', ProgramInitiative, { type: 'insurance-partner' });
+generateSingletonFilteredRoutes('tpa-desk', DiscoverPageContent, { pageType: 'tpa-desk' });
+
+// Healers' Circle
+generateSingletonFilteredRoutes('nursing-excellence', DiscoverPageContent, { pageType: 'nursing-excellence' });
+generateFilteredCrudRoutes('doctor-awards', Recognition, { type: 'doctor-award' });
+generateSingletonFilteredRoutes('paramedical-staff', DiscoverPageContent, { pageType: 'paramedical-staff' });
+generateFilteredCrudRoutes('employee-spotlights', Recognition, { type: 'employee-spotlight' });
+
+// Clinical Quality & Outcomes
+generateFilteredCrudRoutes('quality-certifications', Recognition, { type: 'quality-certification' });
+generateSingletonFilteredRoutes('infection-control', DiscoverPageContent, { pageType: 'infection-control' });
+generateSingletonFilteredRoutes('patient-safety', DiscoverPageContent, { pageType: 'patient-safety' });
+generateFilteredCrudRoutes('clinical-indicators', DocumentResource, { type: 'clinical-indicator' });
+generateSingletonFilteredRoutes('feedback-mechanism', DiscoverPageContent, { pageType: 'feedback-mechanism' });
 
 
 // --- Newsletter Subscription API Endpoints ---

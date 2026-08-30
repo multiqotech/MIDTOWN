@@ -27,7 +27,7 @@ export default function VisionMissionPage() {
       try {
         const response = await api.get('/api/discover/vision-mission');
         setData(response);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load vision/mission data', err);
       } finally {
         setLoading(false);

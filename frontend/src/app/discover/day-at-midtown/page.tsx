@@ -28,7 +28,7 @@ export default function DayAtMidtownPage() {
       try {
         const response = await api.get('/api/discover/day-at-midtown');
         setData(response);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to load day at midtown data', err);
       } finally {
         setLoading(false);

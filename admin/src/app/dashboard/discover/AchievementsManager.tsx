@@ -167,7 +167,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Year or Date *</label>
               <textarea 
                 value={editingItem?.yearOrDate || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, yearOrDate: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, yearOrDate: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -176,7 +176,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Title *</label>
               <textarea 
                 value={editingItem?.title || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, title: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, title: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -185,7 +185,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Slug *</label>
               <textarea 
                 value={editingItem?.slug || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, slug: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, slug: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -194,7 +194,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Description *</label>
               <textarea 
                 value={editingItem?.description || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, description: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, description: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -203,7 +203,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Image URL *</label>
               <textarea 
                 value={editingItem?.image || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, image: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, image: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -212,7 +212,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Category *</label>
               <textarea 
                 value={editingItem?.category || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, category: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, category: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
@@ -221,7 +221,7 @@ export default function AchievementsManager() {
               <label style={{ display: 'block', color: '#aaa', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Published Status (published/draft) *</label>
               <textarea 
                 value={editingItem?.publishedStatus || ''}
-                onChange={(e) => setEditingItem((prev: any) => ({ ...prev!, publishedStatus: e.target.value }))}
+                onChange={(e: any) => setEditingItem((prev: any) => ({ ...prev!, publishedStatus: e.target.value }))}
                 style={{ width: '100%', padding: '0.875rem', backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px', color: '#fff', outline: 'none' }}
               />
             </div>
