@@ -326,7 +326,7 @@
   text-align: center;
 }
 
-.statItem h3 {
+.statNumber {
   font-size: 2.2rem;
   font-weight: 800;
   color: #ffffff;
@@ -334,7 +334,7 @@
   letter-spacing: -1px;
 }
 
-.statItem p {
+.statLabel {
   font-size: 0.85rem;
   color: #a7f3d0;
   text-transform: uppercase;

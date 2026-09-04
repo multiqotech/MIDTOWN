@@ -8,6 +8,7 @@ import styles from './HeroSection.module.css';
 import { api } from '../../lib/api';
 import { Search, User, AlertCircle, Star, CheckCircle, ArrowRight, Phone } from 'lucide-react';
 import CallbackModal from '../common/CallbackModal';
+import CounterAnimation from '../ui/CounterAnimation';
 
 interface Doctor {
   _id: string;
@@ -232,23 +233,19 @@ export default function HeroSection() {
       <div className={styles.statsBarWrapper}>
         <div className={styles.statsContainer}>
           <div className={styles.statItem}>
-            <h3>120+</h3>
-            <p>Expert Doctors</p>
+            <CounterAnimation end={120} suffix="+" label="Expert Doctors" numberClassName={styles.statNumber} labelClassName={styles.statLabel} />
           </div>
           <div className={styles.statDivider}></div>
           <div className={styles.statItem}>
-            <h3>35+</h3>
-            <p>Departments</p>
+            <CounterAnimation end={35} suffix="+" label="Departments" numberClassName={styles.statNumber} labelClassName={styles.statLabel} />
           </div>
           <div className={styles.statDivider}></div>
           <div className={styles.statItem}>
-            <h3>4.9</h3>
-            <p>Patient Rating</p>
+            <CounterAnimation end={4.9} decimals={1} label="Patient Rating" numberClassName={styles.statNumber} labelClassName={styles.statLabel} />
           </div>
           <div className={styles.statDivider}></div>
           <div className={styles.statItem}>
-            <h3>1M+</h3>
-            <p>Happy Patients</p>
+            <CounterAnimation end={1} suffix="M+" label="Happy Patients" numberClassName={styles.statNumber} labelClassName={styles.statLabel} />
           </div>
         </div>
       </div>

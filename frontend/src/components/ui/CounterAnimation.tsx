@@ -8,6 +8,9 @@ export interface CounterAnimationProps {
   suffix?: string;
   label: string;
   duration?: number;
+  decimals?: number;
+  numberClassName?: string;
+  labelClassName?: string;
 }
 
 export const CounterAnimation: React.FC<CounterAnimationProps> = ({
@@ -15,6 +18,9 @@ export const CounterAnimation: React.FC<CounterAnimationProps> = ({
   suffix = '',
   label,
   duration = 2000,
+  decimals = 0,
+  numberClassName,
+  labelClassName,
 }) => {
   const [count, setCount] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,8 +39,8 @@ export const CounterAnimation: React.FC<CounterAnimationProps> = ({
             if (!startTime) startTime = time;
             const progress = time - startTime;
             const percent = Math.min(progress / duration, 1);
-            
-            setCount(Math.floor(end * easeOutQuart(percent)));
+            const value = end * easeOutQuart(percent);
+            setCount(value);
 
             if (progress < duration) {
               requestAnimationFrame(animate);
@@ -60,10 +66,10 @@ export const CounterAnimation: React.FC<CounterAnimationProps> = ({
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <div className={styles.number}>
-        {count}{suffix}
+      <div className={numberClassName || styles.number}>
+        {count.toFixed(decimals)}{suffix}
       </div>
-      <div className={styles.label}>{label}</div>
+      <div className={labelClassName || styles.label}>{label}</div>
     </div>
   );
 };

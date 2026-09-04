@@ -22,7 +22,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <StatsSection />
+        {/* <StatsSection /> */}
         <ValueProposition />
         <AboutSection />
         <ClinicalExcellence />
