@@ -233,8 +233,10 @@ export const FOOTER_LINKS: FooterLinks = {
 };
 
 export const CONTACT_INFO = {
-  phone: '+91 800 123 4567',
+  phone: '9635086444',
   emergency: '1066',
-  email: 'info@midtownhospital.com',
-  address: '123 Health Avenue, Medical District, City Center, 400001',
+  email: 'info@midtownhospital.in',
+  address: 'Head Office: 414, Shreya Amalga, Opposite Avalon Hotel, Thaltej, Ahmedabad, Gujarat 380059',
+  website: 'www.midtownhospital.in',
+  cin: 'U86100GJ2021PTC124333'
 };

@@ -116,23 +116,29 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Col 3: Specialties */}
+            {/* Col 3: Our Locations */}
             <div className={styles.col}>
               <h3 className={styles.heading}>
-                Specialties
+                Our Locations
                 <span className={styles.headingBar}></span>
               </h3>
               <ul className={styles.linkList}>
-                {FOOTER_LINKS.specialtyLinks.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href} className={styles.link}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link href="#locations" className={styles.link}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                    Kanpur, Uttar Pradesh
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#locations" className={styles.link}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                    Siliguri, West Bengal (Opening Soon)
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -169,6 +175,21 @@ export default function Footer() {
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
                   <span>{CONTACT_INFO.email}</span>
+                </li>
+                <li className={styles.contactItem}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>{CONTACT_INFO.website}</span>
+                </li>
+                <li className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '2px' }}>
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span style={{ fontSize: '0.8rem', lineHeight: '1.4' }}>CIN:<br/>{CONTACT_INFO.cin}</span>
                 </li>
               </ul>
             </div>

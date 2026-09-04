@@ -20,6 +20,11 @@ interface City {
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
 
+const CITY_DESCRIPTIONS: Record<string, string> = {
+  'Kanpur, Uttar Pradesh': 'Our fully operational Polyclinic and Diagnostic Centre and Pharmacy spans 1,500 sq. ft., offering a full range of diagnostic and outpatient services backed by modern equipment and experienced professionals.',
+  'Siliguri, West Bengal': 'A modern Out-Patient Department (OPD) and Diagnostic Centre spread across 4,000 sq. ft., featuring 20+ OPD facilities, a well-stocked pharmacy, advanced radiology, emergency care, and specialized dental services.'
+};
+
 export default function LocationsSection() {
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(true);
@@ -60,11 +65,11 @@ export default function LocationsSection() {
                 </div>
                 <div className={styles.cardContent}>
                   <h3 className={styles.locationTitle}>{city.name}</h3>
-                  <span className={styles.statusOpen}>
-                    {city.locations.length} Location{city.locations.length !== 1 ? 's' : ''}
+                  <span className={city.name.includes('Siliguri') ? styles.statusSoon : styles.statusOpen}>
+                    {city.name.includes('Siliguri') ? 'Opening Soon' : 'Now Open'}
                   </span>
                   <p className={styles.description}>
-                    Explore our state-of-the-art facilities in {city.name}, offering advanced medical care and comprehensive outpatient services.
+                    {CITY_DESCRIPTIONS[city.name] || `Explore our state-of-the-art facilities in ${city.name}, offering advanced medical care and comprehensive outpatient services.`}
                   </p>
                 </div>
               </div>
