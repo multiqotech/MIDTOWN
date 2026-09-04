@@ -151,13 +151,13 @@ export default function Header() {
             <Link href="/news" className={styles.navItem} style={{ textDecoration: 'none' }}>
               RECENT NEWS
             </Link>
-            <div 
+            {/* <div 
               className={styles.navItem} 
               style={{ cursor: 'pointer' }}
               onClick={() => scrollToSection('our-services')}
             >
               MEDICAL SERVICES
-            </div>
+            </div> */}
             <div 
               className={styles.navItem}
               style={{ cursor: 'pointer' }}
@@ -212,7 +212,7 @@ export default function Header() {
         <div className={styles.mobileMenu}>
           <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('meet-our-doctors'); }}>DOCTORS</div>
           <Link href="/news" className={styles.mobileNavItem} onClick={() => setMobileMenuOpen(false)}>RECENT NEWS</Link>
-          <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('our-services'); }}>MEDICAL SERVICES</div>
+          {/* <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('our-services'); }}>MEDICAL SERVICES</div> */}
           <div className={styles.mobileNavItem} onClick={() => { setMobileMenuOpen(false); scrollToSection('health-library'); }}>HEALTH LIBRARY</div>
         </div>
       )}

@@ -219,7 +219,7 @@ export const FOOTER_LINKS: FooterLinks = {
   quickLinks: [
     { label: 'Home', href: '/' },
     { label: 'DOCTORS', href: '/doctors' },
-    { label: 'MEDICAL SERVICES', href: '/services' },
+    // { label: 'MEDICAL SERVICES', href: '/services' },
     { label: 'RECENT NEWS', href: '/news' },
     { label: 'HEALTH LIBRARY', href: '/#health-library' },
   ],

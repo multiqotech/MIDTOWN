@@ -6,33 +6,36 @@ import styles from './LocationsSection.module.css';
 import { api } from '../../lib/api';
 
 interface Location {
-  _id?: string;
-  id?: string;
+  id: string;
   name: string;
-  address?: string;
-  description?: string;
-  status: string;
-  imageUrl?: string;
+  mapUrl: string;
+}
+
+interface City {
+  id: string;
+  name: string;
+  imageUrl: string;
+  locations: Location[];
 }
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
 
 export default function LocationsSection() {
-  const [locations, setLocations] = useState<Location[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchLocations() {
+    async function fetchCities() {
       try {
-        const data = await api.get('/api/locations');
-        setLocations(Array.isArray(data) ? data : data.data || []);
+        const data = await api.get('/api/cities');
+        setCities(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error('Failed to fetch locations:', error);
+        console.error('Failed to fetch cities:', error);
       } finally {
         setLoading(false);
       }
     }
-    fetchLocations();
+    fetchCities();
   }, []);
 
   return (
@@ -44,24 +47,24 @@ export default function LocationsSection() {
           <div className={styles.loading}>Loading locations...</div>
         ) : (
           <div className={styles.grid2Col}>
-            {locations.map((loc, idx) => (
-              <div key={loc._id || loc.id || idx} className={styles.locationCard}>
+            {cities.map((city, idx) => (
+              <div key={city.id || idx} className={styles.locationCard}>
                 <div className={styles.imageWrapper}>
                   <Image
-                    src={loc.imageUrl || FALLBACK_IMAGE}
-                    alt={loc.name}
+                    src={city.imageUrl || FALLBACK_IMAGE}
+                    alt={city.name}
                     fill
                     style={{ objectFit: 'cover' }}
                     className={styles.image}
                   />
                 </div>
                 <div className={styles.cardContent}>
-                  <h3 className={styles.locationTitle}>{loc.name}</h3>
-                  <span className={loc.status?.toLowerCase().includes('open') && !loc.status?.toLowerCase().includes('soon') ? styles.statusOpen : styles.statusSoon}>
-                    {loc.status || 'Opening Soon'}
+                  <h3 className={styles.locationTitle}>{city.name}</h3>
+                  <span className={styles.statusOpen}>
+                    {city.locations.length} Location{city.locations.length !== 1 ? 's' : ''}
                   </span>
                   <p className={styles.description}>
-                    {loc.address || loc.description}
+                    Explore our state-of-the-art facilities in {city.name}, offering advanced medical care and comprehensive outpatient services.
                   </p>
                 </div>
               </div>
