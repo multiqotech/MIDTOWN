@@ -1,120 +1,320 @@
 .section {
-  padding: 5rem 0;
+  padding: 6rem 0;
   background-color: #f8fafc;
+  overflow: hidden;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
 }
 
-.welcomeBlock, .aboutBlock, .leadershipBlock {
-  margin-bottom: 4rem;
+/* 1. WELCOME GRID */
+.welcomeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+
+/* Image Collage */
+.imageColumn {
+  position: relative;
+  height: 600px;
+}
+
+.imageWrapperMain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 80%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.mainImage {
+  transition: transform 0.5s ease;
+}
+
+.imageWrapperMain:hover .mainImage {
+  transform: scale(1.05);
+}
+
+.imageWrapperSecondary {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 55%;
+  height: 50%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 12px solid #f8fafc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.floatingBadge {
+  position: absolute;
+  top: 10%;
+  right: -5%;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 15px 35px rgba(0, 166, 118, 0.2);
+  z-index: 3;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.badgeNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #00A676;
+  line-height: 1;
+}
+
+.badgeText {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1e293b;
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+/* Content & Tabs */
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.kicker {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #00A676;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 1rem;
-  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -1px;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 3rem;
 }
 
 .subtitle {
   font-size: 1.5rem;
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
 }
 
-.description {
-  font-size: 1.125rem;
-  color: #475569;
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  text-align: center;
-}
-
-.features {
+.tabsContainer {
   background: white;
+  border-radius: 16px;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-.featureList {
-  list-style: none;
-  padding: 0;
+.tabHeaders {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.tabBtn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.tabBtn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.activeTabBtn {
+  background: #00A676;
+  color: white;
+}
+
+.activeTabBtn:hover {
+  background: #00A676;
+  color: white;
+}
+
+.tabContent {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  animation: fadeIn 0.3s ease;
+}
+
+.tabIcon {
+  background: #e6f6f1;
+  color: #00A676;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabContent p {
+  color: #475569;
+  line-height: 1.6;
+  font-size: 1.05rem;
   margin: 0;
 }
 
-.featureList li {
-  font-size: 1.125rem;
-  color: #475569;
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. VISION & MISSION PARALLAX BANNER */
+.parallaxBanner {
   position: relative;
+  background-color: #ffffff;
+  padding: 8rem 0;
+  margin: 4rem 0;
 }
 
-.featureList li::before {
-  content: "•";
-  color: #059669;
-  font-size: 1.5rem;
-  position: absolute;
-  left: 0;
-  top: -4px;
-}
-
-.grid2Col {
+.parallaxGrid {
+  position: relative;
+  z-index: 2;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
 }
 
-@media (min-width: 768px) {
-  .grid2Col {
-    grid-template-columns: 1fr 1fr;
+.parallaxCard {
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease;
+}
+
+.parallaxCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.parallaxIcon {
+  color: #00A676;
+  margin-bottom: 1.5rem;
+}
+
+.parallaxTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.parallaxText {
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* 3. DYNAMIC LEADERSHIP CAROUSEL */
+.leadershipSection {
+  padding-top: 4rem;
+}
+
+.leadershipHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.leadershipDesc {
+  max-width: 500px;
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+  text-align: right;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
+  .welcomeGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .imageColumn {
+    height: 500px;
+    margin-bottom: 3rem;
+  }
+
+  .parallaxGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .leadershipHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .leadershipDesc {
+    text-align: left;
   }
 }
 
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.2rem;
+  }
+  
+  .imageColumn {
+    height: 400px;
+  }
 
-.card p {
-  color: #475569;
-  line-height: 1.6;
-}
-
-.leaderCard {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  text-align: center;
-}
-
-.leaderName {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
-}
-
-.leaderRole {
-  display: block;
-  font-size: 1rem;
-  color: #059669;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.leaderCard p {
-  color: #475569;
-  line-height: 1.6;
+  .tabHeaders {
+    flex-direction: column;
+  }
 }

@@ -129,6 +129,28 @@ app.get('/api/cities', async (req: Request, res: Response) => {
   }
 });
 
+// GET all locations
+app.get('/api/locations', (req: Request, res: Response) => {
+  // Hardcoded location data to fulfill the dynamic frontend fetch
+  const locations = [
+    {
+      _id: 'loc1',
+      name: 'Kanpur, Uttar Pradesh',
+      status: 'Now Open',
+      description: 'Our fully operational Polyclinic and Diagnostic Centre and Pharmacy spans 1,500 sq. ft., offering a full range of diagnostic and outpatient services backed by modern equipment and experienced professionals.',
+      imageUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop'
+    },
+    {
+      _id: 'loc2',
+      name: 'Siliguri, West Bengal',
+      status: 'Opening Soon',
+      description: 'A modern Out-Patient Department (OPD) and Diagnostic Centre spread across 4,000 sq. ft., featuring 20+ OPD facilities, a well-stocked pharmacy, advanced radiology, emergency care, and specialized dental services.',
+      imageUrl: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=500&auto=format&fit=crop'
+    }
+  ];
+  res.json(locations);
+});
+
 // POST new city
 app.post('/api/cities', requireAdmin, async (req: Request, res: Response) => {
   try {

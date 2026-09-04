@@ -14,45 +14,69 @@ export default function ValueProposition() {
           </p>
         </div>
         
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <div className={styles.iconWrapper}>
-              <HeartPulse size={32} color="#0076a8" />
+        <div className={styles.bentoGrid}>
+          {/* Card 1 */}
+          <div className={`${styles.card} ${styles.card1}`}>
+            <div className={styles.bgIcon}>
+              <HeartPulse size={160} />
             </div>
-            <h3 className={styles.cardTitle}>Compassionate Care</h3>
-            <p className={styles.cardText}>
-              Healing starts with empathy. Our staff is trained to listen, understand, and provide care that prioritizes your comfort and emotional well-being.
-            </p>
+            <div className={styles.content}>
+              <div className={styles.iconWrapper}>
+                <HeartPulse size={32} color="#60a5fa" />
+              </div>
+              <h3 className={styles.cardTitle}>Compassionate Care</h3>
+              <p className={styles.cardText}>
+                Healing starts with empathy. Our staff is trained to listen, understand, and provide care that prioritizes your comfort and emotional well-being.
+              </p>
+            </div>
           </div>
           
-          <div className={styles.card}>
-            <div className={styles.iconWrapper}>
-              <ShieldCheck size={32} color="#0076a8" />
+          {/* Card 2 */}
+          <div className={`${styles.card} ${styles.card2}`}>
+            <div className={styles.bgIcon}>
+              <ShieldCheck size={160} />
             </div>
-            <h3 className={styles.cardTitle}>Clinical Excellence</h3>
-            <p className={styles.cardText}>
-              We adhere to the highest international standards of medical safety and protocols, minimizing risks and maximizing positive health outcomes.
-            </p>
+            <div className={styles.content}>
+              <div className={styles.iconWrapper}>
+                <ShieldCheck size={32} color="#60a5fa" />
+              </div>
+              <h3 className={styles.cardTitle}>Clinical Excellence</h3>
+              <p className={styles.cardText}>
+                We adhere to the highest international standards of medical safety and protocols, minimizing risks and maximizing positive health outcomes.
+              </p>
+            </div>
           </div>
           
-          <div className={styles.card}>
-            <div className={styles.iconWrapper}>
-              <Clock size={32} color="#0076a8" />
+          {/* Card 3 */}
+          <div className={`${styles.card} ${styles.card3}`}>
+            <div className={styles.bgIcon}>
+              <Clock size={160} />
             </div>
-            <h3 className={styles.cardTitle}>24/7 Availability</h3>
-            <p className={styles.cardText}>
-              Emergencies don&apos;t wait for business hours. Our dedicated emergency response team and critical care units operate round the clock.
-            </p>
+            <div className={styles.content}>
+              <div className={styles.iconWrapper}>
+                <Clock size={32} color="#60a5fa" />
+              </div>
+              <h3 className={styles.cardTitle}>24/7 Availability</h3>
+              <p className={styles.cardText}>
+                Emergencies don&apos;t wait for business hours. Our dedicated emergency response team and critical care units operate round the clock.
+              </p>
+            </div>
           </div>
           
-          <div className={styles.card}>
-            <div className={styles.iconWrapper}>
-              <Users size={32} color="#0076a8" />
+          {/* Card 4 */}
+          <div className={`${styles.card} ${styles.card4}`}>
+            <div className={styles.bgIcon}>
+              <Users size={160} />
             </div>
-            <h3 className={styles.cardTitle}>Multidisciplinary Approach</h3>
-            <p className={styles.cardText}>
-              Our specialists collaborate across departments, ensuring that complex conditions are treated with a holistic, team-based strategy.
-            </p>
+            <div className={styles.content}>
+              <div className={styles.iconWrapper}>
+                <Users size={32} color="#60a5fa" />
+              </div>
+              <h3 className={styles.cardTitle}>Multidisciplinary Approach</h3>
+              <p className={styles.cardText}>
+                Our specialists collaborate across departments, ensuring that complex conditions are treated with a holistic, team-based strategy.
+              </p>
+            </div>
           </div>
         </div>
       </div>

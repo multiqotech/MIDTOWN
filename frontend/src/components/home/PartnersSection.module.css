@@ -26,12 +26,32 @@
   color: #64748b;
 }
 
-.logoGrid {
+.marqueeContainer {
+  overflow: hidden;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+}
+
+.marqueeTrack {
+  display: flex;
   align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
   gap: 3rem;
+  padding-right: 3rem; /* Same as gap to keep spacing consistent */
+  animation: marquee 25s linear infinite;
+  min-width: 100%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .logoItem {

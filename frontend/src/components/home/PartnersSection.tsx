@@ -54,23 +54,43 @@ export default function PartnersSection() {
           <p className={styles.subtitle}>Collaborating with trusted partners to deliver the best in health care services</p>
         </div>
 
-        <div className={styles.logoGrid}>
-          {partners.map((partner) => (
-            <div key={partner._id} className={styles.logoItem}>
-              {partner.logo ? (
-                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                  <Image 
-                    src={partner.logo} 
-                    alt={partner.name} 
-                    fill
-                    style={{ objectFit: 'contain' }}
-                  />
-                </div>
-              ) : (
-                <span className={styles.logoText}>{partner.name}</span>
-              )}
-            </div>
-          ))}
+        <div className={styles.marqueeContainer}>
+          <div className={styles.marqueeTrack}>
+            {partners.map((partner) => (
+              <div key={`track1-${partner._id}`} className={styles.logoItem}>
+                {partner.logo ? (
+                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <Image 
+                      src={partner.logo} 
+                      alt={partner.name} 
+                      fill
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
+                ) : (
+                  <span className={styles.logoText}>{partner.name}</span>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className={styles.marqueeTrack} aria-hidden="true">
+            {partners.map((partner) => (
+              <div key={`track2-${partner._id}`} className={styles.logoItem}>
+                {partner.logo ? (
+                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <Image 
+                      src={partner.logo} 
+                      alt={partner.name} 
+                      fill
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
+                ) : (
+                  <span className={styles.logoText}>{partner.name}</span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

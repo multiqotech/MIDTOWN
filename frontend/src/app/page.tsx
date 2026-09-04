@@ -24,12 +24,12 @@ export default function Home() {
         <HeroSection />
         {/* <StatsSection /> */}
         <ValueProposition />
-        <AboutSection />
         <ClinicalExcellence />
-        <OurSpecialtiesSection />
+        {/* <OurSpecialtiesSection /> */}
         <SearchDiseases />
         <WhyChooseMidtownSection />
         <LocationsSection />
+        <AboutSection />
         <ExpertDoctors />
         <TestimonialsSection />
         <PartnersSection />

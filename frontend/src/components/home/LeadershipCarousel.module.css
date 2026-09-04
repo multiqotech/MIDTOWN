@@ -1,0 +1,115 @@
+.carouselContainer {
+  width: 100%;
+  overflow-x: auto;
+  padding: 2rem 0;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselTrack {
+  display: flex;
+  gap: 2rem;
+  padding: 0 1rem;
+  width: max-content;
+}
+
+.card {
+  width: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.image {
+  transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 24, 52, 0.95) 0%, rgba(0, 24, 52, 0.4) 50%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.card:hover .overlay {
+  transform: translateY(0);
+}
+
+.overlayContent {
+  color: white;
+}
+
+.bio {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.cardFooter {
+  padding: 1.5rem;
+  background: white;
+  border-top: 1px solid #f0f0f0;
+}
+
+.name {
+  font-size: 1.25rem;
+  color: #0b192c;
+  margin: 0 0 0.25rem 0;
+  font-weight: 700;
+}
+
+.role {
+  font-size: 0.9rem;
+  color: #00A676;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loadingState {
+  text-align: center;
+  padding: 4rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 280px;
+  }
+  .imageWrapper {
+    height: 350px;
+  }
+}
