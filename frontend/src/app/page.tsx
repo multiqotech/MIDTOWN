@@ -7,7 +7,8 @@ import AboutSection from '@/components/home/AboutSection';
 import ClinicalExcellence from '@/components/home/ClinicalExcellence';
 import OurSpecialtiesSection from '@/components/home/OurSpecialtiesSection';
 import SearchDiseases from '@/components/home/SearchDiseases';
-import WhyChooseMidtownSection from '@/components/home/WhyChooseMidtownSection';
+import WhyChooseUs from '@/components/home/WhyChooseUs';
+import ServicesGrid from '@/components/home/ServicesGrid';
 import LocationsSection from '@/components/home/LocationsSection';
 import ExpertDoctors from '@/components/home/ExpertDoctors';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
@@ -27,7 +28,8 @@ export default function Home() {
         <ClinicalExcellence />
         {/* <OurSpecialtiesSection /> */}
         <SearchDiseases />
-        <WhyChooseMidtownSection />
+        <ServicesGrid />
+        <WhyChooseUs />
         <LocationsSection />
         <AboutSection />
         <ExpertDoctors />

@@ -151,13 +151,13 @@ export default function Header() {
             <Link href="/news" className={styles.navItem} style={{ textDecoration: 'none' }}>
               RECENT NEWS
             </Link>
-            {/* <div 
+            <div 
               className={styles.navItem} 
               style={{ cursor: 'pointer' }}
               onClick={() => scrollToSection('our-services')}
             >
               MEDICAL SERVICES
-            </div> */}
+            </div>
             <div 
               className={styles.navItem}
               style={{ cursor: 'pointer' }}
