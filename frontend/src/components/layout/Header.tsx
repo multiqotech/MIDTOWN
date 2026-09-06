@@ -222,7 +222,13 @@ export default function Header() {
           onMouseEnter={handleDiscoverEnter}
           onMouseLeave={handleDiscoverLeave}
         >
-          <DiscoverMegaMenu onClose={() => setDiscoverOpen(false)} />
+          <DiscoverMegaMenu 
+            onClose={() => setDiscoverOpen(false)} 
+            onRequestCallback={() => {
+              setDiscoverOpen(false);
+              setCallbackModalOpen(true);
+            }}
+          />
         </div>
       )}
 

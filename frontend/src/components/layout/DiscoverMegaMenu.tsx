@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './DiscoverMegaMenu.module.css';
+import { CONTACT_INFO } from '@/lib/constants';
 
 interface DiscoverMegaMenuProps {
   onClose?: () => void;
+  onRequestCallback?: () => void;
 }
 
 const MENU_CATEGORIES = [
@@ -93,7 +95,7 @@ const SUBMENU_DATA: Record<string, { label: string; slug: string }[]> = {
   ]
 };
 
-export default function DiscoverMegaMenu({ onClose }: DiscoverMegaMenuProps) {
+export default function DiscoverMegaMenu({ onClose, onRequestCallback }: DiscoverMegaMenuProps) {
   const [activeCategory, setActiveCategory] = useState<string>('the-midtown-story');
 
   const activeSubmenus = SUBMENU_DATA[activeCategory] || [];
@@ -163,9 +165,17 @@ export default function DiscoverMegaMenu({ onClose }: DiscoverMegaMenuProps) {
           </div>
 
           <div className={styles.actionButtons}>
-            <Link href="/appointments" onClick={onClose} style={{ textDecoration: 'none' }} className={styles.actionBtn}>Book Appointment <span>&#8594;</span></Link>
+            <button 
+              onClick={() => {
+                if (onClose) onClose();
+                if (onRequestCallback) onRequestCallback();
+              }} 
+              className={styles.actionBtn}
+            >
+              Book Appointment <span>&#8594;</span>
+            </button>
             <Link href="/doctors" onClick={onClose} style={{ textDecoration: 'none' }} className={styles.actionBtn}>Find Doctors <span>&#8594;</span></Link>
-            <Link href="/contact" onClick={onClose} style={{ textDecoration: 'none' }} className={styles.actionBtn}>Contact Us <span>&#8594;</span></Link>
+            <a href={`tel:${CONTACT_INFO.phone}`} onClick={onClose} style={{ textDecoration: 'none' }} className={styles.actionBtn}>Contact Us <span>&#8594;</span></a>
           </div>
         </div>
       </div>

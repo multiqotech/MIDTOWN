@@ -7,8 +7,10 @@ import { notFound, useParams } from 'next/navigation';
 import { ArrowLeft, CheckCircle2, Calendar } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import CallbackModal from '@/components/common/CallbackModal';
 import styles from './ServiceDetails.module.css';
 import { api } from '../../../lib/api';
+import { CONTACT_INFO } from '@/lib/constants';
 
 interface Service {
   id: string;
@@ -26,6 +28,7 @@ export default function ServiceDetailsPage() {
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isCallbackModalOpen, setCallbackModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -132,20 +135,24 @@ export default function ServiceDetailsPage() {
               <p className={styles.ctaText}>
                 Book a consultation with our specialists to get started with your personalized care plan.
               </p>
-              <button className={styles.ctaButton}>
+              <button 
+                className={styles.ctaButton}
+                onClick={() => setCallbackModalOpen(true)}
+              >
                 <Calendar size={18} />
                 Call Back
               </button>
               
               <div className={styles.contactInfo}>
                 <p>Or call us directly at:</p>
-                <strong>+1 (800) 123-4567</strong>
+                <strong>{CONTACT_INFO.phone}</strong>
               </div>
             </div>
           </aside>
         </div>
       </main>
       <Footer />
+      <CallbackModal isOpen={isCallbackModalOpen} onClose={() => setCallbackModalOpen(false)} />
     </>
   );
 }
