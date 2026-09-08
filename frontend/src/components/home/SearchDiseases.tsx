@@ -228,86 +228,6 @@ export default function SearchDiseases() {
             )}
           </div>
 
-          {/* Results Area */}
-          {selectedSymptoms.length > 0 && (
-            <div style={{ marginTop: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#003b5c', marginBottom: '1rem' }}>
-                Possible Conditions {isFuzzy && <span style={{ fontSize: '0.8rem', color: '#888', fontWeight: 'normal' }}>(Showing closest matches)</span>}
-              </h3>
-              
-              {results.length > 0 ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {results.map((condition) => (
-                    <div key={condition.id} style={{ 
-                      backgroundColor: '#fff', 
-                      borderRadius: '8px', 
-                      padding: '1.25rem', 
-                      border: '1px solid #eaeaea', 
-                    }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        <div>
-                          <h4 style={{ margin: '0 0 0.25rem', fontSize: '1.1rem', color: '#111' }}>{condition.name}</h4>
-                          <p style={{ margin: '0 0 0.75rem', color: '#555', fontSize: '0.9rem' }}>{condition.description}</p>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                            {condition.symptoms.map(s => {
-                              const isMatch = selectedSymptoms.some(ss => s.includes(ss) || ss.includes(s));
-                              return (
-                                <span key={s} style={{ 
-                                  fontSize: '0.75rem', 
-                                  padding: '0.15rem 0.4rem', 
-                                  borderRadius: '4px',
-                                  backgroundColor: isMatch ? '#e6f6f1' : '#f5f5f5',
-                                  color: isMatch ? '#008a62' : '#777',
-                                  fontWeight: isMatch ? '600' : 'normal'
-                                }}>
-                                  {s}
-                                </span>
-                              );
-                            })}
-                          </div>
-                        </div>
-                        {/* <button style={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          background: 'transparent', 
-                          border: 'none', 
-                          color: '#00A676', 
-                          fontWeight: '600',
-                          cursor: 'pointer',
-                          padding: '0.5rem',
-                          fontSize: '0.9rem'
-                        }}>
-                          Learn More
-                        </button> */}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #eaeaea' }}>
-                  <p style={{ color: '#666' }}>No matching conditions found for these symptoms.</p>
-                </div>
-              )}
-
-              {/* Disclaimer */}
-              <div style={{ 
-                marginTop: '1.5rem', 
-                padding: '1rem', 
-                backgroundColor: 'rgba(255, 193, 7, 0.1)', 
-                borderLeft: '4px solid #FFC107',
-                borderRadius: '0 4px 4px 0',
-                display: 'flex',
-                gap: '0.75rem',
-                alignItems: 'flex-start'
-              }}>
-                <AlertCircle color="#d39e00" size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
-                <p style={{ margin: 0, fontSize: '0.8rem', color: '#665000', lineHeight: '1.4' }}>
-                  <strong>Disclaimer:</strong> These are possible conditions based on the symptoms entered and are not a medical diagnosis. Please consult a qualified healthcare professional.
-                </p>
-              </div>
-            </div>
-          )}
-
           {/* Fallback Alphabet Grid if not searching */}
           {!isSearching && (
             <div style={{ marginTop: '2rem' }}>
@@ -316,11 +236,151 @@ export default function SearchDiseases() {
                   <button
                     key={letter}
                     className={`${styles.letterBtn} ${activeLetter === letter ? styles.active : ''}`}
-                    onClick={() => setActiveLetter(letter)}
+                    onClick={() => setActiveLetter(activeLetter === letter ? null : letter)}
                   >
                     {letter}
                   </button>
                 ))}
+              </div>
+              
+                          </div>
+          )}
+
+          {/* Popup Modal for Results */}
+          {(selectedSymptoms.length > 0 || activeLetter !== null) && (
+            <div style={{
+              position: "fixed",
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: "rgba(0,0,0,0.6)",
+              zIndex: 9999,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "1rem"
+            }}>
+              <div style={{
+                backgroundColor: "#fff",
+                borderRadius: "12px",
+                width: "100%",
+                maxWidth: "700px",
+                maxHeight: "90vh",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
+              }}>
+                <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #eaeaea", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <h3 style={{ margin: 0, color: "#003b5c", fontSize: "1.25rem" }}>
+                    {activeLetter ? `Conditions starting with "${activeLetter}"` : "Possible Conditions"}
+                    {isFuzzy && !activeLetter && <span style={{ fontSize: "0.85rem", color: "#888", fontWeight: "normal", marginLeft: "0.5rem" }}>(Showing closest matches)</span>}
+                  </h3>
+                  <button 
+                    onClick={() => { setActiveLetter(null); setSelectedSymptoms([]); setInputValue(""); setResults([]); setSuggestions([]); setShowDropdown(false); }} 
+                    style={{ background: "none", border: "none", cursor: "pointer", color: "#666", padding: "0.25rem", display: "flex" }}
+                  >
+                    <X size={24} />
+                  </button>
+                </div>
+                
+                <div style={{ padding: "1.5rem", overflowY: "auto", flex: 1 }}>
+                  {activeLetter !== null ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                      {CONDITIONS_DATA
+                        .filter(c => c.name.toUpperCase().startsWith(activeLetter))
+                        .map((condition) => (
+                          <div key={condition.id} style={{ 
+                            backgroundColor: "#fff", 
+                            borderRadius: "8px", 
+                            padding: "1.25rem", 
+                            border: "1px solid #eaeaea", 
+                          }}>
+                            <h4 style={{ margin: "0 0 0.25rem", fontSize: "1.1rem", color: "#111" }}>{condition.name}</h4>
+                            <p style={{ margin: "0 0 0.75rem", color: "#555", fontSize: "0.9rem" }}>{condition.description}</p>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                              {condition.symptoms.slice(0, 5).map(s => (
+                                <span key={s} style={{ 
+                                  fontSize: "0.75rem", 
+                                  padding: "0.15rem 0.4rem", 
+                                  borderRadius: "4px",
+                                  backgroundColor: "#f5f5f5",
+                                  color: "#777",
+                                }}>
+                                  {s}
+                                </span>
+                              ))}
+                              {condition.symptoms.length > 5 && (
+                                <span style={{ fontSize: "0.75rem", padding: "0.15rem 0.4rem", color: "#888" }}>
+                                  +{condition.symptoms.length - 5} more
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                      ))}
+                      {CONDITIONS_DATA.filter(c => c.name.toUpperCase().startsWith(activeLetter)).length === 0 && (
+                        <div style={{ textAlign: "center", padding: "2rem", color: "#666" }}>
+                          No conditions found starting with "{activeLetter}".
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      {results.length > 0 ? (
+                        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                          {results.map((condition) => (
+                            <div key={condition.id} style={{ 
+                              backgroundColor: "#fff", 
+                              borderRadius: "8px", 
+                              padding: "1.25rem", 
+                              border: "1px solid #eaeaea", 
+                            }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                                <div>
+                                  <h4 style={{ margin: "0 0 0.25rem", fontSize: "1.1rem", color: "#111" }}>{condition.name}</h4>
+                                  <p style={{ margin: "0 0 0.75rem", color: "#555", fontSize: "0.9rem" }}>{condition.description}</p>
+                                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                                    {condition.symptoms.map(s => {
+                                      const isMatch = selectedSymptoms.some(ss => s.includes(ss) || ss.includes(s));
+                                      return (
+                                        <span key={s} style={{ 
+                                          fontSize: "0.75rem", 
+                                          padding: "0.15rem 0.4rem", 
+                                          borderRadius: "4px",
+                                          backgroundColor: isMatch ? "#e6f6f1" : "#f5f5f5",
+                                          color: isMatch ? "#008a62" : "#777",
+                                          fontWeight: isMatch ? "600" : "normal"
+                                        }}>
+                                          {s}
+                                        </span>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div style={{ textAlign: "center", padding: "2rem", backgroundColor: "#fff", borderRadius: "8px", border: "1px solid #eaeaea" }}>
+                          <p style={{ color: "#666" }}>No matching conditions found for these symptoms.</p>
+                        </div>
+                      )}
+                      <div style={{ 
+                        marginTop: "1.5rem", 
+                        padding: "1rem", 
+                        backgroundColor: "rgba(255, 193, 7, 0.1)", 
+                        borderLeft: "4px solid #FFC107",
+                        borderRadius: "0 4px 4px 0",
+                        display: "flex",
+                        gap: "0.75rem",
+                        alignItems: "flex-start"
+                      }}>
+                        <AlertCircle color="#d39e00" size={18} style={{ flexShrink: 0, marginTop: "2px" }} />
+                        <p style={{ margin: 0, fontSize: "0.8rem", color: "#665000", lineHeight: "1.4" }}>
+                          <strong>Disclaimer:</strong> These are possible conditions based on the symptoms entered and are not a medical diagnosis. Please consult a qualified healthcare professional.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
